@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>SFNet: Learning Object-aware Semantic Flow</title>
+	<meta name="author" content="SLV-lab">
+
+	<link href="./SFNet_files/bootstrap.min.css" rel="stylesheet">
+    <link href="./SFNet_files/style.css" rel="stylesheet">
+
+</head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <h3> <center> SFNet: Learning Object-aware Semantic Flow </center> </h3>
+        <h4 style="color: #517CB9; font-size: 20px"> <center> <a href="http://cvpr2019.thecvf.com/"><b>*CVPR-2019 (Short-Oral)*</b></a> </center></center></h4>
+      </div>
+
+      <center>
+        <img src="./SFNet_files/teaser.png" style="max-width:100%;">
+      </center>
+
+      <div class="row">
+      	<h3>Authors</h3>
+      	<div style="font-size: 16px">
+      	<ul>
+            <li><a href="https://github.com/junghyup-lee">Junghyup Lee</a>*</li>
+            <li><a href="https://github.com/shape-kim">Dohyung Kim</a>*</li>
+            <li><a href="https://www.di.ens.fr/~ponce/">Jean Ponce</a></li>
+            <li><a href="https://bsham.github.io/">Bumsub Ham</a><sup>†</sup></li>
+      	</ul>
+      	</div>
+      	<p style="text-align: justify;">* indicates equal contribution<br><sup>†</sup> indicates corresponding author</br></p>    
+
+      </div>
+
+      <div class="row">
+        <h3>Abstract</h3>
+        <p style="text-align: justify;">
+        We address the problem of semantic correspondence, that is, establishing a dense flow field between images depicting different instances of the same object or scene category. We propose to use images annotated with binary foreground masks and subjected to synthetic geometric deformations to train a convolutional neural network (CNN) for this task. Using these masks as part of the supervisory signal offers a good compromise between semantic flow methods, where the amount of training data is limited by the cost of manually selecting point correspondences, and semantic alignment ones, where the regression of a single global geometric transformation between images may be sensitive to image-specific details such as background clutter. We propose a new CNN architecture, dubbed SFNet, which implements this idea. It leverages a new and differentiable version of the argmax function for end-to-end training, with a loss that combines mask and flow consistency with smoothness terms. Experimental results demonstrate the effectiveness of our approach, which significantly outperforms the state of the art on standard benchmarks.  
+        </p>
+      </div>
+      <div class="row">
+      	<h3>Overview of our architecture</h3>
+      	<center>
+        <img src="./SFNet_files/method.png" style="max-width:90%;">
+      	</center>
+      </div>
+
+      <div class="row">
+        <h3>Paper</h3>
+	<p>
+     </p><table>
+  <tbody><tr></tr>
+  <tr><td>
+    <a href="https://arxiv.org/abs/1712.06861"><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./SFNet_files/thb.png" width="150px"></a>
+  </td>
+  <td></td>
+  <td>
+    J. Lee, D. Kim, J. Ponce, B. Ham<br>
+    <b>SFNet: Learning Object-aware Semantic Flow</b> <br>
+    In <i>Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</i>, 2019 (Oral) <br>
+    [<a href="">Paper on arXiv</a>]
+</td></tr></tbody></table>
+     
+      <h3>BibTeX</h3>
+     <pre><tt></tt></pre>
+
+      </div>
+      <div class="row">
+
+        <h3>Code</h3>
+        <p> <a href=""> Training/testing code (PyTorch 1.0) </a>
+          </p>
+      </div>
+      
+      
+      <div class="row">
+        <h3>Acknowledgements</h3>
+        <p>
+        This work was supported in part by the National Research Foundation of Korea (NRF) grant funded by the Korea government (MSIP) (No. 2017R1C1B2005584), the Louis Vuitton/ENS chair on artificial intelligence and the NYU/Inria collaboration agreement.
+        
+		</p>
+      </div>
+
+    </div>
