@@ -1,2 +1,1 @@
-# blog
-An example for tutorial
+# SFNet project site
