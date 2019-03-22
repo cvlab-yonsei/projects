@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
-	<title>SFNet: Learning Object-aware Semantic Flow</title>
+	<title>Temporally Consistent Depth Prediction with Flow-Guided Memory Units</title>
 	<meta name="author" content="SLV-lab">
 
-	<link href="./SFNet_files/bootstrap.min.css" rel="stylesheet">
-    <link href="./SFNet_files/style.css" rel="stylesheet">
+	<link href="./FlowGRU_files/bootstrap.min.css" rel="stylesheet">
+    <link href="./FlowGRU_files/style.css" rel="stylesheet">
 
 </head>
 
@@ -13,38 +13,36 @@
 
     <div class="container">
       <div class="header">
-        <h3> <center> SFNet: Learning Object-aware Semantic Flow </center> </h3>
-        <h4 style="color: #517CB9; font-size: 20px"> <center> <a href="http://cvpr2019.thecvf.com/"><b>*CVPR-2019 (Short-Oral)*</b></a> </center></center></h4>
+        <h3> <center> Temporally Consistent Depth Prediction with Flow-Guided Memory Units </center> </h3>
+        <h4 style="color: #517CB9; font-size: 20px"> <center> <a href="http://cvpr2019.thecvf.com/"><b>*Under Review*</b></a> </center></center></h4>
       </div>
 
       <center>
-        <img src="./SFNet_files/teaser.png" style="max-width:100%;">
+        <img src="./FlowGRU_files/teaser.pdf" style="max-width:100%;">
       </center>
 
       <div class="row">
       	<h3>Authors</h3>
       	<div style="font-size: 16px">
       	<ul>
-            <li><a href="https://github.com/junghyup-lee">Junghyup Lee</a>*</li>
-            <li><a href="https://github.com/shape-kim">Dohyung Kim</a>*</li>
-            <li><a href="https://www.di.ens.fr/~ponce/">Jean Ponce</a></li>
+            <li><a href="https://chanhoeom.github.io/">Chanho Eom</a></li>
+            <li><a href="https://hyunjp.github.io/">Hyunjong Park</a></li>
             <li><a href="https://bsham.github.io/">Bumsub Ham</a><sup>†</sup></li>
       	</ul>
-      	</div>
-      	<p style="text-align: justify;">* indicates equal contribution<br><sup>†</sup> indicates corresponding author</br></p>    
+      	</div><sup>†</sup> indicates corresponding author</br></p>    
 
       </div>
 
       <div class="row">
         <h3>Abstract</h3>
         <p style="text-align: justify;">
-        We address the problem of semantic correspondence, that is, establishing a dense flow field between images depicting different instances of the same object or scene category. We propose to use images annotated with binary foreground masks and subjected to synthetic geometric deformations to train a convolutional neural network (CNN) for this task. Using these masks as part of the supervisory signal offers a good compromise between semantic flow methods, where the amount of training data is limited by the cost of manually selecting point correspondences, and semantic alignment ones, where the regression of a single global geometric transformation between images may be sensitive to image-specific details such as background clutter. We propose a new CNN architecture, dubbed SFNet, which implements this idea. It leverages a new and differentiable version of the argmax function for end-to-end training, with a loss that combines mask and flow consistency with smoothness terms. Experimental results demonstrate the effectiveness of our approach, which significantly outperforms the state of the art on standard benchmarks.  
+        Predicting depth from a monocular video sequence has advanced considerably in the past few years. Recent methods based on convolutional neural networks~(CNNs), however, discard temporal coherence in the video sequence and estimate depth independently for each frame, which often leads to undesired inconsistent results over time. To address this problem, we propose to memorize temporal consistency in the video sequence, and leverage it for the task of depth prediction. To this end, we introduce a two-stream CNN with a flow-guided memory module, where each stream encodes spatial and temporal features, respectively. The memory module inputs spatial and temporal features sequentially together with optical flow tailored to our task. We implement the memory module with convolutional gated recurrent units~(ConvGRUs). It memorizes trajectories of individual features selectively and propagates spatial information over time, enforcing a long-term temporal consistency to prediction results. We evaluate our method on the KITTI benchmark dataset in terms of depth prediction accuracy, temporal consistency and runtime, and achieve a new state of the art. We also provide an extensive experimental analysis, clearly demonstrating the effectiveness of our approach to memorizing temporal consistency for depth prediction. 
         </p>
       </div>
       <div class="row">
       	<h3>Overview of our architecture</h3>
       	<center>
-        <img src="./SFNet_files/method.png" style="max-width:90%;">
+        <img src="./FlowGRU_files/timestep.pdf" style="max-width:90%;">
       	</center>
       </div>
 
@@ -54,13 +52,13 @@
      </p><table>
   <tbody><tr></tr>
   <tr><td>
-    <a href=""><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./SFNet_files/thb.png" width="150px"></a>
+    <a href=""><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./FlowGRU_files/thb.png" width="150px"></a>
   </td>
   <td></td>
   <td>
     J. Lee, D. Kim, J. Ponce, B. Ham<br>
-    <b>SFNet: Learning Object-aware Semantic Flow</b> <br>
-    In <i>Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</i>, 2019 (Oral) <br>
+    <b>Temporally Consistent Depth Prediction with Flow-Guided Memory Units</b> <br>
+    Under Review <br>
     [<a href="">Paper on arXiv</a>]
 </td></tr></tbody></table>
      
@@ -71,17 +69,8 @@
       <div class="row">
 
         <h3>Code</h3>
-        <p> <a href="https://github.com/cvlab-yonsei/projects/tree/master/SFNet/codes"> Training/testing code (PyTorch 1.0) </a>
+        <p> <a href="https://github.com/cvlab-yonsei/projects/tree/master/FlowGRU/codes"> Training/testing code (Tensorflow) </a>
           </p>
-      </div>
-      
-      
-      <div class="row">
-        <h3>Acknowledgements</h3>
-        <p>
-        This work was supported in part by the National Research Foundation of Korea (NRF) grant funded by the Korea government (MSIP) (No. 2017R1C1B2005584), the Louis Vuitton/ENS chair on artificial intelligence and the NYU/Inria collaboration agreement.
-        
-		</p>
       </div>
 
     </div>
