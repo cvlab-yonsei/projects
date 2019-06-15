@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 
 import dataset
 import model
+from opt import opt
 
 def normal(img):
     mean, var = tf.nn.moments(img, axes=[0,1,2])
@@ -31,94 +32,80 @@ def average_gradients(tower_grads):
         average_grads.append(grad_and_var)
     return average_grads
 
-def cal_loss( fol_list ):
-    
+def cal_loss(fol_list):
     cnt  = 0
     Loss = []
     
-    for start, end in zip(range(0, len(fol_list)+1, batch_size), range(batch_size, len(fol_list)+1, batch_size)):
+    for start,end in zip(range(0,len(fol_list)+1,opt.bs),range(opt.bs,len(fol_list)+1, opt.bs)):
         
-        sel = np.ones([batch_size])
-        states = np.zeros((batch_size, int(np.ceil(height/4)), int(np.ceil(width/4)), 64))
+        sel = np.ones([opt.bs])
+        states = np.zeros((opt.bs, int(np.ceil(opt.h/4)), int(np.ceil(opt.w/4)), 64))
         
-        rgb_set, opt_set, dep_set = ds_class.get_batch(fol_list[start:end], sel)
-        rgb_set, opt_set, dep_set = ds_class.data_prepro(rgb_set, opt_set, dep_set, 'validation', height, width)
+        rgb_set, opf_set, dep_set = ds_class.get_batch(fol_list[start:end], sel)
+        rgb_set, opf_set, dep_set = ds_class.data_prepro(rgb_set, opf_set, dep_set, 'validation')
 
-        p_rgb_set, p_opt_set, p_dep_set = ds_class.get_batch(fol_list[start:end], sel-1)
-        p_rgb_set, p_opt_set, p_dep_set = ds_class.data_prepro(p_rgb_set, p_opt_set, p_dep_set, 'validation', height, width)
+        p_rgb_set, p_opf_set, p_dep_set = ds_class.get_batch(fol_list[start:end], sel-1)
+        p_rgb_set, p_opf_set, p_dep_set = ds_class.data_prepro(p_rgb_set, p_opf_set, p_dep_set, 'validation')
 
-        Loss.append(sess.run(recon_loss, feed_dict={appr_X: rgb_set, tmpr_X: opt_set, p_appr_X: p_rgb_set, p_tmpr_X: p_opt_set, 
-                                                     h_prev: states, gt_dep: dep_set}))
-            
+        Loss.append(sess.run(recon_loss, feed_dict={appr_X: rgb_set, tmpr_X: opf_set,
+                                                    p_appr_X: p_rgb_set, p_tmpr_X: p_opf_set, 
+                                                    h_prev: states, gt_dep: dep_set}))
     return np.mean(Loss)
 
-def sample_ex( epoch ):
-    
-    sel = np.ones( [batch_size] )
-    states = np.zeros( (batch_size, int(np.ceil(height/4)), int(np.ceil(width/4)), 64) )
+def sample_ex(epoch):
+    sel = np.ones([opt.bs])
+    states = np.zeros((opt.bs, int(np.ceil(opt.h/4)), int(np.ceil(opt.w/4)), 64))
 
-    rgb_set, opt_set, dep_set = ds_class.get_batch( val_list, sel )
-    rgb_set, opt_set, dep_set = ds_class.data_prepro( rgb_set, opt_set, dep_set, 'validation', height, width )
+    rgb_set, opf_set, dep_set = ds_class.get_batch(val_list, sel)
+    rgb_set, opf_set, dep_set = ds_class.data_prepro(rgb_set, opf_set, dep_set, 'validation')
             
-    p_rgb_set, p_opt_set, p_dep_set = ds_class.get_batch( val_list, sel-1 )
-    p_rgb_set, p_opt_set, p_dep_set = ds_class.data_prepro( p_rgb_set, p_opt_set, p_dep_set, 'validation', height, width )
+    p_rgb_set, p_opf_set, p_dep_set = ds_class.get_batch(val_list, sel-1)
+    p_rgb_set, p_opf_set, p_dep_set = ds_class.data_prepro(p_rgb_set, p_opf_set, p_dep_set, 'validation')
     
-    ex_train = tf.squeeze(nout).eval(feed_dict={appr_X:rgb_set, tmpr_X:opt_set,
-                                                p_appr_X:p_rgb_set, p_tmpr_X:p_opt_set, h_prev: states } )
+    ex_train = tf.squeeze(nout).eval(feed_dict={appr_X:rgb_set, tmpr_X:opf_set,
+                                                p_appr_X:p_rgb_set, p_tmpr_X:p_opf_set, h_prev: states })
     
-    ex_train_path = save_path + 'val_epoch%03d.png'%( epoch )
-    output = np.concatenate( (ex_train[0], dep_set[0]), axis = 0 )
-    plt.imsave( ex_train_path, output, cmap='plasma', vmin = 0, vmax = 80 )
-
-
-save_path = './weights/flowgru/'
-
-#< ------------------------ Parameters ------------------------ >#
-height = 320
-width  = 960
-batch_size  = 16
-video_split = 50
-frame_split = 20
-
-#< ----------------------- Placeholders ----------------------- >#
-appr_X   = tf.placeholder(tf.float32, [batch_size, height, width, 3])
-tmpr_X   = tf.placeholder(tf.float32, [batch_size, height, width, 2])
-p_appr_X = tf.placeholder(tf.float32, [batch_size, height, width, 3])
-p_tmpr_X = tf.placeholder(tf.float32, [batch_size, height, width, 2])
-gt_dep   = tf.placeholder(tf.float32, [batch_size, height, width])
-h_prev   = tf.placeholder(tf.float32, [batch_size, int(np.ceil(height/4)), int(np.ceil(width/4)), 64])
-
-#< ------------------------ Optimizer ------------------------- >#
-lr = tf.placeholder(tf.float32)
-optimizer = tf.train.AdamOptimizer(lr, name='Adam')
-
-#< -------------------------- Model --------------------------- >#
-with tf.device('/cpu:0'):
-    md = model.TwoStreamDepthNet(height, width, batch_size//2)
+    ex_train_path = save_path + 'val_epoch%03d.png'%(epoch)
+    output = np.concatenate((ex_train[0], dep_set[0]), axis = 0)
+    plt.imsave(ex_train_path, output, cmap='plasma', vmin = 0, vmax = 80)
     
-#< --------------------- Reshape & Resize ---------------------- >#
-appr_X_rs2   = md.resize(appr_X, 1/2)
-p_appr_X_rs2 = md.resize(p_appr_X, 1/2)
-appr_X_rs4   = md.resize(appr_X, 1/4)
-p_appr_X_rs4 = md.resize(p_appr_X, 1/4)
-gt = tf.expand_dims(gt_dep, axis=3)
     
     
 if __name__ == '__main__':
+    
+    save_path = './weights/flowGRU/'
+
+    appr_X = tf.placeholder(tf.float32, [opt.bs, opt.h, opt.w, 3])
+    tmpr_X = tf.placeholder(tf.float32, [opt.bs, opt.h, opt.w, 2])
+    p_appr_X = tf.placeholder(tf.float32, [opt.bs, opt.h, opt.w, 3])
+    p_tmpr_X = tf.placeholder(tf.float32, [opt.bs, opt.h, opt.w, 2])
+    gt_dep = tf.placeholder(tf.float32, [opt.bs, opt.h, opt.w])
+    h_prev = tf.placeholder(tf.float32, [opt.bs, int(np.ceil(opt.h/4)), int(np.ceil(opt.w/4)), 64])
+
+    lr = tf.placeholder(tf.float32)
+    optimizer = tf.train.AdamOptimizer(lr, name='Adam')
+
+    with tf.device('/cpu:0'):
+        md = model.TwoStreamDepthNet(opt.h, opt.w, opt.bs//2)
+
+    appr_X_rs2   = md.resize(appr_X, 1/2)
+    p_appr_X_rs2 = md.resize(p_appr_X, 1/2)
+    appr_X_rs4   = md.resize(appr_X, 1/4)
+    p_appr_X_rs4 = md.resize(p_appr_X, 1/4)
+    gt = tf.expand_dims(gt_dep, axis=3)
+    
     s = 0
     num_gpu = 2
-    per_gpu = [ batch_size//2, batch_size//2 ]
+    per_gpu = [ opt.bs//2, opt.bs//2 ]
 
     state_stack = []
     loss_stack = []
     grad_stack = []
     nout_stack = []
 
-    with tf.variable_scope( tf.get_variable_scope() ):
-
-        for g in range( num_gpu ):
-
-            with tf.device( '/gpu:' + str(g) ):
+    with tf.variable_scope(tf.get_variable_scope()):
+        for g in range(num_gpu):
+            with tf.device('/gpu:' + str(g)):
 
                 #< ----------------------- Forward Pass ----------------------- >#
 
@@ -127,7 +114,7 @@ if __name__ == '__main__':
 
                 #< ----------------------- Loss ----------------------- >#
 
-                recon_loss   = md.sci_log( net_out0, gt[s:s+per_gpu[g]] )
+                recon_loss   = md.sci_log(net_out0, gt[s:s+per_gpu[g]])
                 recon_smooth = tf.reduce_mean(md.smoothness_2nd(net_out0, appr_X[s:s+per_gpu[g]]/255., 10))
 
                 photo_loss0   = md.phot_loss(appr_X[s:s+per_gpu[g]]/255., p_appr_X[s:s+per_gpu[g]]/255., frn_out0)
@@ -137,11 +124,11 @@ if __name__ == '__main__':
                 photo_loss2   = md.phot_loss(appr_X_rs4[s:s+per_gpu[g]]/255., p_appr_X_rs4[s:s+per_gpu[g]]/255., frn_out2)
                 photo_smooth2 = tf.reduce_mean(md.smoothness_2nd(frn_out2, appr_X_rs4[s:s+per_gpu[g]]/255., 10))
 
-                loss = (recon_loss + 0.1 * recon_smooth) + 0.05 * (photo_loss0 + 0.1 * photo_smooth0 + photo_loss1 + 0.1 * photo_smooth1 + photo_loss2 + 0.1 * photo_smooth2)
+                loss = (recon_loss + 0.1*recon_smooth) + 0.05*(photo_loss0 + 0.1*photo_smooth0 + photo_loss1 + 0.1*photo_smooth1 + photo_loss2 + 0.1*photo_smooth2)
 
                 tf.get_variable_scope().reuse_variables()
 
-                grad = optimizer.compute_gradients( loss )
+                grad = optimizer.compute_gradients(loss)
 
                 state_stack.append(p_gru_out)
                 loss_stack.append(loss)
@@ -155,10 +142,10 @@ if __name__ == '__main__':
     grad = average_gradients(grad_stack)
     train = optimizer.apply_gradients(grads_and_vars= grad)
     
-    ds_class = dataset.Dataset(video_split, batch_size)
+    ds_class = dataset.Dataset()
 
-    train_path = './folder/video_split/final_eigen_train.txt'
-    val_path = './folder/video_split/final_eigen_val.txt'
+    train_path = './folder/eigen_train_video.txt'
+    val_path = './folder/eigen_val_video.txt'
 
     train_list, val_list, _ = ds_class.get_list(train_list_path=train_path, val_list_path=val_path)
 
@@ -171,7 +158,7 @@ if __name__ == '__main__':
     tf.global_variables_initializer().run()
 
     current_step = 1  
-    iteration    = (len(train_list)//batch_size) * (current_step - 1) + 1
+    iteration    = (len(train_list)//opt.bs) * (current_step - 1) + 1
 
     print(current_step)
     print(iteration)
@@ -179,10 +166,10 @@ if __name__ == '__main__':
     
     print("Start Training...")
 
-    if not os.path.exists( save_path ): os.makedirs( save_path )
+    if not os.path.exists(save_path): os.makedirs(save_path)
 
     train_epochs = 200
-    for epoch in range( current_step, train_epochs+1 ):
+    for epoch in range(current_step, train_epochs+1):
 
         if epoch < 100: learning_rate = 0.0001
         elif epoch < 140: learning_rate = 0.00005
@@ -191,31 +178,31 @@ if __name__ == '__main__':
 
         tic = time.time()
 
-        np.random.shuffle( train_list )
-        for start, end in zip(range(0, len(train_list)+1, batch_size), range(batch_size, len(train_list)+1, batch_size)):
+        np.random.shuffle(train_list)
+        for start, end in zip(range(0, len(train_list)+1, opt.bs), range(opt.bs, len(train_list)+1, opt.bs)):
             i_tic = time.time()
 
-            sel = np.random.randint( video_split - frame_split - 1, size=batch_size ) + 1
-            crop_h   = np.zeros( [batch_size] )
-            crop_w   = np.zeros( [batch_size] )
-            hidden_state = np.zeros( (batch_size, int(np.ceil(height/4)), int(np.ceil(width/4)), 64) )
+            sel = np.random.randint(opt.video_split - opt.frame_split - 1, size=opt.bs) + 1
+            crop_h   = np.zeros([opt.bs])
+            crop_w   = np.zeros([opt.bs])
+            hidden_state = np.zeros((opt.bs, int(np.ceil(opt.h/4)), int(np.ceil(opt.w/4)), 64))
 
-            rgb_set, opt_set, dep_set = ds_class.get_batch( train_list[start:end], sel )
-            for b in range( batch_size ):
-                rgb_h, rgb_w, _ = np.shape( rgb_set[b] )
-                crop_h[b] = np.random.randint( rgb_h - height )
-                crop_w[b] = np.random.randint( rgb_w - width )
+            rgb_set, opf_set, dep_set = ds_class.get_batch(train_list[start:end], sel)
+            for b in range(opt.bs):
+                rgb_h, rgb_w, _ = np.shape(rgb_set[b])
+                crop_h[b] = np.random.randint(rgb_h - opt.h)
+                crop_w[b] = np.random.randint(rgb_w - opt.w)
 
 
-            for f in range( frame_split ):
-                rgb_set, opt_set, dep_set = ds_class.get_batch(train_list[start:end], sel)
-                rgb_set, opt_set, dep_set = ds_class.data_prepro(rgb_set, opt_set, dep_set, 'training', height, width, crop_h, crop_w)
+            for f in range(opt.frame_split):
+                rgb_set, opf_set, dep_set = ds_class.get_batch(train_list[start:end], sel)
+                rgb_set, opf_set, dep_set = ds_class.data_prepro(rgb_set, opf_set, dep_set, 'training', crop_h, crop_w)
 
-                p_rgb_set, p_opt_set, p_dep_set = ds_class.get_batch(train_list[start:end], sel-1)
-                p_rgb_set, p_opt_set, p_dep_set = ds_class.data_prepro(p_rgb_set, p_opt_set, p_dep_set, 'training', height, width, crop_h, crop_w)
+                p_rgb_set, p_opf_set, p_dep_set = ds_class.get_batch(train_list[start:end], sel-1)
+                p_rgb_set, p_opf_set, p_dep_set = ds_class.data_prepro(p_rgb_set, p_opf_set, p_dep_set, 'training', crop_h, crop_w)
 
-                _, hidden_state = sess.run([train, state], feed_dict={appr_X: rgb_set, tmpr_X: opt_set,
-                                                                      p_appr_X: p_rgb_set, p_tmpr_X: p_opt_set,
+                _, hidden_state = sess.run([train, state], feed_dict={appr_X: rgb_set, tmpr_X: opf_set,
+                                                                      p_appr_X: p_rgb_set, p_tmpr_X: p_opf_set,
                                                                       gt_dep: dep_set, h_prev: hidden_state, lr: learning_rate})
 
                 sel += 1
@@ -225,14 +212,14 @@ if __name__ == '__main__':
             if epoch < 10:
                 print('epoch%03d'%(epoch),
                       'iteration%07d'%(iteration),
-                      '%03.1f%%'%((iteration - ((len(train_list)//batch_size)*(epoch-1)))/(len(train_list)//batch_size)*100),
+                      '%03.1f%%'%((iteration - ((len(train_list)//opt.bs)*(epoch-1)))/(len(train_list)//opt.bs)*100),
                       'time ', '%02d min' %((i_toc-i_tic)//60),
                       'loss : ', cal_loss(train_list[start:end]))
 
             else:
                 print('epoch%03d'%(epoch),
                       'iteration%07d'%(iteration),
-                      '%03.1f%%'%((iteration - ((len(train_list)//batch_size)*(epoch-1)))/(len(train_list)//batch_size)*100),
+                      '%03.1f%%'%((iteration - ((len(train_list)//opt.bs)*(epoch-1)))/(len(train_list)//opt.bs)*100),
                       'time ', '%02d min' % ((i_toc-i_tic)//60))
 
             iteration += 1
