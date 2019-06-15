@@ -1,3 +1,5 @@
+![Python 3](https://img.shields.io/badge/python-3-green.svg)
+
 # Temporally Consistent Depth Prediction with Flow-Guided Memory Units
 
 This repository contains a [TensorFlow](https://www.tensorflow.org/) implementation for our [flowGRU paper](). Our code is released only for scientific or personal use. Please contact us for commercial use.
