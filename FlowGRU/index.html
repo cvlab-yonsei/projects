@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>Temporally Consistent Depth Prediction with Flow-Guided Memory Units</title>
+	<meta name="author" content="SLV-lab">
+
+	<link href="./FlowGRU_files/bootstrap.min.css" rel="stylesheet">
+    <link href="./FlowGRU_files/style.css" rel="stylesheet">
+
+</head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <h3> <center> Temporally Consistent Depth Prediction with Flow-Guided Memory Units </center> </h3>
+      </div>
+
+      <!-- <center>
+        <img src="./FlowGRU_files/teaser.png" style="max-width:70%;">
+      </center> -->
+      
+      <h3><center>
+      <iframe width="100%" height="512" src="https://www.youtube.com/embed/wCHXZrnxLws" allowfullscreen>></iframe>
+      </center></h3>
+
+      <div class="row">
+      	<h3><center>Authors</center></h3>
+      	<div style="font-size: 16px">
+      	<ul>
+            <li><a href="https://chanhoeom.github.io/">Chanho Eom</a></li>
+            <li><a href="https://hyunjp.github.io/">Hyunjong Park</a></li>
+            <li><a href="https://bsham.github.io/">Bumsub Ham</a></li>
+      	</ul>
+
+      </div>
+
+      <div class="row">
+        <h3><center>Abstract</center></h3>
+        <p style="text-align: justify;">
+        Predicting depth from a monocular video sequence has advanced considerably in the past few years. Recent methods based on convolutional neural networks (CNNs), however, discard temporal coherence in the video sequence and estimate depth independently for each frame, which often leads to undesired inconsistent results over time. To address this problem, we propose to memorize temporal consistency in the video sequence, and leverage it for the task of depth prediction. To this end, we introduce a two-stream CNN with a flow-guided memory module, where each stream encodes spatial and temporal features, respectively. The memory module inputs spatial and temporal features sequentially together with optical flow tailored to our task. We implement the memory module with convolutional gated recurrent units (ConvGRUs). It memorizes trajectories of individual features selectively and propagates spatial information over time, enforcing a long-term temporal consistency to prediction results. We evaluate our method on the KITTI benchmark dataset in terms of depth prediction accuracy, temporal consistency and runtime, and achieve a new state of the art. We also provide an extensive experimental analysis, clearly demonstrating the effectiveness of our approach to memorizing temporal consistency for depth prediction. 
+        </p>
+      </div>
+
+      <div class="row">
+        <h3><center>Paper</center></h3>
+	<p>
+     </p><table>
+  <tbody><tr></tr>
+  <tr><td>
+    <a href=""><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./FlowGRU_files/thb.png" width="150px"></a>
+  </td>
+  <td></td>
+  <td>
+    C. Eom, H. Park, B. Ham<br>
+    <b>Temporally Consistent Depth Prediction with Flow-Guided Memory Units</b> <br>
+    <b>[<u>Paper</u>]<b>
+</td></tr></tbody></table>
+     
+      <h3><center>BibTeX</center></h3>
+     <pre><tt></tt></pre>
+
+      </div>
+      <div class="row">
+
+        <h3><center>Code</center></h3>
+        <p> <a href="https://github.com/cvlab-yonsei/projects/tree/master/FlowGRU/codes"> Training/testing code (Tensorflow) </a>
+          </p>
+      </div>
+
+    </div>
