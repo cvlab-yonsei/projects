@@ -22,6 +22,7 @@ Opencv 3.3.1
 ### Test
 - Test the trained model with the below command.
 > python python test.py --data_path '/path_to_dataset'
+
 > python python test_scale.py --data_path '/path_to_dataset'
 
 
