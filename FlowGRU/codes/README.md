@@ -1,6 +1,6 @@
 # Temporally Consistent Depth Prediction with Flow-Guided Memory Units
 
-[![flowGRU](http://img.youtube.com/vi/uLR1RNqJ1Mw/0.jpg)](https://youtu.be/uLR1RNqJ1Mw?t=0s)
+[![flowGRU](https://www.youtube.com/watch?v=wCHXZrnxLws.jpg)](https://www.youtube.com/watch?v=wCHXZrnxLws)
 
 This repository contains a [TensorFlow](https://www.tensorflow.org/) implementation for our [flowGRU paper](). Our code is released only for scientific or personal use. Please contact us for commercial use.
 
