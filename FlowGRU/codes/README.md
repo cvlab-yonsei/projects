@@ -22,15 +22,15 @@ Opencv 3.3.1
 ### Training
 - You can train our model using the below command on the specified GPUs by setting CUDA_VISIBLE_DEVICES. Before train the model, you should organize the path for RGB frames as *'/path_to_dataset/RGB'*, flow as *'/path_to_dataset/optflw_dis_inv'*, and ground-truth depth maps *'/path_to_dataset/depth'*.
 ```
-python python main.py --data_path '/path_to_dataset'
+python main.py --data_path '/path_to_dataset'
 ```
 - We also provide the link for our pre-trained weights [trained_on_KITTI](https://drive.google.com/file/d/1IYHORs4LI8o3h1XGGsLCBuf7X-Tr_52g/view?usp=sharing) and [trained_on_Cityscape_and_fine-tuned_on_KITTI](https://drive.google.com/open?id=1A2JcwoVg8D1tJTPmwz1Zb1vKrdVfI6hF). 
 
 ### Test
 - Test the trained model with the below command.
 ```
-python python test.py --data_path '/path_to_dataset'
-python python test_scale.py --data_path '/path_to_dataset'
+python test.py --data_path '/path_to_dataset'
+python test_scale.py --data_path '/path_to_dataset'
 ```
 
 
