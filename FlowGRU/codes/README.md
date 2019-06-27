@@ -14,7 +14,7 @@ Cuda 8.0
 
 Opencv 3.3.1
 
-## 2. Getting Started
+## [ Getting Started ]
 
 ### Datasets
 - We conduct experiments on [KITTI](http://www.cvlibs.net/datasets/kitti/) and [Cityscapes](https://www.cityscapes-dataset.com/). Our method needs additional optical flow. In our framework, [DIS-flow](https://github.com/tikroeger/OF_DIS) is used. For convenience, we provide precomputed flow for the KITTI at [here](https://drive.google.com/open?id=1IiK7XwRdWQYJ5-IKik2L-7VQ0FEOYu9J).
@@ -34,9 +34,9 @@ python test_scale.py --data_path '/path_to_dataset'
 ```
 
 
-## TODO
+## [ TODO ]
 
-## Citation
+## [ Citation ]
 Please cite our paper if you find the code useful for your research.
 ```
 @inproceedings{
