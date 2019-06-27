@@ -1,6 +1,6 @@
 ![Python 3](https://img.shields.io/badge/python-3-green.svg)
 
-# FlowGRU
+# <center>FlowGRU</center>
 
 ![flowGRU](../FlowGRU_files/timestep.png)
 
