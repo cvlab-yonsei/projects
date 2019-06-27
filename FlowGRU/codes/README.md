@@ -6,7 +6,7 @@
 
 This repository contains a [TensorFlow](https://www.tensorflow.org/) implementation for our [flowGRU paper](). Our code is released only for scientific or personal use. Please contact us for commercial use.
 
-## [ Requirement ]
+## [ Requirements ]
 
 TensorFlow 1.4.0
 
@@ -32,9 +32,6 @@ python main.py --data_path '/path_to_dataset'
 python test.py --data_path '/path_to_dataset'
 python test_scale.py --data_path '/path_to_dataset'
 ```
-
-
-## [ TODO ]
 
 ## [ Citation ]
 Please cite our paper if you find the code useful for your research.
