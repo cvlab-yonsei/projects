@@ -1,6 +1,6 @@
 ![Python 3](https://img.shields.io/badge/python-3-green.svg)
 
-# Temporally Consistent Depth Prediction with Flow-Guided Memory Units
+# FlowGRU
 
 ![flowGRU](../FlowGRU_files/timestep.png)
 
