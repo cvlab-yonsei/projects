@@ -6,7 +6,7 @@
 
 This repository contains a [TensorFlow](https://www.tensorflow.org/) implementation for our [flowGRU paper](). Our code is released only for scientific or personal use. Please contact us for commercial use.
 
-## 1. Requirement
+## [ Requirement ]
 
 TensorFlow 1.4.0
 
