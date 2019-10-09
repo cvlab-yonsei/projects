@@ -94,3 +94,5 @@ div.row h3 {
 .readme h1 {
   display: none;
 }
+
+strong { font-weight: bold; }
