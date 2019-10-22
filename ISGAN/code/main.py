@@ -144,7 +144,7 @@ if __name__ == '__main__':
                 
         for epoch in range(opt.start+1, opt.epoch+1):
             
-            'print('\nepoch', epoch)
+            print('\nepoch', epoch)
             main.train()
             
             if epoch % 50 == 0:
