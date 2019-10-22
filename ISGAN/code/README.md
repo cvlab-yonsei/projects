@@ -45,17 +45,8 @@ python main.py --mode train --data_path <path/to/the/dataset> --stage 3
 python main.py --mode evaluate --data_path <path/to/the/dataset> --weight <path/to/the/weights>
 ```
 
-### Visualize
-- You can visualize the ranking results as follows:
-```
-python main.py --mode visualize --data_path <path/to/the/dataset> --weight <path/to/the/weights>
-```
-- Note that you can change the query image by modifying "*query_image*' option in *opt.py*. Belows are samples from the Market1501 dataset
-```
-0498_c1s2_064696_00.jpg
-0813_c1s4_037806_00.jpg
-0163_c1s1_030026_00.jpg
-```
+### Results
+![ranking_results](../images/results_quanti.png)
 ![ranking_results](../images/results_quali.png)
 
 ## Citation
