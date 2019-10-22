@@ -5,7 +5,10 @@
 This repository contains a [Pytorch](https://pytorch.org/) implementation for our [ISGAN](https://cvlab-yonsei.github.io/projects/ISGAN/). Our code is released only for scientific or personal use. Please contact us for commercial use.
 
 ## Results
+<img src="../images/retrieval.png" alt="drawing" width="600"/>
+```
 ![ranking_results](../images/retrieval.png)
+```
 
 ## Requirements
 
