@@ -20,7 +20,7 @@ Cuda 10.0
 ## Getting Started
 
 ### Datasets
-- We conduct experiments on [Market1501](http://www.liangzheng.com.cn/Project/project_reid.html), [CUHK03](http://www.ee.cuhk.edu.hk/~xgwang/CUHK_identification.html) and [DukeMTMC-reID](https://github.com/layumi/DukeMTMC-reID_evaluation).
+- We conduct experiments on [Market1501](http://www.liangzheng.com.cn/Project/project_reid.html), [CUHK03](http://www.ee.cuhk.edu.hk/~xgwang/CUHK_identification.html) and [DukeMTMC-reID](https://github.com/layumi/DukeMTMC-reID_baseline).
 - The structure of data path should be organized as follows:
 ```
 datasets/
