@@ -133,12 +133,12 @@ if __name__ == '__main__':
             opt.epoch = 300
         
         if opt.stage == 2:
-            main.load_model(opt.save_path + '/base_model_stage1_300.pt', 0)
+            main.load_model(opt.save_path + '/isgan_stage1_300.pt', 0)
             opt.start = 0
             opt.epoch = 200
         
         if opt.stage == 3:
-            main.load_model(opt.save_path + '/base_model_stage2_200.pt', 300)
+            main.load_model(opt.save_path + '/isgan_stage2_200.pt', 300)
             opt.start = 300
             opt.epoch = 400
                 
@@ -150,7 +150,7 @@ if __name__ == '__main__':
             if epoch % 50 == 0:
                 os.makedirs(opt.save_path, exist_ok=True)
                 weight_save_path = opt.save_path + opt.name + \
-                                        '_model_stage{}_{:03d}.pt'.format(opt.stage, epoch)
+                                        '_stage{}_{:03d}.pt'.format(opt.stage, epoch)
                 main.save_model(weight_save_path)
 
     if opt.mode == 'evaluate':
