@@ -34,6 +34,12 @@ python test_scale.py --data_path '/path_to_dataset'
 ## Citation
 Please cite our paper if you find the code useful for your research.
 ```
+<pre><tt>@InProceedings{eom2019temporally,
+	        author       = "C. Eom, H. Park, B. Ham",
+	        title        = "Temporally Consistent Depth Prediction with Flow-Guided Memory Units",
+	        booktitle    = "IEEE transactions on intelligent transportation systems",
+	        year         = "2019",
+}</tt></pre>
 @inproceedings{
 }
 ```
