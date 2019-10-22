@@ -8,11 +8,9 @@ This repository contains a [TensorFlow](https://www.tensorflow.org/) implementat
 
 ## Requirements
 
-TensorFlow 1.4.0
-
-Cuda 8.0
-
-Opencv 3.3.1
+- TensorFlow 1.4.0
+- Cuda 8.0
+- Opencv 3.3.1
 
 ## Getting Started
 
