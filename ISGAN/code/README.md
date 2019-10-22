@@ -56,7 +56,7 @@ python main.py --mode visualize --data_path <path/to/the/dataset> --weight <path
 0813_c1s4_037806_00.jpg
 0163_c1s1_030026_00.jpg
 ```
-![ranking_results](./images/results_quali.png)
+![ranking_results](../images/results_quali.png)
 
 ## Citation
 Please cite our paper if you find the code useful for your research.
