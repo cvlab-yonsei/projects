@@ -138,7 +138,7 @@ if __name__ == '__main__':
             opt.epoch = 200
         
         if opt.stage == 3:
-            main.load_model(opt.save_path + opt.stage2_weight_path, 300)
+            main.load_model(opt.save_path + '/base_model_stage2_200.pt', 300)
             opt.start = 300
             opt.epoch = 400
                 
