@@ -2,9 +2,10 @@
 
 # ISGAN
 
-This repository contains a [Pytorch](https://pytorch.org/) implementation for our [ISGAN paper](). Our code is released only for scientific or personal use. Please contact us for commercial use.
+This repository contains a [Pytorch](https://pytorch.org/) implementation for our [ISGAN](https://cvlab-yonsei.github.io/projects/ISGAN/). Our code is released only for scientific or personal use. Please contact us for commercial use.
 
 ## Results
+![ranking_results](../images/retrieval.png)
 
 ## Requirements
 
@@ -44,10 +45,6 @@ python main.py --mode train --data_path <path/to/the/dataset> --stage 3
 ```
 python main.py --mode evaluate --data_path <path/to/the/dataset> --weight <path/to/the/weights>
 ```
-
-### Results
-![ranking_results](../images/results_quanti.png)
-![ranking_results](../images/results_quali.png)
 
 ## Citation
 Please cite our paper if you find the code useful for your research.
