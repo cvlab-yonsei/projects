@@ -4,7 +4,7 @@
 
 ![flowGRU](../images/timestep.png)
 
-This repository contains a [TensorFlow](https://www.tensorflow.org/) implementation for our [flowGRU paper](). Our code is released only for scientific or personal use. Please contact us for commercial use.
+This repository contains a [TensorFlow](https://www.tensorflow.org/) implementation for our [flowGRU (TITS 2019)](https://cvlab-yonsei.github.io/projects/FlowGRU/). Our code is released only for scientific or personal use. Please contact us for commercial use.
 
 ## Requirements
 
