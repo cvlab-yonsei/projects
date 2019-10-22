@@ -32,31 +32,23 @@ class Data():
 
         self.trainset = Market1501(train_transform, 'train', opt.data_path)
         self.trainset_woEr = Market1501(train_transform_woEr, 'train', opt.data_path)
-        self.visset = Market1501(vis_transform, 'train', opt.data_path)
         self.testset = Market1501(test_transform, 'test', opt.data_path)
         self.queryset = Market1501(test_transform, 'query', opt.data_path)
 
-        self.train_loader = dataloader.DataLoader(self.trainset,
-                                                  sampler=RandomSampler(self.trainset, batch_id=opt.batchid, batch_image=opt.batchimage),
-                                                  batch_size=opt.batchid * opt.batchimage, num_workers=8,
-                                                  pin_memory=True)
-        self.train_loader_woEr = dataloader.DataLoader(self.trainset_woEr,
-                                                  sampler=RandomSampler(self.trainset_woEr, batch_id=opt.batchid, batch_image=opt.batchimage),
-                                                  batch_size=opt.batchid * opt.batchimage, num_workers=8,
-                                                  pin_memory=True)
-        self.vis_loader = dataloader.DataLoader(self.visset,
-                                                sampler=Sampler(self.visset, batch_id=opt.batchid, batch_image=opt.batchimage),
-                                                batch_size=opt.batchid * opt.batchimage, num_workers=8, shuffle=False,
-                                                pin_memory=True)
-        self.vis_loader2 = dataloader.DataLoader(self.visset,
-                                                batch_size=opt.batchid * opt.batchimage, num_workers=8, shuffle=False,
-                                                pin_memory=True)
-        self.test_loader = dataloader.DataLoader(self.testset, batch_size=opt.batchtest, num_workers=8, pin_memory=True)
-        self.query_loader = dataloader.DataLoader(self.queryset, batch_size=opt.batchtest, num_workers=8,
-                                                  pin_memory=True)
+        self.train_loader = dataloader.DataLoader(
+            self.trainset, 
+            sampler=RandomSampler(self.trainset, batch_id=opt.batchid,batch_image=opt.batchimage),
+            batch_size=opt.batchid * opt.batchimage, num_workers=8, pin_memory=True)
+        
+        self.train_loader_woEr = dataloader.DataLoader(
+            self.trainset_woEr,
+            sampler=RandomSampler(self.trainset_woEr, batch_id=opt.batchid, batch_image=opt.batchimage),
+            batch_size=opt.batchid * opt.batchimage, num_workers=8, pin_memory=True)
 
-#         self.query_image = test_transform(default_loader(opt.data_path + '/query/' + opt.query_image))
-
+        self.test_loader = dataloader.DataLoader(
+            self.testset, batch_size=opt.batchtest, num_workers=8, pin_memory=True)
+        self.query_loader = dataloader.DataLoader(
+            self.queryset, batch_size=opt.batchtest, num_workers=8, pin_memory=True)
 
 class Market1501(dataset.Dataset):
     def __init__(self, transform, dtype, data_path):
