@@ -6,9 +6,6 @@ This repository contains a [Pytorch](https://pytorch.org/) implementation for ou
 
 ## Results
 <img src="../images/retrieval.png" alt="drawing" width="600"/>
-```
-![ranking_results](../images/retrieval.png)
-```
 
 ## Requirements
 
