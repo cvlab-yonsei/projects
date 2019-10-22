@@ -2,7 +2,7 @@
 
 # FlowGRU
 
-![flowGRU](../FlowGRU_files/timestep.png)
+![flowGRU](../images/timestep.png)
 
 This repository contains a [TensorFlow](https://www.tensorflow.org/) implementation for our [flowGRU paper](). Our code is released only for scientific or personal use. Please contact us for commercial use.
 
