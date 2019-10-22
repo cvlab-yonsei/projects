@@ -95,7 +95,7 @@ parser.add_argument("--save_path",
                     help='the path for saving weights')
 
 parser.add_argument("--name",
-                    default='/name',
+                    default='/isgan',
                     help='the additional path to identify')
 
 parser.add_argument("--start",
