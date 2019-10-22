@@ -2,20 +2,18 @@
 
 # ISGAN
 
-This repository contains a [Pytorch](https://pytorch.org/) implementation for our [ISGAN](https://cvlab-yonsei.github.io/projects/ISGAN/). Our code is released only for scientific or personal use. Please contact us for commercial use.
+This repository contains a [Pytorch](https://pytorch.org/) implementation for our [ISGAN (NeurIPS 2019)](https://cvlab-yonsei.github.io/projects/ISGAN/). Our code is released only for scientific or personal use. Please contact us for commercial use.
+
+## Requirements
+
+- Python 3.6
+- Pytorch 1.0.0
+- Cuda 10.0
 
 ## Results
 <p align="center">
 <img src="../images/retrieval.png" align="center" alt="drawing" width="600"/>
 </p>
-
-## Requirements
-
-Python 3.6
-
-Pytorch 1.0.0
-
-Cuda 10.0
 
 ## Getting Started
 
