@@ -10,10 +10,12 @@ This repository contains a [Pytorch](https://pytorch.org/) implementation for ou
 - Pytorch 1.0.0
 - Cuda 10.0
 
+<!--
 ## Results
 <p align="center">
 <img src="../images/retrieval.png" align="center" alt="drawing" width="600"/>
 </p>
+-->
 
 ## Getting Started
 
