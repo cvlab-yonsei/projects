@@ -1,6 +1,4 @@
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '0'
-
 import numpy as np
 from scipy.spatial.distance import cdist
 from tqdm import tqdm
