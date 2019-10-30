@@ -34,7 +34,7 @@ python utils/transform_cuhk03.py --src <path/to/cuhk03_release> --dst <path/to/s
 ```
 
 ### Train
-- You can train your own model using the below commands. ISGAN is trained with 3 stages. Please refer the [paper]() for details. Note that each dataset has the different number of identities and you have to change '*num_cls*' in *opt.py* (e.g. --num_cls 767 for CUHK03 and --num_cls 702 for DukeMTMC-reID datatsets)
+- You can train your own model using the below commands. ISGAN is trained with 3 stages. Please refer the [paper]() for the details. Note that each dataset has the different number of identities and you have to change '*num_cls*' in *opt.py* (e.g. --num_cls 767 for CUHK03 and --num_cls 702 for DukeMTMC-reID datatsets)
 ```
 python main.py --mode train --data_path <path/to/the/dataset> --stage 1
 python main.py --mode train --data_path <path/to/the/dataset> --stage 2
