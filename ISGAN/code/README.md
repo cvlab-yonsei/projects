@@ -28,7 +28,7 @@ datasets/
     bounding_box_test/
     query/
 ```
-- You can organize CUHK03 datasets as above using the command below. Download cuhk03_new_protocol_config_detected/labeled.mat [here](https://github.com/zhunzhong07/person-re-ranking/tree/master/evaluation/data/CUHK03) by 
+- You can organize CUHK03 datasets as above using the command below. Download cuhk03_new_protocol_config_detected/labeled.mat [here](https://github.com/zhunzhong07/person-re-ranking/tree/master/evaluation/data/CUHK03).
 ```
 python utils/transform_cuhk03.py --src <path/to/cuhk03_release> --dst <path/to/save>
 ```
