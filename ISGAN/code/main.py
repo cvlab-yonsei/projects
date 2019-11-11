@@ -24,7 +24,7 @@ class Main():
         self.testset = data.testset
         self.queryset = data.queryset
 
-        self.model = model.to('cuda')
+        self.model = model.to(opt.device)
         self.loss = loss
         self.data = data
                 
@@ -39,8 +39,8 @@ class Main():
                 
         for batch, (inputs, labels) in enumerate(self.train_loader):
             if inputs.size()[0] != opt.batchid * opt.batchimage: continue
-            inputs = inputs.to('cuda')
-            labels = labels.to('cuda')
+            inputs = inputs.to(opt.device)
+            labels = labels.to(opt.device)
             
             if opt.stage == 1:
                 self.loss.optimizer.zero_grad()
