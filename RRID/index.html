@@ -23,7 +23,7 @@
       <center>
         <img src="./RRID_files/teaser.png" style="max-width:70%;">
       </center>
-      <p><strong>Fig.</strong> Visual comparison of retrieval results: (a) a relational module and (b) pooling methods. We show top-1 results. The relation module discriminates the same attribute for the person images of different identities. Global Contrastive Pooling (GCP) allows to aggregate features from discriminative regions, and provides a person representation robust to background clutter, overcoming the drawbacks of Global Average Pooling (GAP) and Global Max Pooling (GMP).</p>
+      <p><strong>Fig.</strong> Visual comparison of retrieval results: (a) a relational module and (b) pooling methods. We show top-1 results. The relation module discriminates the same attribute for the person images of different identities. Global contrastive pooling (GCP) allows to aggregate features from discriminative regions, and provides a person representation robust to background clutter, overcoming the drawbacks of global average pooling (GAP) and global max pooling (GMP).</p>
 
 
       <div class="row">
@@ -46,10 +46,11 @@
 
 
       <div class="row">
-      	<h3>Overview of our framework</h3>
+      	<h3>Overview</h3>
       	<center>
         <img src="./RRID_files/Overview.png" style="max-width:90%;">
       	</center>
+        <p><strong>Fig.</strong> Overview of our framework. The proposed reID model mainly consists of three parts: We first extract part-level features by applying GMP to individual horizontal slices of the feature map from the backbone network. We then input the local features into separate modules, a one-vs.-rest relation module and GCP, that give local relational and global contrastive features, respectively.</p>
       </div>
 
       <div class="row">
