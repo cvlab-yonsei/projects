@@ -51,7 +51,12 @@ python main.py --mode evaluate --data_path <path/to/the/dataset> --weight <path/
 ## Citation
 Please cite our paper if you find the code useful for your research.
 ```
-@inproceedings{
+@inproceedings{eom2019learning,
+  title={Learning Disentangled Representation for Robust Person Re-identification},
+  author={Eom, Chanho and Ham, Bumsub},
+  booktitle={Advances in Neural Information Processing Systems},
+  pages={5298--5309},
+  year={2019}
 }
 ```
 
