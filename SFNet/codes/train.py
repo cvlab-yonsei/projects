@@ -11,7 +11,7 @@ from model import SFNet
 import argparse
 
 parser = argparse.ArgumentParser(description="SFNet")
-parser.add_argument('--seed', type=int, default=123, help='random seed')
+parser.add_argument('--seed', type=int, default=None, help='random seed')
 parser.add_argument('--batch_size', type=int, default=16, help='mini-batch size for training')
 parser.add_argument('--epochs', type=int, default=40, help='number of epochs for training')
 parser.add_argument('--lr', type=float, default=3e-5, help='learning rate')
@@ -20,9 +20,9 @@ parser.add_argument('--decay_schedule', type=str, default='30', help='learning r
 parser.add_argument('--num_workers', type=int, default=4, help='number of workers for data loader')
 parser.add_argument('--feature_h', type=int, default=20, help='height of feature volume')
 parser.add_argument('--feature_w', type=int, default=20, help='width of feature volume')
-parser.add_argument('--train_image_path', type=str, default='./data/VOC2012_seg_img.npy', help='directory of pre-processed(.npy) images')
-parser.add_argument('--train_mask_path', type=str, default='./data/VOC2012_seg_msk.npy', help='directory of pre-processed(.npy) foreground masks')
-parser.add_argument('--valid_csv_path', type=str, default='./data/bbox_val_pairs_pf_pascal.csv', help='directory of validation csv file')
+parser.add_argument('--train_image_path', type=str, default='./data/training_data/VOC2012_seg_img.npy', help='directory of pre-processed(.npy) images')
+parser.add_argument('--train_mask_path', type=str, default='./data/training_data/VOC2012_seg_msk.npy', help='directory of pre-processed(.npy) foreground masks')
+parser.add_argument('--valid_csv_path', type=str, default='./data/PF_Pascal/bbox_val_pairs_pf_pascal.csv', help='directory of validation csv file')
 parser.add_argument('--valid_image_path', type=str, default='./data/PF_Pascal/', help='directory of validation data')
 parser.add_argument('--beta', type=float, default=50, help='inverse temperature of softmax @ kernel soft argmax')
 parser.add_argument('--kernel_sigma', type=float, default=5, help='standard deviation of Gaussian kerenl @ kernel soft argmax')
@@ -35,6 +35,9 @@ args = parser.parse_args()
 # os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
 # Set seed
+if args.seed == None:
+    args.seed = np.random.randint(10000)
+    print('Seed number: ', args.seed)
 global global_seed
 global_seed = args.seed
 torch.manual_seed(global_seed)
@@ -64,7 +67,6 @@ if os.path.exists(LOGGER_FILE):
 
 if not os.path.exists("./weights/"):
     os.mkdir("./weights/")
-
 
 # Data Loader
 train_dataset = Pascal_Seg_Synth(args.train_image_path, args.train_mask_path, args.feature_h, args.feature_w)
@@ -109,8 +111,9 @@ def correct_keypoints(source_points, warped_points, L_pck, alpha=0.1):
 
 # Training
 best_pck = 0
+print('Training started')
 for ep in range(args.epochs):
-    scheduler.step()
+    print('Current epoch : %d' % ep)
     log('Current epoch : %d\n' % ep, LOGGER_FILE)
     log('Current learning rate : %e\n' % optimizer.state_dict()['param_groups'][0]['lr'], LOGGER_FILE)
 
@@ -132,6 +135,7 @@ for ep in range(args.epochs):
         total_loss += loss.item()
         log("Epoch %03d (%04d/%04d) = Loss : %5f (Now : %5f)\t" % (ep, i, len(train_dataset) // args.batch_size, total_loss / (i+1), loss.cpu().data), LOGGER_FILE)
         log("L1 : %5f, L2 : %5f, L3 : %5f\n" % (L1.item(), L2.item(), L3.item()), LOGGER_FILE)
+    scheduler.step()
     log("Epoch %03d finished... Average loss : %5f\n"%(ep,total_loss/len(train_loader)), LOGGER_FILE)
 
     with torch.no_grad():
@@ -182,9 +186,8 @@ for ep in range(args.epochs):
         log('PCK: %5f\n\n' % PCK, LOGGER_FILE)
         if PCK > best_pck:
             best_pck = PCK
-            if os.path.exists('./weights/best_checkpoint.pt'):
-                os.remove('./weights/best_checkpoint.pt')
             torch.save({'state_dict1' : net.adap_layer_feat3.state_dict(), 
                         'state_dict2' : net.adap_layer_feat4.state_dict()},
                         './weights/best_checkpoint.pt')
                 
+print('Done')

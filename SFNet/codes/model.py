@@ -72,12 +72,6 @@ class adap_layer_feat3(nn.Module):
         )
         
     def forward(self, feature):
-        """
-        We empirically found that applying ReLU before addition is better than applying ReLU after addition,
-        but it might not be the optimal architecture.
-        We've focussed more on establishing correspondences 
-        and we will make adaptation layers more efficient in the near future.
-        """
         feature = feature + self.conv1(feature) 
         feature = feature + self.conv2(feature)
         return feature
