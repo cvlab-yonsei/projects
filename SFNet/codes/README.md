@@ -15,12 +15,13 @@ For more information, checkout the project site [[website](https://cvlab.yonsei.
 * Pascal VOC 2012 segmentation dataset (excluding images that overlap with the test split in the PF-PASCAL) for training
 * PF-Pascal & PF-WILLOW datasets for evaluation
 * All datasets are automatically downloaded into the ``data`` folder by running ``download_datasets.py``
+* FYI: Without the need of downloading the entire data, the csv file of PF-PASCAL test split is available in the following link: [[csv file](https://drive.google.com/open?id=1cdw5XaMfq3rptwIFNmzOnykUozUZfIMj)]
 
 ## Code
 ```bash
 git clone https://github.com/cvlab-yonsei/projects
 cd projects/SFNet/codes
-python3 download_datasets.py # for training
+python3 download_datasets.py # prepare the datasets for training/evaluation
 python3 train.py # for training
 python3 eval_pascal.py # evaluation on PF-Pascal dataset
 python3 eval_willow.py # evaluation on PF-WILLOW dataset
