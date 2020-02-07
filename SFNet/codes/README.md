@@ -1,6 +1,6 @@
 # PyTorch implementation of SFNet
 
-<img src="https://docs.google.com/uc?export=download&id=1awKgcjMmEwz88A4lr03t_EQoW4BMe-vx" alt="no_image"/>
+<img src="../SFNet_files/teaser.png" alt="no_image"/>
 This is the implementation of the paper "SFNet: Learning Object-aware Semantic Correspondence".
 
 For more information, checkout the project site [[website](https://cvlab.yonsei.ac.kr/projects/SFNet/)] and the paper [[PDF](http://openaccess.thecvf.com/content_CVPR_2019/papers/Lee_SFNet_Learning_Object-Aware_Semantic_Correspondence_CVPR_2019_paper.pdf)].
