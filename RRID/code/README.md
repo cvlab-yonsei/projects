@@ -12,7 +12,7 @@ For more information, checkout the project site [[website](https://cvlab.yonsei.
 * h5py
 
 ## Datasets
-Download the datasets into ``datasets`` folder.
+Download the datasets into ``datasets`` folder, like ``./datasets/market1501/``. The market1501 dataset is only available now, and other datasets will be uploaded later
 * Market1501 [[market1501]()]
 * DukeMTMC-ReID [[dukemtmc]()]
 * CUHK03 labeled [[cuhk03_labeled]()]
@@ -29,7 +29,7 @@ python Train.py  # for training
 python Train.py --gpus 0 1 --dataset_path 'your_dataset_directory' --dataset_type market1501 --exp_dir 'your_log_directory'
 ```
 ## Pre-trained model
-* Download pre-trained weights <br>Link: [[weights]()]
+* Download pre-trained weights <br>Link: [[weights](https://drive.google.com/file/d/1x7Hqb3MY8kPJhhWFHiI-fvwJ8MKS5muy/view?usp=sharing)]
 * Two gpus are needed to implement this weights
 * The version of pytorch must be 0.4.1 when you implement the model with this weights
 
