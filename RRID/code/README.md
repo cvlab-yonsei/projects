@@ -24,16 +24,24 @@ git clone https://github.com/cvlab-yonsei/projects
 cd projects/RRID/codes
 python Train.py  # for training
 ```
+* You can freely define parameters with your own settings like
+```bash
+python Train.py --gpus 0 1 --dataset_path 'your_dataset_directory' --dataset_type market1501 --exp_dir 'your_log_directory'
+```
 ## Pre-trained model
 * Download pre-trained weights <br>Link: [[weights]()]
 * Two gpus are needed to implement this weights
 * The version of pytorch must be 0.4.1 when you implement the model with this weights
 
 ## Evaluation
+* Test the model with our pre-trained weights 
 ```bash
 python Evaluate.py --gpus 0 1 --pretrained_weights_dir pretrained_weights.pth 
 ```
-
+* Test your own model
+```bash
+python Evaluate.py --exp dir log
+```
 
 ## Bibtex
 ```
