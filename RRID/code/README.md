@@ -1,6 +1,6 @@
 # PyTorch implementation of RRID
 
-<img src="../RRID_files/Overview.png" alt="no_image" width="80%" height="80%" />
+<p align="center"><img src="../RRID_files/Overview.png" alt="no_image" width="90%" height="90%" />
 This is the implementation of the paper "Relation Network for Person Re-identification".
 
 For more information, checkout the project site [[website](https://cvlab.yonsei.ac.kr/projects/RRID/)] and the paper [[PDF](https://arxiv.org/pdf/1911.09318.pdf)].
