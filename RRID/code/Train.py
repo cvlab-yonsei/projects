@@ -46,14 +46,20 @@ parser.add_argument('--exp_dir', type=str, default='log', help='directory of log
 
 args = parser.parse_args()
 
-gpus = ""
-for i in range(len(args.gpus)):
-    gpus = gpus + args.gpus[i] + ","
-    
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"]= gpus[:-1]
+if args.gpus is None:
+    gpus = "0"
+    os.environ["CUDA_VISIBLE_DEVICES"]= gpus
+else:
+    gpus = ""
+    for i in range(len(args.gpus)):
+        gpus = gpus + args.gpus[i] + ","
+    os.environ["CUDA_VISIBLE_DEVICES"]= gpus[:-1]
 
-decay_schedule = tuple(args.decay_schedule)
+if args.decay_schedule is None:
+    decay_schedule = (40, 60)
+else:
+    decay_schedule = tuple(args.decay_schedule)
 
 log_directory = os.path.join(args.exp_dir + '_' + args.dataset_type)
 
@@ -71,7 +77,7 @@ dataset, train_loader, val_loader, _ = get_data(args.dataset_type, args.split, a
 model = Model(last_conv_stride=1, num_stripes=6, local_conv_out_channels=256, num_classes=dataset.num_trainval_ids)
 
 # If single gpu
-if len(args.gpus) < 2 :
+if len(gpus) < 2 :
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model = model.to(device)
 
@@ -90,7 +96,7 @@ param_groups = [{'params': finetuned_params, 'lr': args.lr * 0.1},
 optimizer = optim.SGD(param_groups, momentum=args.momentum, weight_decay=args.weight_decay)
 
 # If multi gpus
-if len(args.gpus) > 1:
+if len(gpus) > 1:
     model = torch.nn.DataParallel(model, range(len(args.gpus))).cuda()
 
 # Training
