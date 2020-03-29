@@ -23,7 +23,7 @@ The market1501 dataset is only available now, and other datasets will be uploade
 ## Training
 ```bash
 git clone https://github.com/cvlab-yonsei/projects
-cd projects/RRID/codes
+cd projects/RRID/code
 python Train.py  # for training
 ```
 * You can freely define parameters with your own settings like
@@ -32,7 +32,7 @@ python Train.py --gpus 0 1 --dataset_path 'your_dataset_directory' --dataset_typ
 ```
 ## Pre-trained model
 * Download pre-trained weights <br>Link: [[weights](https://drive.google.com/file/d/1x7Hqb3MY8kPJhhWFHiI-fvwJ8MKS5muy/view?usp=sharing)]
-* Two gpus are needed to implement this weights
+* Two GPUs are needed to implement this weights
 * The version of pytorch must be 0.4.1 when you implement the model with this weights
 
 ## Evaluation
