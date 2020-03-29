@@ -39,12 +39,15 @@ parser.add_argument('--pretrained_weights_dir', type=str, default=None, help='pr
 
 args = parser.parse_args()
 
-gpus = ""
-for i in range(len(args.gpus)):
-    gpus = gpus + args.gpus[i] + ","
-    
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"]= gpus[:-1]
+if args.gpus is None:
+    gpus = "0"
+    os.environ["CUDA_VISIBLE_DEVICES"]= gpus
+else:
+    gpus = ""
+    for i in range(len(args.gpus)):
+        gpus = gpus + args.gpus[i] + ","
+    os.environ["CUDA_VISIBLE_DEVICES"]= gpus[:-1]
 
 log_directory = os.path.join(args.exp_dir + '_' + args.dataset_type)
 
@@ -58,12 +61,12 @@ dataset, _, _, test_loader = get_data(args.dataset_type, args.split, args.datase
 model = Model(last_conv_stride=1, num_stripes=6, local_conv_out_channels=256)
 
 # If single gpu
-if len(args.gpus) < 2:
+if len(gpus) < 2:
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     model = model.to(device)
 
 # If multi gpus
-if len(args.gpus) > 1:
+if len(gpus) > 1:
     model = torch.nn.DataParallel(model, range(len(args.gpus))).cuda()
 
 
