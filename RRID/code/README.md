@@ -7,16 +7,16 @@ For more information, checkout the project site [[website](https://cvlab.yonsei.
 
 ## Dependencies
 * Python 3.6
-* PyTorch 0.4.1
+* PyTorch >= 0.4.1
 * numpy
 * h5py
 
 ## Datasets
+Download the datasets into ``datasets`` folder.
 * Market1501 [[market1501]()]
 * DukeMTMC-ReID [[dukemtmc]()]
 * CUHK03 labeled [[cuhk03_labeled]()]
 * CUHK03 detected [[cuhk03_labeled]()]
-Download the datasets into ``datasets`` folder.
 
 ## Training
 ```bash
@@ -24,9 +24,10 @@ git clone https://github.com/cvlab-yonsei/projects
 cd projects/RRID/codes
 python Train.py  # for training
 ```
-## Trained model
+## Pre-trained model
 * Download pre-trained weights <br>Link: [[weights]()]
 * Two gpus are needed to implement this weights
+* The version of pytorch must be 0.4.1 when you implement the model with this weights
 
 ## Evaluation
 ```bash
