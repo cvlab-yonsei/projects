@@ -12,9 +12,17 @@ For more information, checkout the project site [[website](https://cvlab.yonsei.
 * h5py
 
 ## Datasets
+* Market1501 [[market1501]()]
+* DukeMTMC-ReID [[dukemtmc]()]
+* CUHK03 labeled [[cuhk03_labeled]()]
+* CUHK03 detected [[cuhk03_labeled]()]
+Download the datasets into ``datasets`` folder.
 
 ## Training
 ```bash
+git clone https://github.com/cvlab-yonsei/projects
+cd projects/RRID/codes
+python Train.py --gpus  # for training
 ```
 ## Trained model
 * Download pre-trained weights into ``weights`` folder <br>Link: [[weights]()]
