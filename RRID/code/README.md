@@ -1,6 +1,10 @@
 # PyTorch implementation of RRID
 
+<<<<<<< HEAD
 <img src="../RRID_files/method.png" alt="no_image"/>
+=======
+<img src="../RRID_files/Overview.png" alt="no_image"/>
+>>>>>>> 0d33edf0e93f1a8c2c6c2d20875a5db07398a466
 This is the implementation of the paper "Relation Network for Person Re-identification".
 
 For more information, checkout the project site [[website](https://cvlab.yonsei.ac.kr/projects/RRID/)] and the paper [[PDF]()].
