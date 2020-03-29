@@ -22,13 +22,15 @@ Download the datasets into ``datasets`` folder.
 ```bash
 git clone https://github.com/cvlab-yonsei/projects
 cd projects/RRID/codes
-python Train.py --gpus  # for training
+python Train.py  # for training
 ```
 ## Trained model
-* Download pre-trained weights into ``weights`` folder <br>Link: [[weights]()]
+* Download pre-trained weights <br>Link: [[weights]()]
+* Two gpus are needed to implement this weights
 
 ## Evaluation
 ```bash
+python Evaluate.py --gpus 0 1 --pretrained_weights_dir pretrained_weights.pth 
 ```
 
 
