@@ -1,28 +1,28 @@
 # PyTorch implementation of RRID
 
-<<<<<<< HEAD
-<img src="../RRID_files/method.png" alt="no_image"/>
-=======
 <img src="../RRID_files/Overview.png" alt="no_image"/>
->>>>>>> 0d33edf0e93f1a8c2c6c2d20875a5db07398a466
 This is the implementation of the paper "Relation Network for Person Re-identification".
 
-For more information, checkout the project site [[website](https://cvlab.yonsei.ac.kr/projects/RRID/)] and the paper [[PDF]()].
+For more information, checkout the project site [[website](https://cvlab.yonsei.ac.kr/projects/RRID/)] and the paper [[PDF](https://arxiv.org/pdf/1911.09318.pdf)].
 
 ## Dependencies
 * Python 3.6
-* PyTorch >= 1.0.0
+* PyTorch 0.4.1
 * numpy
 * h5py
 
 ## Datasets
 
-## Code
+## Training
+```bash
+```
+## Trained model
+* Download pre-trained weights into ``weights`` folder <br>Link: [[weights]()]
+
+## Evaluation
 ```bash
 ```
 
-## Trained model
-* Download pre-trained weights into ``weights`` folder <br>Link: [[weights]()]
 
 ## Bibtex
 ```
