@@ -24,7 +24,7 @@ The market1501 dataset is only available now, and other datasets will be uploade
 ```bash
 git clone https://github.com/cvlab-yonsei/projects
 cd projects/RRID/code
-python Train.py  # for training
+python Train.py --gpus 0 1 # for training
 ```
 * You can freely define parameters with your own settings like
 ```bash
