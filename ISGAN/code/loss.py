@@ -1,6 +1,5 @@
 from torch.nn import CrossEntropyLoss, BCELoss, L1Loss, Tanh
 from torch.nn.modules import loss
-from utils.TripletLoss import TripletLoss
 from utils.get_optimizer import get_optimizer
 import torch
 from torch.distributions import normal
@@ -20,7 +19,6 @@ class Loss(loss._Loss):
         self.l1_loss = L1Loss()
         self.bce_loss = BCELoss()
         self.cross_entropy_loss = CrossEntropyLoss()
-        self.triplet_loss = TripletLoss(margin=1.2)
         
         self.model = model
         self.optimizer, self.optimizer_D = get_optimizer(model)
