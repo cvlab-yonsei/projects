@@ -61,7 +61,7 @@ def find_index(seq, item):
     for i, x in enumerate(seq):
         if item == x:
             return i
-        return -1
+    return -1
 
     
 def adjust_lr_staircase(param_groups, base_lrs, ep, decay_at_epochs, factor):
