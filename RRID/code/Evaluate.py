@@ -74,7 +74,7 @@ if args.pretrained_weights_dir:
     model = torch.load(args.pretrained_weights_dir)
     
 else:
-    model = torch.load(os.path.join(exp_dir, 'model.pth'))
+    model = torch.load(os.path.join(log_directory, 'model.pth'))
     
 model.eval()
 batch_time = AverageMeter()
