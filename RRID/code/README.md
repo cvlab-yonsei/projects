@@ -24,7 +24,7 @@ The market1501 dataset is only available now, and other datasets will be uploade
 ```bash
 git clone https://github.com/cvlab-yonsei/projects
 cd projects/RRID/code
-python Train.py  # for training
+python Train.py --gpus 0 1 # for training
 ```
 * You can freely define parameters with your own settings like
 ```bash
@@ -47,10 +47,10 @@ python Evaluate.py --exp dir log
 
 ## Bibtex
 ```
-@article{park2019relation,
+@inproceedings{park2019relation,
   title={Relation Network for Person Re-identification},
   author={Park, Hyunjong and Ham, Bumsub},
-  journal={arXiv preprint arXiv:1911.09318},
-  year={2019}
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  year={2020}
 }
 ```
