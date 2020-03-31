@@ -6,19 +6,26 @@
 
 	<link href="./MNAD_files/bootstrap.min.css" rel="stylesheet">
     <link href="./MNAD_files/style.css" rel="stylesheet">
-
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML"></script>
 </head>
 
   <body>
 
     <div class="container">
       <div class="header">
-      <div style="font-size: 50px">
-        <h3> <center> Learning Memory-guided Normality for Anomaly Detection </center> </h3>
+        <div style="font-size: 10px">
+        <h1> <center> Learning Memory-guided Normality for Anomaly Detection </center> </h1>
+        <h4 style="color: #517CB9; font-size: 30px"> <center> <a href="http://cvpr2020.thecvf.com/"><b>*CVPR-2020*</b></a> </center></center></h4>
+        </div>
       </div>
 
       <h3><center>
-      <iframe width="1841" height="840" src="https://www.youtube.com/embed/Qfxy-j9RISg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe width="100%" height="512" src="https://www.youtube.com/embed/Qfxy-j9RISg" allowfullscreen></iframe>
       </center></h3>
 
       <div class="row">
@@ -37,15 +44,17 @@
       <div class="row">
         <h3>Abstract</h3>
         <p style="text-align: justify;">
-        We address the problem of anomaly detection, that is, detecting anomalous events in a video sequence. Anomaly detection methods based on convolutional neural networks (CNNs) typically leverage proxy tasks, such as reconstructing input video frames, to learn models describing normality without seeing anomalous samples at training time, and quantify the extent of abnormalities using the reconstruction error at test time. The main drawbacks of these approaches are that they do not consider the diversity of normal patterns explicitly, and the powerful representation capacity of CNNs allows to reconstruct abnormal video frames. To address this problem, we present an unsupervised learning approach to anomaly detection that considers the diversity of normal patterns explicitly, while lessening the representation capacity of CNNs. To this end, we propose to use a memory module with a new update scheme where items in the memory record prototypical patterns of normal data. We also present novel feature compactness and separateness losses to train the memory, boosting the discriminative power of both memory items and deeply learned features from normal data. Experimental results on standard benchmarks demonstrate the effectiveness and efficiency of our approach, which outperforms the state of the art.  
-        </p>
+        <img src="./MNAD_files/teaser.png" style="max-width:55%;float:right;padding-left:20px;">We address the problem of anomaly detection, that is, detecting anomalous events in a video sequence. Anomaly detection methods based on convolutional neural networks (CNNs) typically leverage proxy tasks, such as reconstructing input video frames, to learn models describing normality without seeing anomalous samples at training time, and quantify the extent of abnormalities using the reconstruction error at test time. The main drawbacks of these approaches are that they do not consider the diversity of normal patterns explicitly, and the powerful representation capacity of CNNs allows to reconstruct abnormal video frames. To address this problem, we present an unsupervised learning approach to anomaly detection that considers the diversity of normal patterns explicitly, while lessening the representation capacity of CNNs. To this end, we propose to use a memory module with a new update scheme where items in the memory record prototypical patterns of normal data. We also present novel feature compactness and separateness losses to train the memory, boosting the discriminative power of both memory items and deeply learned features from normal data. Experimental results on standard benchmarks demonstrate the effectiveness and efficiency of our approach, which outperforms the state of the art.
+        </p>  
       </div>
       <div class="row">
       	<h3>Framework</h3>
-      	<center>
-        <img src="./MNAD_files/overview.png" style="max-width:90%;">
-        <img src="./MNAD_files/memory.png" style="max-width:90%;">
-      	</center>
+        <p style="text-align: justify;">
+        <img src="./MNAD_files/overview.png" style="max-width:65%;padding-right:20px;" align="left">
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        Overview of our framework for reconstructing a video frame. Our model mainly consists of three parts: an encoder, a memory module, and a decoder. The encoder extracts a query map $\mathbf{q}_t$ of size $H\times W \times C$ from an input video frame ${\bf{I}}_t$ at time $t$. The memory module performs reading and updating items $\mathbf{p}_m$ of size $1\times 1\times C$ using queries $\mathbf{q}_t^k$ of size $1\times 1\times C$, where the numbers of items and queries are $M$ and $K$, respectively, and $K=H\times W$. The query map $\mathbf{q}_t$ is concatenated with the aggregated items $\hat {\bf{p}}_t$. The decoder then inputs them to reconstruct the video frame $\hat {\bf{I}}_t$. For the prediction task, we input four successive video frames to predict the fifth one.
+        </p>
+        
       </div>
 
       <div class="row">

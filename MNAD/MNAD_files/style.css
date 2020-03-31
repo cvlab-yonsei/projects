@@ -22,12 +22,20 @@ body {
   border-bottom: 1px solid #e5e5e5;
 }
 /* Make the masthead heading the same height as the navigation */
+.header h1 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+  padding-bottom: 19px;
+  font-size: 30px;
+  font-weight: bold;
+}
 .header h3 {
   margin-top: 0;
   margin-bottom: 0;
   line-height: 40px;
   padding-bottom: 19px;
-  font-size: 40px;
+  font-size: 20px;
 }
 .header h4 {
   font-family: 'Baloo', cursive;
@@ -92,4 +100,14 @@ div.row h3 {
 
 .readme h1 {
   display: none;
+}
+
+.left_column{
+  float:middle;
+  
+}
+
+.right_column{
+  float:middle;
+  
 }
