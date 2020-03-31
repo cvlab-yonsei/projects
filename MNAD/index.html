@@ -13,11 +13,12 @@
 
     <div class="container">
       <div class="header">
+      <div style="font-size: 50px">
         <h3> <center> Learning Memory-guided Normality for Anomaly Detection </center> </h3>
       </div>
 
       <h3><center>
-      <iframe width="100%" height="512" src="https://youtu.be/Qfxy-j9RISg" allowfullscreen>></iframe>
+      <iframe width="1841" height="840" src="https://www.youtube.com/embed/Qfxy-j9RISg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </center></h3>
 
       <div class="row">
@@ -39,18 +40,12 @@
         We address the problem of anomaly detection, that is, detecting anomalous events in a video sequence. Anomaly detection methods based on convolutional neural networks (CNNs) typically leverage proxy tasks, such as reconstructing input video frames, to learn models describing normality without seeing anomalous samples at training time, and quantify the extent of abnormalities using the reconstruction error at test time. The main drawbacks of these approaches are that they do not consider the diversity of normal patterns explicitly, and the powerful representation capacity of CNNs allows to reconstruct abnormal video frames. To address this problem, we present an unsupervised learning approach to anomaly detection that considers the diversity of normal patterns explicitly, while lessening the representation capacity of CNNs. To this end, we propose to use a memory module with a new update scheme where items in the memory record prototypical patterns of normal data. We also present novel feature compactness and separateness losses to train the memory, boosting the discriminative power of both memory items and deeply learned features from normal data. Experimental results on standard benchmarks demonstrate the effectiveness and efficiency of our approach, which outperforms the state of the art.  
         </p>
       </div>
-      <div class="column">
-      	<h3>Overview</h3>
+      <div class="row">
+      	<h3>Framework</h3>
       	<center>
         <img src="./MNAD_files/overview.png" style="max-width:90%;">
-      	</center>
-      </div>
-
-      <div class="column">
-        <h3>Memory module</h3>
-        <center>
         <img src="./MNAD_files/memory.png" style="max-width:90%;">
-        </center>
+      	</center>
       </div>
 
       <div class="row">
