@@ -32,8 +32,8 @@ python Train.py --gpus 0 1 --dataset_path 'your_dataset_directory' --dataset_typ
 ```
 ## Pre-trained model
 * Download pre-trained weights <br>Link: [[weights](https://drive.google.com/file/d/1x7Hqb3MY8kPJhhWFHiI-fvwJ8MKS5muy/view?usp=sharing)]
-* Two GPUs are needed to implement this weights
-* The version of pytorch must be 0.4.1 when you implement the model with this weights
+* Two GPUs are needed to implement the trained model
+* The version of pytorch must be 0.4.1 when you implement the model with these weights
 
 ## Evaluation
 * Test the model with our pre-trained weights 
