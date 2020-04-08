@@ -43,7 +43,9 @@ python main.py --mode train --data_path <path/to/the/dataset> --stage 3
 
 ### Evaluate
 - You can test the model using the below commands. Note that you also have to change '*num_cls*' option in *opt.py* according to the dataset.
+<!--
 - We also provide our pre-trained weights on [Market1501](https://drive.google.com/file/d/1Ur2C-fk20OQ-1TMHWvuOR68yQ66k3b06/view?usp=sharing), [CUHK03_detected](https://drive.google.com/file/d/1XfBdoCz1tIxSsISF6IXKyCygNcGf02JV/view?usp=sharing), [CUHK03_labeled](https://drive.google.com/file/d/15mJzAm0XZu60NrW-ZvWDTu5KQB9vaN6l/view?usp=sharing), and [DukeMTMC-reID](https://drive.google.com/file/d/1Tdx3hsiiJHaoaggqSL7jCn-GqKSCORvB/view?usp=sharing).
+-->
 ```
 python main.py --mode evaluate --data_path <path/to/the/dataset> --weight <path/to/the/weights>
 ```
