@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
-	<title>Deformable kernel networks for guided depth map upsampling</title>
+	<title>Deformable Kernel Networks for Joint Image Filtering</title>
 	<meta name="author" content="SLV-lab">
 
 	<link href="./css/bootstrap.min.css" rel="stylesheet">
@@ -13,7 +13,7 @@
 
     <div class="container">
       <div class="header">
-        <h3> <center> Deformable kernel networks for guided depth map upsampling </center> </h3>
+        <h3> <center>Deformable Kernel Networks for Joint Image Filtering</center> </h3>
       </div>
 
       <center>
@@ -36,7 +36,7 @@
       <div class="row">
         <h3>Abstract</h3>
         <p style="text-align: justify;">
-        We address the problem of upsampling a low-resolution (LR) depth map using a registered high-resolution (HR) color image of the same scene. Previous methods based on convolutional neural networks (CNNs) combine nonlinear activations of spatially-invariant kernels to estimate structural details from LR depth and HR color images, and regress upsampling results directly from the networks. In this paper, we revisit the weighted averaging process that has been widely used to transfer structural details from hand-crafted visual features to LR depth maps. We instead learn explicitly sparse and spatially-variant kernels for this task. To this end, we propose a CNN architecture and its efficient implementation, called the deformable kernel network (DKN), that outputs sparse sets of neighbors and the corresponding weights adaptively for each pixel. We also propose a fast version of DKN (FDKN) that runs about 17 times faster (0.01 seconds for a HR image of size 640 × 480). Experimental results on standard benchmarks demonstrate the effectiveness of our approach. In particular, we show that the weighted averaging process with 3 × 3 kernels (i.e., aggregating 9 samples sparsely chosen) outperforms the state of the art by a significant margin.  
+          Joint image filters are used to transfer structural details from a guidance picture used as a prior to a target image, in tasks such as enhancing spatial resolution and suppressing noise. Previous methods based on convolutional neural networks (CNNs) combine nonlinear activations of spatially-invariant kernels to estimate structural details and regress the filtering result. In this paper, we instead learn explicitly sparse and spatially-variant kernels. We propose a CNN architecture and its efficient implementation, called the deformable kernel network (DKN), that outputs sets of neighbors and the corresponding weights adaptively for each pixel. The filtering result is then computed as a weighted average. We also propose a fast version of DKN that runs about seventeen times faster for an image of size 640 × 480. We demonstrate the effectiveness and flexibility of our models on the tasks of depth map upsampling, saliency map upsampling, cross-modality image restoration, texture removal, and semantic segmentation. In particular, we show that the weighted averaging process with sparsely sampled 3 × 3 kernels outperforms the state of the art by a significant margin in all cases.
         </p>
       </div>
       <div class="row">
@@ -78,8 +78,8 @@
   <td></td>
   <td>
     B. Kim, J. Ponce, B. Ham<br>
-    <b>Deformable kernel networks for guided depth map upsampling</b> <br>
-    [<a href="">Paper</a>] [<a href="">Code</a>]
+    <b>Deformable Kernel Networks for Joint Image Filtering</b> <br>
+    [<a href="https://arxiv.org/abs/1910.08373">Paper</a>] [<a href="https://github.com/cvlab-yonsei/projects/tree/master/dkn/code">Code</a>]
 </td></tr></tbody></table>
      
       <!-- <h3>BibTeX</h3>
