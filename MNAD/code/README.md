@@ -8,6 +8,26 @@ For more information, checkout the project site [[website](https://cvlab.yonsei.
 ## Dependencies
 * Python 3.6
 * PyTorch >= 1.0.0
-* numpy
+* Numpy
 
 ## Datasets
+* USCD Ped2 [[dataset](http://www.svcl.ucsd.edu/projects/anomaly/dataset.html)]
+* CUHK Avenue [[dataset](http://www.cse.cuhk.edu.hk/leojia/projects/detectabnormal/dataset.html)]
+* ShanghaiTech [[dataset](https://github.com/desenzhou/ShanghaiTechDataset)]
+
+Downlaod the datasets into ``datasets`` folder, like ``./datasets/ped2/``
+
+## Training
+
+## Evaluation
+
+## Bibtex
+```
+@inproceedings{park2020learning,
+  title={Learning Memory-guided Normality for Anomaly Detection},
+  author={Park, Hyunjong and Noh, Jongyoun and Ham, Bumsub},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages={14372--14381},
+  year={2020}
+}
+```
