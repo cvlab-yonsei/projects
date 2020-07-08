@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Learning with Privileged Information for Efficient Image Super-Resolution</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h3> <center> Learning with Privileged Information for Efficient Image Super-Resolution (ECCV 2020) </center> </h3>
+    </div>
+
+    <center>
+      <img src="./images/teaser.jpeg" style="max-width:90%;">
+    </center>
+    <strong>Fig.</strong> Compressing networks using knowledge distillation (left) transfers the knowledge from a large teacher model (T) to a small student model (S),
+    with the same input, e.g., LR images in the case of SISR.
+    Differently, the teacher in our framework (right) takes the ground truth (i.e., HR image) as an input,
+    exploiting it as privileged information, and transfers the knowledge via feature distillation.
+
+    <div class="row">
+      <h3>Authors</h3>
+      <div style="font-size: 16px">
+      <ul>
+          <li><a href="https://cv.wonkyunglee.io">Wonkyung Lee</a>*</li>
+          <li><a href="https://github.com/junghyup-lee">Junghyup Lee</a>*</li>
+          <li><a href="https://github.com/shape-kim">Dohyung Kim</a>*</li>
+          <li><a href="https://bsham.github.io/">Bumsub Ham</a></li>
+      </ul>
+      </div>
+      <p style="text-align: justify;">* equal contribution</p>
+
+    </div>
+
+    <div class="row">
+      <h3>Abstract</h3>
+      <p style="text-align: justify;">
+      Convolutional neural networks (CNNs) have allowed remarkable advances in single image super-resolution (SISR) over the last decade.
+      Most SR methods based on CNNs have focused on achieving performance gains in terms of quality metrics,
+      such as PSNR and SSIM, over classical approaches.
+      They typically require a large amount of memory and computational units.
+      FSRCNN, consisting of few numbers of convolutional layers, has shown promising results,
+      while using an extremely small number of network parameters.
+      We introduce in this paper a novel distillation framework,
+      consisting of teacher and student networks, that allows to boost the performance of FSRCNN drastically.
+      To this end, we propose to use ground-truth high-resolution (HR) images as privileged information.
+      The encoder in the teacher learns the degradation process, subsampling of HR images,
+      using an imitation loss. The student and the decoder in the teacher,
+      having the same network architecture as FSRCNN, try to reconstruct HR images.
+      Intermediate features in the decoder, affordable for the student to learn,
+      are transferred to the student through feature distillation.
+      Experimental results on standard benchmarks demonstrate the effectiveness and the generalization ability of our framework,
+      which significantly boosts the performance of FSRCNN as well as other SR methods.
+      </p>
+    </div>
+
+    <div class="row">
+      <h3>Overview of our framework</h3>
+      <center>
+      <img src="./images/method.jpeg" style="max-width:90%;">
+      </center>
+    </div>
+
+    <div class="row">
+      <h3>Experiment</h3>
+      <p>
+        <center>
+          <img src="./images/qualitative_results.jpg" style="max-width:90%;">
+        </center>
+        <strong>Fig.</strong> Visual comparison of reconstructed HR images (2× and 3×) on Urban100 and Set14.
+        We report the average PSNR/SSIM in the parentheses.
+        Compared to the baseline models, our models reconstruct small-scale structures,
+        object boundaries, without artifacts.
+      </p>
+    </div>
+
+
+    <div class="row">
+      <h3>Paper</h3>
+      <table>
+        <tbody><tr></tr>
+        <tr><td>
+          <a href="https://arxiv.org/abs/?"><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/thb.png" width="150px"></a>
+        </td>
+        <td></td>
+        <td>
+          W. Lee, J. Lee, D. Kim, B. Ham<br>
+          <b> Learning with Privileged Information for Efficient Image Super-Resolution </b> <br>
+          In <i>Proceedings of European Conference on Computer Vision (ECCV) </i>, 2020 <br>
+          [<a href="https://arxiv.org/abs/?">Paper on arXiv</a>]
+        </td></tr></tbody>
+      </table>
+    </div>
+
+
+    <div class="row">
+      <h3>Code</h3>
+      <p>
+        <a href="https://github.com/cvlab-yonsei/projects/tree/master/PISR/PISR"> Training/testing code (PyTorch) </a>
+      </p>
+    </div>
+
+    <div class="row">
+      <h3>BibTeX</h3>
+      <pre><tt>@InProceedings{Lee20,
+        author       = "W. Lee, J. Lee, D. Kim, B. Ham",
+        title        = "Learning with Privileged Information for Efficient Image Super-Resolution",
+        booktitle    = "ECCV",
+        year         = "2020",
+        }</tt></pre>
+    </div>
+
+
+    <div class="row">
+      <h3>Acknowledgements</h3>
+      <p>
+        This research was supported by the Samsung Research Funding & Incubation Center for Future Technology (SRFC-IT1802-06).
+      </p>
+    </div>
+  </div>
+</body>
+
