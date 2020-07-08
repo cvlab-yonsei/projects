@@ -19,7 +19,15 @@ For more information, checkout the project site [[website](https://cvlab.yonsei.
 Downlaod the datasets into ``datasets`` folder, like ``./datasets/ped2/``
 
 ## Training
-
+```bash
+git clone https://github.com/cvlab-yonsei/projects
+cd projects/MNAD/code
+python Train.py # for training
+```
+* You can freely define parameters with your own settings like
+```bash
+python Train.py --gpus 1 --dataset_path 'your_dataset_directory' --dataset_type avenue --exp_dir 'your_log_directory'
+```
 ## Evaluation
 
 ## Bibtex
