@@ -9,6 +9,7 @@ For more information, checkout the project site [[website](https://cvlab.yonsei.
 * Python 3.6
 * PyTorch >= 1.0.0
 * Numpy
+* Sklearn
 
 ## Datasets
 * USCD Ped2 [[dataset](http://www.svcl.ucsd.edu/projects/anomaly/dataset.html)]
