@@ -1,3 +1,6 @@
 [submodule "PISR/PISR"]
 	path = PISR/PISR
 	url = https://github.com/cvlab-yonsei/PISR.git
+[submodule "SFNet/SFNet"]
+	path = SFNet/SFNet
+	url = https://github.com/cvlab-yonsei/SFNet.git
