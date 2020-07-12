@@ -31,7 +31,7 @@ python Train.py --gpus 1 --dataset_path 'your_dataset_directory' --dataset_type 
 
 ## Pre-trained model and memory items
 * Download our pre-trained model and memory items <br>Link: [[model and items](https://drive.google.com/file/d/11f65puuljkUa0Z4W0VtkF_2McphS02fq/view?usp=sharing)]
-* Note that, these are for the Ped2 dataset
+* Note that, these are from training with the Ped2 dataset
 
 ## Evaluation
 * Test the model with our pre-trained model and memory items
