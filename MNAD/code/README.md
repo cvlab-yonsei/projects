@@ -28,7 +28,19 @@ python Train.py # for training
 ```bash
 python Train.py --gpus 1 --dataset_path 'your_dataset_directory' --dataset_type avenue --exp_dir 'your_log_directory'
 ```
+
+## Pre-trained model
+* Download pre-trained weights <br>Link: [[weights](https://drive.google.com/file/d/11f65puuljkUa0Z4W0VtkF_2McphS02fq/view?usp=sharing)]
+
 ## Evaluation
+* Test the model with our pre-trained model and memory items
+```bash
+python Evaluate.py --model_dir pretrained_model.pth --m_items_dir m_items.pt
+```
+* Test your own model
+```bash
+python Evaluate.py --model_dir your_model.pth --m_items_dir your_m_items.pt
+```
 
 ## Bibtex
 ```
