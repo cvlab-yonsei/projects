@@ -7,3 +7,6 @@
 [submodule "MNAD/MNAD"]
 	path = MNAD/MNAD
 	url = https://github.com/cvlab-yonsei/MNAD
+[submodule "RRID/RRID"]
+	path = RRID/RRID
+	url = https://github.com/cvlab-yonsei/RRID
