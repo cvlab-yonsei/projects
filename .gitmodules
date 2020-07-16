@@ -4,3 +4,6 @@
 [submodule "SFNet/SFNet"]
 	path = SFNet/SFNet
 	url = https://github.com/cvlab-yonsei/SFNet.git
+[submodule "RRID/RRID"]
+	path = RRID/RRID
+	url = https://github.com/cvlab-yonsei/RRID
