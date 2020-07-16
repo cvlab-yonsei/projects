@@ -81,7 +81,7 @@ test_batch = data.DataLoader(test_dataset, batch_size = args.test_batch_size,
 # Loading the trained model
 model = torch.load(args.model_dir)
 model.cuda()
-m_items = torch.load(args.m_times_dir)
+m_items = torch.load(args.m_itmes_dir)
 labels = np.load('./data/frame_labels_'+args.dataset_type+'.npy')
 
 videos = OrderedDict()
