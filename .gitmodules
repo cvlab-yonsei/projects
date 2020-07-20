@@ -13,3 +13,6 @@
 [submodule "ISGAN/ISGAN"]
 	path = ISGAN/ISGAN
 	url = https://github.com/cvlab-yonsei/ISGAN
+[submodule "FlowGRU/FlowGRU"]
+	path = FlowGRU/FlowGRU
+	url = https://github.com/cvlab-yonsei/FlowGRU
