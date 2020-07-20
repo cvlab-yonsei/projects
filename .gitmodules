@@ -10,3 +10,6 @@
 [submodule "RRID/RRID"]
 	path = RRID/RRID
 	url = https://github.com/cvlab-yonsei/RRID
+[submodule "ISGAN/ISGAN"]
+	path = ISGAN/ISGAN
+	url = https://github.com/cvlab-yonsei/ISGAN
