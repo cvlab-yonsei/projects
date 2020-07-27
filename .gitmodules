@@ -16,3 +16,6 @@
 [submodule "FlowGRU/FlowGRU"]
 	path = FlowGRU/FlowGRU
 	url = https://github.com/cvlab-yonsei/FlowGRU
+[submodule "dkn/dkn"]
+	path = dkn/dkn
+	url = https://github.com/cvlab-yonsei/dkn
