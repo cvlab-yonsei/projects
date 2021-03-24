@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Network Quantization with Element-wise Gradient Scaling</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h3> <center> Network Quantization with Element-wise Gradient Scaling (CVPR 2021) </center> </h3>
+    </div>
+
+    <center>
+  		<figure style="display: inline; width: 50%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
+  			<div>
+      		<img src="./images/teaser_STE.png" style="max-width:100%;">
+      		<figcaption> (a) Gradient propagation using STE.</figcaption>
+      		</div>
+  		</figure>
+  		<figure style="display: inline; width: 50%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
+      		<div>
+      		<img src="./images/teaser_ours.png" style="max-width:100%;">
+      		<figcaption> (b) Gradient propagation using EWGS.<br><br></figcaption>
+      		</div>
+  		</figure>
+    </center>
+
+    <div>
+    Comparison of straight-through estimator (STE) and element-wise gradient scaling (EWGS). We visualize discrete levels and a loss landscape by straight lines and a contour plot, respectively. In a forward pass, a continuous latent point &nbsp;<img src="http://latex.codecogs.com/svg.latex? \mathbf{x}_n"/>&nbsp; is mapped to a discrete point &nbsp;<img src="http://latex.codecogs.com/svg.latex? \mathbf{x}_q"/>&nbsp; using a round function. Training a quantized network requires backpropagating a gradient from &nbsp;<img src="http://latex.codecogs.com/svg.latex? \mathbf{x}_q"/>&nbsp; to &nbsp;<img src="http://latex.codecogs.com/svg.latex? \mathbf{x}_n"/>&nbsp;. (a) The STE propagates the same gradient <i>i</i>.<i>e</i>., &nbsp;<img src="http://latex.codecogs.com/svg.latex? \mathcal{G}_{\mathbf{x}_n}=\mathcal{G}_{\mathbf{x}_q}"/>&nbsp; without considering the value of &nbsp;<img src="http://latex.codecogs.com/svg.latex? \mathbf{x}_n"/>&nbsp;, where we denote by &nbsp;<img src="http://latex.codecogs.com/svg.latex? \mathcal{G}_{\mathbf{x}_n}"/>&nbsp; and &nbsp;<img src="http://latex.codecogs.com/svg.latex? \mathcal{G}_{\mathbf{x}_q}"/>&nbsp; the gradients of &nbsp;<img src="http://latex.codecogs.com/svg.latex? \mathbf{x}_n"/>&nbsp; and &nbsp;<img src="http://latex.codecogs.com/svg.latex? \mathbf{x}_q"/>&nbsp;, respectively. (b) Our approach, on the other hand, scales up or down each element of the gradient during backpropagation, while taking into account discretization errors i.e., &nbsp;<img src="http://latex.codecogs.com/svg.latex? \mathbf{x}_n - \mathbf{x}_q"/>&nbsp;.
+	</div>
+
+    <div class="row">
+      <h3>Authors</h3>
+      <div style="font-size: 16px">
+      <ul>
+          <li><a href="https://github.com/junghyup-lee">Junghyup Lee</a></li>
+          <li><a href="https://github.com/shape-kim">Dohyung Kim</a></li>
+          <li><a href="https://bsham.github.io/">Bumsub Ham</a></li>
+      </ul>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <h3>Abstract</h3>
+      <p style="text-align: justify;">
+      Network quantization aims at reducing bit-widths of weights and/or activations, particularly important for implementing deep neural networks with limited hardware resources. Most methods use the straight-through estimator (STE) to train quantized networks, which avoids a zero-gradient problem by replacing a derivative of a discretizer (<i>i</i>.<i>e</i>., a round function) with that of an identity function. Although quantized networks exploiting the STE have shown decent performance, the STE is sub-optimal in that it simply propagates the same gradient without considering discretization errors between inputs and outputs of the discretizer. In this paper, we propose an element-wise gradient scaling (EWGS), a simple yet effective alternative to the STE, training a quantized network better than the STE in terms of stability and accuracy. Given a gradient of the discretizer output, EWGS adaptively scales up or down each gradient element, and uses the scaled gradient as the one for the discretizer input to train quantized networks via backpropagation. The scaling is performed depending on both the sign of each gradient element and an error between the continuous input and discrete output of the discretizer. We adjust a scaling factor adaptively using Hessian information of a network. We show extensive experimental results on the image classification datasets, including CIFAR-10 and ImageNet, with diverse network architectures under a wide range of bit-width settings, demonstrating the effectiveness of our method.
+      </p>
+    </div>
+
+    <div class="row">
+      <h3>Method</h3>
+      <center>
+      	<figure>
+      		<img src="./images/method_ours_pos.png" style="max-width:92%; margin-left: 28px;">
+      		<figcaption><br>(a) The sign of an update for the discrete value <img src="http://latex.codecogs.com/svg.latex? x_q"/> is positive (<i>i</i>.<i>e</i>., <img src="http://latex.codecogs.com/svg.latex? -g_{x_{q}} > 0"/>).<br><br></figcaption>
+  		</figure>
+  		<figure>
+      		<img src="./images/method_ours_neg.png" style="max-width:90%; margin-right: 35px;">
+      		<figcaption><br>(b) The sign of an update for the discrete value <img src="http://latex.codecogs.com/svg.latex? x_q"/> is negative (<i>i</i>.<i>e</i>., <img src="http://latex.codecogs.com/svg.latex? -g_{x_{q}} < 0"/>).<br><br></figcaption>
+  		</figure>
+      </center>
+      1-D illustrations of EWGS. We visualize a latent value &nbsp;<img src="http://latex.codecogs.com/svg.latex? x_n"/>&nbsp; and a discrete value &nbsp;<img src="http://latex.codecogs.com/svg.latex? x_q"/>&nbsp;, by red and cyan circles, respectively, where the discrete value is obtained by applying a round function (a dashed arrow) to the latent value. We also visualize their update vectors by solid arrows with corresponding colors, and we denote by &nbsp;<img src="http://latex.codecogs.com/svg.latex? \vert g_{x_n} \vert"/>&nbsp; and &nbsp;<img src="http://latex.codecogs.com/svg.latex? \vert g_{x_q} \vert"/>&nbsp; the magnitudes of the update vectors for &nbsp;<img src="http://latex.codecogs.com/svg.latex? x_n"/>&nbsp; and &nbsp;<img src="http://latex.codecogs.com/svg.latex? x_q"/>&nbsp;, respectively. For each (a) and (b), we present three cases, where the latent value &nbsp;<img src="http://latex.codecogs.com/svg.latex? x_n"/>&nbsp; is equal to (left), smaller than (middle), and larger than (right) the discrete one &nbsp;<img src="http://latex.codecogs.com/svg.latex? x_q"/>&nbsp;. EWGS scales up the gradient element for the discrete value &nbsp;<img src="http://latex.codecogs.com/svg.latex? g_{x_q}"/>&nbsp;, when a latent value &nbsp;<img src="http://latex.codecogs.com/svg.latex? x_n"/>&nbsp; requires a larger magnitude of an update, compared to the discrete one &nbsp;<img src="http://latex.codecogs.com/svg.latex? x_q"/>&nbsp; (<i>e</i>.<i>g</i>., (a)-middle or (b)-right), and scaling down in the opposite case (<i>e</i>.<i>g</i>., (a)-right or (b)-middle). When the latent value &nbsp;<img src="http://latex.codecogs.com/svg.latex? x_n"/>&nbsp; is equal to the discrete value &nbsp;<img src="http://latex.codecogs.com/svg.latex? x_q"/>&nbsp;, it propagates the same gradient element similar to STE (<i>e</i>.<i>g</i>., (a)-left or (b)-left).
+    </div>
+
+    <div class="row">
+      <h3>Experiment</h3>
+      <p>
+      	<center>
+	        <figure>
+	          <img src="./images/W1A1_loss.png" style="max-width:35%; margin-right: 15px">
+	          <img src="./images/W1A1_acc.png" style="max-width:35%;  margin-left: 15px">
+	          <figcaption>(a) Weight: 1-bit / Activation: 1-bit.<br><br></figcaption>
+	        </figure>
+    		<figure>
+	          <img src="./images/W1A32_loss.png" style="max-width:35%; margin-right: 15px">
+	          <img src="./images/W1A32_acc.png" style="max-width:35%; margin-left: 15px">
+	          <figcaption>(b) Weight: 1-bit / Activation: 32-bit.<br><br></figcaption>
+          	</figure>
+        </center>
+        Training losses and validation accuracies for binarized networks using STE and EWGS. We use ResNet-18 to quantize (a) both weights and activations and (b) weights only, and show the results on ImageNet.
+      </p>
+    </div>
+
+
+    <div class="row">
+      <h3>Paper</h3>
+      <table>
+        <tbody><tr></tr>
+        <tr><td>
+          <a href="https://arxiv.org/abs/?"><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper.jpg" width="150px"></a>
+        </td>
+        <td></td>
+        <td>
+          J. Lee, D. Kim, B. Ham<br>
+          <b> Network Quantization with Element-wise Gradient Scaling </b> <br>
+          In <i>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) </i>, 2021 <br>
+          <!-- [<a href="https://arxiv.org/abs/2007.07524">Paper on arXiv</a>] -->
+        </td></tr></tbody>
+      </table>
+    </div>
+
+
+    <div class="row">
+      <h3>Code</h3>
+      <p>
+        Will be released soon.
+        <!-- <a href="https://github.com/cvlab-yonsei/EWGS"> Training/testing code (PyTorch) </a> -->
+      </p>
+    </div>
+
+    <div class="row">
+      <h3>BibTeX</h3>
+      <pre><tt>@inproceedings{lee2021network,
+        author       = "J. Lee, D. Kim, B. Ham",
+        title        = "Network Quantization with Element-wise Gradient Scaling",
+        booktitle    = "Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition",
+        year         = "2021"
+        }</tt></pre>
+    </div>
+
+
+    <div class="row">
+      <h3>Acknowledgements</h3>
+      <p>
+        This research was supported by the Samsung Research Funding & Incubation Center for Future Technology (SRFC-IT1802-06).
+      </p>
+    </div>
+  </div>
+</body>
+
