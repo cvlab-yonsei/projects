@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Background-Aware Pooling and Noise-Aware Loss for Weakly-Supervised Semantic Segmentation</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <center>
+        <h2> Background-Aware Pooling and Noise-Aware Loss<br> for Weakly-Supervised Semantic Segmentation </h2>
+        <h3> (CVPR 2021) </h3>
+        <br>
+      </center>
+    </div>
+
+    <!-- author -->
+    <center>
+      <div class="row" style="font-size: 1.5em; margin-left: 5%; margin-right: 5%">
+        <div class="col-sm-4">
+          <a href="https://github.com/50min">Youngmin Oh</a></li>
+        </div>
+        <div class="col-sm-4">
+          <a href="https://github.com/jun0kim">Beomjun Kim</a></li>
+        </div>
+        <div class="col-sm-4">
+          <a href="https://bsham.github.io/">Bumsub Ham</a></li>
+        </div>
+        <br>
+        <div>Yonsei University</div>
+        <br>
+      </div>
+    </center>
+
+    <!-- teaser -->
+    <div class="row" style="font-size: 1.1em">
+ 	<figure style="display: inline; max-width: 20%; float: left; margin-left: 10%; text-align: center; padding-left: 0; padding-right: 0;">
+      <img src="./images/teaser.png" style="max-width:100%; border: 1px solid #000;">
+      <figcaption> Input image. </figcaption>
+    </figure>
+ 	<figure style="display: inline; max-width: 20%; float: left; margin: 0; text-align: center; padding-left: 0; padding-right: 0;">
+      <img src="./images/teaser_gt.png" style="max-width:100%; border: 1px solid #000;">
+      <figcaption> Ground truth. </figcaption>
+ 	</figure>
+    <figure style="display: inline; max-width: 20%; float: left; margin: 0; text-align: center; padding-left: 0; padding-right: 0;">
+      <img src="./images/teaser_ours_crf.png" style="max-width:100%; border: 1px solid #000;">
+      <figcaption> Ours. </figcaption>
+ 	</figure>
+    <figure style="display: inline; max-width: 20%; float: left; margin-right: 10%; text-align: center; padding-left: 0; padding-right: 0;">
+      <img src="./images/teaser_ours.png" style="max-width:100%; border: 1px solid #000;">
+   	  <figcaption> Ours*. </figcaption>
+ 	</figure>
+    </div>
+    <div class="row">
+    <figure style="display: inline; width: 20%; float: left; margin-left: 10%; text-align: center; padding-left: 0; padding-right: 0;">
+      		<img src="./images/teaser_grabcut.png" style="max-width:100%; border: 1px solid #000;">
+      		<figcaption> GrabCut. </figcaption>
+  	</figure>
+	<figure style="display: inline; width: 20%; float: left; margin: 0; text-align: center; padding-left: 0; padding-right: 0;">
+      		<img src="./images/teaser_mcg.png" style="max-width:100%; border: 1px solid #000;">
+      		<figcaption> MCG. </figcaption>
+	</figure>
+    <figure style="display: inline; width: 20%; float: left; margin: 0; text-align: center; padding-left: 0; padding-right: 0;">
+      		<img src="./images/teaser_wssl.png" style="max-width:100%; border: 1px solid #000;">
+      		<figcaption> WSSL. </figcaption>
+  	</figure>
+    <figure style="display: inline; width: 20%; float: left; margin-right: 10%; text-align: center; padding-left: 0; padding-right: 0;">
+      		<img src="./images/teaser_sdi.png" style="max-width:100%; border: 1px solid #000;">
+      		<figcaption> SDI. </figcaption>
+  	</figure>
+    </div>
+    <br>
+    <p style="text-align: justify; font-size: 1.1em">
+    Visual comparison of pseudo ground-truth labels. Our approach generates better segmentation labels than other WSSS methods using object bounding boxes (WSSL and SDI). Hand-crafted methods (GrabCut and MCG) fail to segment object boundaries. For MCG, we compute intersection-over-union (IoU) scores using pairs of segment proposals and bounding boxes, and choose the best one for each box. Ours*: Ours with an indication of unreliable regions.
+	</p>
+
+    <!-- abstract -->
+    <div class="row">
+      <h3>Abstract</h3>
+      <p style="text-align: justify; font-size: 1.1em">
+      We address the problem of weakly-supervised semantic segmentation (WSSS) using bounding box annotations. Although object bounding boxes are good indicators to segment corresponding objects, they do not specify object boundaries, making it hard to train convolutional neural networks (CNNs) for semantic segmentation. We find that background regions are perceptually consistent in part within an image, and this can be leveraged to discriminate foreground and background regions inside object bounding boxes. To implement this idea, we propose a novel pooling method, dubbed background-aware pooling (BAP), that focuses more on aggregating foreground features inside the bounding boxes using attention maps. This allows to extract high-quality pseudo segmentation labels to train CNNs for semantic segmentation, but the labels still contain noise especially at object boundaries. To address this problem, we also introduce a noise-aware loss (NAL) that makes the networks less susceptible to incorrect labels. Experimental results demonstrate that learning with our pseudo labels already outperforms state-of-the-art weakly- and semi-supervised methods on the PASCAL VOC 2012 dataset, and the NAL further boosts the performance.
+      </p>
+    </div>
+
+    <!-- method -->
+    <div class="row">
+      <h3>Method overview</h3>
+      <figure>
+        <img src="./images/overview_bap.png" style="max-width:100%">
+        <figcaption style="text-aling: justify"> Figure 1: Overview of image classification using BAP. We first extract queries <img src="http://latex.codecogs.com/svg.latex? q_j"> using a feature map <img src="http://latex.codecogs.com/svg.latex? f"> and a binary mask <img src="http://latex.codecogs.com/svg.latex? M"> indicating a definite background. The queries <img src="http://latex.codecogs.com/svg.latex? q_j"> are then used to compute an attention map <img src="http://latex.codecogs.com/svg.latex? A"> describing the likelihood that each pixel belongs to a background. The attention map enables localizing entire foreground regions, leading to better foreground features <img src="http://latex.codecogs.com/svg.latex? r_i">. Finally, we apply a softmax classifier <img src="http://latex.codecogs.com/svg.latex? w"> to the foreground features <img src="http://latex.codecogs.com/svg.latex? r_i"> for each bounding box together with the queries <img src="http://latex.codecogs.com/svg.latex? q_j">. The entire network is trained with a cross-entropy loss. 
+        </figcaption>
+  	  </figure>
+      <br>
+  	  <figure style="width: 40%; margin-left:30%">
+        <center>
+      	<img src="./images/overview_pseudo.png" style="max-width: 100%"> 
+        </center>
+        <figcaption style="text-align: justify"> Figure 2: Generating pseudo labels. We compute <img src="http://latex.codecogs.com/svg.latex? u_0"> and <img src="http://latex.codecogs.com/svg.latex? u_c"> using a background attention map and CAMs, respectively, which are used as a unary term for DenseCRF to obtain pseudo segmentation labels <img src="http://latex.codecogs.com/svg.latex? Y_\text{crf}">. We extract prototypical features <img src="http://latex.codecogs.com/svg.latex? q_c"> for each class using the labels <img src="http://latex.codecogs.com/svg.latex? Y_\text{crf}">, and use them as queries to retrieve high-level features from the feature map <img src="http://latex.codecogs.com/svg.latex? f">, from which we obtain additional pseudo labels <img src="http://latex.codecogs.com/svg.latex? Y_\text{ret}">.
+        </figcaption>
+  	  </figure>
+      <br>
+      <p style="text-align: justify; font-size: 1.1em">
+      Our approach mainly consists of three stages: First, we train a CNN for image classification using object bounding boxes (Fig. 1). We use BAP leveraging a background prior, that is, background regions are perceptually consistent in part within an image, allowing to extract more accurate CAMs. To this end, we compute an attention map for a background adaptively for each image. Second, we generate pseudo segmentation labels using CAMs obtained from the classification network together with the background attention maps and prototypical features (Fig. 2). Finally, we train CNNs for semantic segmentation with the pseudo ground truth but possibly having noisy labels. We use a NAL to lessen the influence of the noisy labels. 
+      </p>
+    </div>
+
+    <div class="row">
+      <h3>Experimental results</h3>
+      <figure style="display: inline; max-width: 40%; float: left; margin-left: 5%; margin-right: 10%">
+	    <img src="./images/table1.png" style="max-width:100%">
+	    <figcaption style="text-align: justify">
+          Table 1: Comparison of pseudo labels on the PASCAL VOC 2012 <i>train</i> and <i>val</i> sets in terms of mIoU. Numbers in bold indicate the best performance. We report the supervision types with the number of annotations. For MCG, we manually choose the segment proposal that gives the highest IoU score with each bounding box. ∗: pseudo labels contain unreliable regions.
+        </figcaption>
+	  </figure>
+ 	  <figure style="display: inline; max-width: 40%; float: left; margin: 0">
+	    <img src="./images/table2.png" style="max-width:100%">
+	    <figcaption style="text-align: justify">
+          Table 2: Quantitative comparison with state-of-the-art methods using DeepLab-V1 (VGG-16) on the PASCAL VOC 2012 dataset in terms of mIoU. Numbers in bold indicate the best performance and underscored ones are the second best.  
+        </figcaption>
+      </figure>
+    </div>
+
+
+    <div class="row">
+      <h3>Paper</h3>
+      <table>
+        <tbody><tr></tr>
+        <tr><td>
+          <a href="https://arxiv.org/abs/?"><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper.png" width="150px"></a>
+        </td>
+        <td></td>
+        <td>
+          <b> Background-Aware Pooling and Noise-Aware Loss for Weakly-Supervised Semantic Segmentation </b>
+          <br>
+          Y. Oh, B. Kim, B. Ham
+          <br>
+          In <i>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) </i>, 2021 <br>
+          <a href>[arXiv]</a> 
+          <a href>[Code will be released]</a> 
+          <a href>[BibTex]</a> 
+        </td></tr></tbody>
+      </table>
+    </div>
+
+    <!--div class="row">
+      <h3>BibTeX</h3>
+      <pre><tt>@inproceedings{oh2021background,
+  title     = {Background-Aware Pooling and Noise-Aware Loss for Weakly-Supervised Semantic Segmentation},
+  author    = {Oh, Youngmin and Kim, Beomjun and Ham, Bumsub},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  year      = {2021}
+}</tt></pre>
+    </div-->
+
+    <div class="row">
+      <h3>Acknowledgements</h3>
+      <p>
+        This work was supported by the National Research Foundation of Korea (NRF) grant funded by the Korea government (MSIP) (NRF-2019R1A2C2084816).
+      </p>
+    </div>
+  </div>
+</body>
+

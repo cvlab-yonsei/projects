@@ -1,0 +1,50 @@
+/* Space out content a bit */
+
+body {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  background-color: #fefefe;
+  text-rendering: optimizeLegibility;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+/*::selection {
+  background: #ec0101;    
+  color: #fff;
+}
+a:visited {
+  text-decoration: none;
+  color: #ec0101;
+}
+a:hover {
+  color: #000000;
+}*/
+
+.header {
+  font-family: Georgia, serif;
+  font-weight: 700;
+  color: #1c1c1c;
+}
+
+.header,
+.row {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.row h3 {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+@media (min-width: 938px) {
+  .container {
+    max-width: 950px;
+  }
+}
+
+.container-narrow > hr {
+  margin: 20px 0;
+}
