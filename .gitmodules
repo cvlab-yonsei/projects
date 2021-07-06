@@ -19,3 +19,6 @@
 [submodule "dkn/dkn"]
 	path = dkn/dkn
 	url = https://github.com/cvlab-yonsei/dkn
+[submodule "EWGS/EWGS"]
+	path = EWGS/EWGS
+	url = https://github.com/cvlab-yonsei/EWGS.git
