@@ -22,3 +22,6 @@
 [submodule "EWGS/EWGS"]
 	path = EWGS/EWGS
 	url = https://github.com/cvlab-yonsei/EWGS.git
+[submodule "BANA/BANA"]
+	path = BANA/BANA
+	url = https://github.com/cvlab-yonsei/BANA.git
