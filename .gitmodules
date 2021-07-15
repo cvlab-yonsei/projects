@@ -25,3 +25,6 @@
 [submodule "BANA/BANA"]
 	path = BANA/BANA
 	url = https://github.com/cvlab-yonsei/BANA.git
+[submodule "HVPR/HVPR"]
+	path = HVPR/HVPR
+	url = https://github.com/cvlab-yonsei/HVPR
