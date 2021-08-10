@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Learning by Aligning</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h2> <center> Learning by Aligning: Visible-Infrared Person Re-identification using Cross-Modal Correspondences <br>
+        <a href="http://iccv2021.thecvf.com/home">(ICCV 2021)</a></center> </h2>
+    </div>
+
+    <figure style="display: inline; width: 100%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
+      <div>
+        <center>
+        <img src="images/teaser.png" style="max-width:100%;">
+        </center>
+        </div>
+    </figure>
+    <br>An example of dense cross-modal correspondences between RGB and IR person images. For the visualization purpose only, we show the top 20 matches according to similarities between local person representations learned without (left) and with (right) our approach. Our person representations are robust to the cross-modal discrepancies, while being highly discriminative, especially for person regions.
+    
+
+    <!-- <center>
+      <img src='images/teaser.png', height='250'>
+    </center><br>
+      <figcaption>An example of dense cross-modal correspondences between RGB and IR person images. For the visualization purpose only, we show the top 20 matches according to similarities between local person representations learned without (left) and with (right) our approach. Our person representations are robust to the cross-modal discrepancies, while being highly discriminative, especially for person regions.</figcaption> -->
+
+    <div class="row">
+      <h3>Authors</h3>
+      <div style="font-size: 16px">
+      <ul>
+          <li><a href="https://hyunjp.github.io/">Hyunjong Park</a>*</li>
+          <li><a href="https://sanghoooon.github.io/">Sanghoon Lee</a>*</li>
+          <li><a href="https://junghyup-lee.github.io/">Junghyup Lee</a></li>
+          <li><a href="https://bsham.github.io/">Bumsub Ham</a></li>
+      </ul>
+      <p><small>* equal contribution</small></p>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <h3>Abstract</h3>
+      <p style="text-align: justify;">
+        We address the problem of visible-infrared person re-identification (VI-reID), that is, retrieving a set of person images, captured by visible or infrared cameras, in a cross-modal setting. Two main challenges in VI-reID are intra-class variations across person images, and cross-modal discrepancies between visible and infrared images. Assuming that the person images are roughly aligned, previous approaches attempt to learn coarse image- or rigid part-level person representations that are discriminative and generalizable across different modalities. However, the person images, typically cropped by off-the-shelf object detectors, are not necessarily well-aligned, which distract discriminative person representation learning. In this paper, we introduce a novel feature learning framework that addresses these problems in a unified way. To this end, we propose to exploit dense correspondences between cross-modal person images. This allows to address the cross-modal discrepancies in a pixel-level, suppressing modality-related features from person representations more effectively. This also encourages pixel-wise associations between cross-modal local features, further facilitating discriminative feature learning for VI-reID. Extensive experiments and analyses on standard VI-reID benchmarks demonstrate the effectiveness of our approach, which significantly outperforms the state of the art.
+      </p>
+    </div>
+
+    <div class="row">
+      <h3>Approach</h3>
+
+      <figure style="display: inline; width: 100%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
+        <div>
+          <center><img src="images/fig2.png" style="max-width:100%;"></center>
+        </div>
+      </figure>
+      <p><br>Overview of our framework for VI-reID. We extract RGB and IR features, 
+            denoted by \( \mathbf{f}_{\mathrm{RGB}} \) and \( \mathbf{f}_{\mathrm{IR}} \), respectively, using a two-stream CNN. 
+            The CMAlign module computes cross-modal feature similarities and matching probabilities between these features, 
+            and aligns the cross-modal features w.r.t each other using soft warping, 
+            together with parameter-free person masks to mitigate ambiguous matches between background regions. 
+            We exploit both original RGB and IR features and aligned ones (\( \hat{\mathbf{f}}_{\mathrm{RGB}} \) 
+            and \( \hat{\mathbf{f}}_{\mathrm{IR}} \)) during training, 
+            and incorporate them into our objective function consisting of ID (\( \mathcal{L}_{\mathrm{ID}} \)), 
+            ID consistency (\( \mathcal{L}_{\mathrm{IC}} \)) and dense triplet (\( \mathcal{L}_{\mathrm{DT}} \)) terms. 
+            At test time, we compute cosine distances between person representations, 
+            obtained by pooling RGB and IR features. See our paper for details.<br>
+      </p></p>
+
+      <!-- <center>
+        <img src='images/fig2.png', height='300'>
+      </center><br>
+      Overview of our framework for VI-reID. We extract RGB and IR features, 
+      denoted by \( \mathbf{f}_{\mathrm{RGB}} \) and \( \mathbf{f}_{\mathrm{IR}} \), respectively, using a two-stream CNN. 
+      The CMAlign module computes cross-modal feature similarities and matching probabilities between these features, 
+      and aligns the cross-modal features w.r.t each other using soft warping, 
+      together with parameter-free person masks to mitigate ambiguous matches between background regions. 
+      We exploit both original RGB and IR features and aligned ones (\( \hat{\mathbf{f}}_{\mathrm{RGB}} \) 
+      and \( \hat{\mathbf{f}}_{\mathrm{IR}} \)) during training, 
+      and incorporate them into our objective function consisting of ID (\( \mathcal{L}_{\mathrm{ID}} \)), 
+      ID consistency (\( \mathcal{L}_{\mathrm{IC}} \)) and dense triplet (\( \mathcal{L}_{\mathrm{DT}} \)) terms. 
+      At test time, we compute cosine distances between person representations, 
+      obtained by pooling RGB and IR features. See our paper for details.
+    </div> -->
+
+    <div class="row">
+      <h3>Experiment</h3>
+      <center>
+        <figure style="display: inline; width: 65%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
+          <div>
+            <img src="images/sota.png" style="max-width:100%;">
+            <figcaption> Quantitative comparison with the state of the art for VI-reID. We measure mAP (%) and rank-1 accuracy (%) on the RegDB and SYSU-MM01 datasets and report the average and standard deviations over 4 training and test runs. Numbers in bold indicate the best performance and underscored ones indicate the second best.</figcaption>
+            </div>
+        </figure>
+        <figure style="display: inline; width: 35%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
+            <div>
+            <img src="images/runtime.png" style="max-width:100%;">
+            <figcaption> Comparison of the average runtime for extracting a final person representation and the number of parameters required at test time.<br><br></figcaption>
+            </div>
+        </figure>
+      </center>
+
+    </div>
+
+    <div class="row">
+      <h3>Paper</h3>
+      <table>
+        <tbody><tr></tr>
+        <tr><td>
+          <a href="https://arxiv.org/abs/2104.00903"><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper.jpg" width="150px"></a>
+        </td>
+        <td></td>
+        <td>
+          H. Park, S. Lee, J. Lee, B. Ham<br>
+          <b> Learning by Aligning: Visible-Infrared Person Re-identification using Cross-Modal Correspondences </b> <br>
+          In <i>IEEE/CVF International Conference on Computer Vision (ICCV) </i>, 2021 <br>
+          <!-- [<a href="https://arxiv.org/abs/2104.00903">Paper on arXiv</a>] -->
+        </td></tr></tbody>
+      </table>
+    </div>
+
+
+    <div class="row">
+      <h3>Code</h3>
+      <p>
+        Will be released soon.
+      </p>
+    </div>
+
+    <div class="row">
+      <h3>BibTeX</h3>
+      Will be ready soon.
+    </div>
+
+    <div class="row">
+      <h3>Acknowledgements</h3>
+      <p>
+        This research was partly supported by
+        R&D program for Advanced Integrated-intelligence for Identification (AIID) through the National Research Foundation of KOREA (NRF) funded by Ministry of Science and ICT (NRF2018M3E3A1057289), Institute for Information and Communications Technology Promotion (IITP) funded by the Korean Government (MSIP) under Grant 2016-0-00197, and Yonsei University Research Fund of 2021 (2021-22-0001).
+      </p>
+    </div>
+  </div>
+</body>
+
