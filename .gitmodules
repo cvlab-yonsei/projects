@@ -28,3 +28,6 @@
 [submodule "HVPR/HVPR"]
 	path = HVPR/HVPR
 	url = https://github.com/cvlab-yonsei/HVPR
+[submodule "JoEm/JoEm"]
+	path = JoEm/JoEm
+	url = https://github.com/cvlab-yonsei/JoEm.git
