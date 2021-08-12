@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Learning by Aligning</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">
+        <h2>Exploiting a Joint Embedding Space for <br>Generalized Zero-Shot Semantic Segmentation</h2>
+        <h3><a href="http://iccv2021.thecvf.com/home">ICCV 2021</a></h3>
+      </div>
+
+      <div class="authors">
+        <div class="name">
+          <div class="col-sm-4">
+            <a href="https://50min.github.io/">Donghyeon Baek*</a>
+          </div>
+          <div class="col-sm-4">
+            <a href="https://github.com/jun0kim">Youngmin Oh*</a>
+          </div>
+          <div class="col-sm-4">
+            <a href="https://bsham.github.io/">Bumsub Ham</a>
+          </div>
+        </div>
+        <div class="school">Yonsei University</div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="teaser">
+          <img src="images/header.png">
+      </div>
+    </div>
+
+    <div class="row">
+      <h3>Abstract</h3>
+      <p style="text-align: justify;">
+        We address the problem of generalized zero-shot semantic segmentation (GZS3) predicting pixel-wise semantic labels for seen and unseen classes. Most GZS3 methods adopt a generative approach that synthesizes visual features of unseen classes from corresponding semantic ones (e.g., <em>word2vec</em>) to train novel classifiers for both seen and unseen classes. Although generative methods show decent performance, they have two limitations: (1) the visual features are biased towards seen classes; (2) the classifier should be retrained whenever novel unseen classes appear. We propose a discriminative approach to address these limitations in a unified framework. To this end, we leverage visual and semantic encoders to learn a joint embedding space, where the semantic encoder transforms semantic features to semantic prototypes that act as centers for visual features of corresponding classes. Specifically, we introduce boundary-aware regression (BAR) and semantic consistency (SC) losses to learn discriminative features. Our approach to exploiting the joint embedding space, together with BAR and SC terms, alleviates the seen bias problem. At test time, we avoid the retraining process by exploiting semantic prototypes as a nearest-neighbor (NN) classifier. To further alleviate the bias problem, we also propose an inference technique, dubbed Apollonius calibration (AC), that modulates the decision boundary of the NN classifier to the Apollonius circle adaptively. Experimental results demonstrate the effectiveness of our framework, achieving a new state of the art on standard benchmarks.
+      </p>
+    </div>
+
+    <div class="row">
+      <h3>Approach</h3>
+      <div class="row approach">
+        <div class="col-sm-8 approach-content">
+          <p style="text-align: justify;">
+            Following the common practice, we divide classes into two disjoint sets, where we denote by \(\mathcal{S}\) and \(\mathcal{U}\) sets of seen and unseen classes, respectively. We train our model including visual and semantic encoders with the seen classes \(\mathcal{S}\) only, and use the model to predict pixel-wise semantic labels of a scene for both seen and unseen classes, \(\mathcal{S}\) and \(\mathcal{U}\), at test time. To this end, we jointly update both encoders to learn a joint embedding space. Specifically, we first extract visual features using the visual encoder. We then input semantic features (<em>e.g., word2vec</em>) to the semantic encoder, and obtain semantic prototypes that represent centers for visual features of corresponding classes. We have empirically found that visual features at object boundaries could contain a mixture of different semantics, which causes discrepancies between visual features and semantic prototypes. To address this, we propose to use linearly interpolated semantic prototypes, and minimize the distances between the visual features and semantic prototypes. We also encourage the relationships between semantic prototypes to be similar to those between semantic features explicitly. At test time, we use the semantic prototypes of both seen and unseen classes as a NN classifier without re-training. To further reduce the seen bias problem, we modulate the decision boundary of the NN classifier adaptively.</p>
+        </div>
+        <div class="col-sm-4 approach-image" style="vertical-align: middle;">
+          <img src="images/approach_1.png" style="width: 80%;"><br><br>
+          <img src="images/approach_2.png" style="width: 100%;">
+        </div>   
+      </div>
+    </div>
+
+    <div class="row">
+      <h3>Paper</h3>
+      <table>
+        <tbody><tr></tr>
+        <tr><td>
+          <div class="paper-image">
+            <a href=""><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper.jpg" width="150px"></a>
+          </div>
+        </td>
+        <td></td>
+        <td>
+          D. Baek, Y. Oh, B. Ham<br>
+          <b> Exploiting a Joint Embedding Space for Generalized Zero-Shot Semantic Segmentation </b> <br>
+          In <i>IEEE/CVF International Conference on Computer Vision (ICCV) </i>, 2021 <br>
+          [<a href="">arXiv</a>][<a href="https://github.com/cvlab-yonsei/JoEm">Code</a>]
+        </td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="row">
+      <h3>BibTeX</h3>
+      Will be ready soon.
+    </div>
+
+    <div class="row">
+      <h3>Acknowledgements</h3>
+      <p>
+        This research was partly supported by the National Research Foundation of Korea (NRF) grant funded by the Korea government (MSIP) (NRF-2019R1A2C2084816) and Yonsei University Research Fund of 2021 (2021-22-0001).
+      </p>
+    </div>
+  </div>
+</body>
+
