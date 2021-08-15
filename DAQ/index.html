@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Distance-aware Quantization</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h3> <center> Distance-aware Quantization (ICCV 2021) </center> </h3>
+    </div>
+
+    <center>
+      <img src="./images/teaser.jpg" style="max-width:70%;">
+    </center>
+    The discretizer takes a full-precision input, and then assigns it to the nearest quantized value, e.g, &nbsp;<img src="http://latex.codecogs.com/svg.latex? q_1"/>&nbsp; in this example. We interpret the assignment process of a discretizer as follows: It first computes the distances between the full-precision input and quantized values, &nbsp;<img src="http://latex.codecogs.com/svg.latex? q_1"/>&nbsp; and &nbsp;<img src="http://latex.codecogs.com/svg.latex? q_2"/>&nbsp;, and then applies an argmin operator over the distances to choose the quantized value. Since this operator is non-differentiable, the quantized network cannot be trained end-to-end with gradient-based optimizers.
+
+    <div class="row">
+      <h3>Authors</h3>
+      <div style="font-size: 16px">
+      <ul>
+          <li><a href="https://github.com/shape-kim">Dohyung Kim</a></li>
+          <li><a href="https://github.com/junghyup-lee">Junghyup Lee</a></li>
+          <li><a href="https://cvlab.yonsei.ac.kr">Bumsub Ham</a>*</li>
+      </ul>
+      </div>
+      <p style="text-align: justify;">* corresponding author</p>
+
+    </div>
+
+    <div class="row">
+      <h3>Abstract</h3>
+      <p style="text-align: justify;">
+      We address the problem of network quantization, that is, reducing bit-widths of weights and/or activations to lighten network architectures. Quantization methods use a rounding function to map full-precision values to the nearest quantized ones, but this operation is not differentiable. There are mainly two approaches to training quantized networks with gradient-based optimizers. First, a straight-through estimator (STE) replaces the zero derivative of the rounding with that of an identity function, which causes a gradient mismatch problem. Second, soft quantizers approximate the rounding with continuous functions at training time, and exploit the rounding for quantization at test time. This alleviates the gradient mismatch, but causes a quantizer gap problem. We alleviate both problems in a unified framework. To this end, we introduce a novel quantizer, dubbed a distance-aware quantizer (DAQ), that mainly consists of a distance-aware soft rounding (DASR) and a temperature controller. To alleviate the gradient mismatch problem, DASR approximates the discrete rounding with the kernel soft argmax, which is based on our insight that the quantization can be formulated as a distance-based assignment problem between full-precision values and quantized ones. The controller adjusts the temperature parameter in DASR adaptively according to the input, addressing the quantizer gap problem. Experimental results on standard benchmarks show that DAQ outperforms the state of the art significantly for various bit-widths without bells and whistles.
+      </p>
+    </div>
+
+    <div class="row">
+      <h3>Overview of our framework</h3>
+      <center>
+      <img src="./images/method.jpg" style="max-width:90%;">
+      </center>
+      Our quantizer &nbsp;<img src="http://latex.codecogs.com/svg.latex? Q"/>&nbsp; mainly consists of DASR with a temperature controller. DAQ first normalizes a full-precision input &nbsp;<img src="http://latex.codecogs.com/svg.latex? \hat{x}"/>&nbsp;. DASR inputs the normalized input, and computes distance scores w.r.t quantized values. It then assigns the input to the nearest quantized value &nbsp;<img src="http://latex.codecogs.com/svg.latex? Q(\hat{x})"/>&nbsp;. For the assignment, we exploit a differentiable version of the argmax with an adaptive temperature &nbsp;<img src="http://latex.codecogs.com/svg.latex? \beta^*"/>&nbsp;, obtained from our controller.
+    </div>
+
+    <div class="row">
+      <h3>Experiment</h3>
+      <p>
+        <center>
+          <img src="./images/results.jpg" style="max-width:90%;">
+        </center>
+        Quantitative results of ResNet-18 on the validation split of ImageNet. We report the top-1 accuracy for comparison. We denote by "W" and "A" the bit-precision of weights and activations, respectively. "FP" and &nbsp;<img src="http://latex.codecogs.com/svg.latex? \dagger"/>&nbsp; represent accuracies for full-precision and fully quantized models, respectively. Numbers in bold indicate the best performance. Numbers in parentheses are accuracy improvements or degradations compared to the full-precision one.
+      </p>
+    </div>
+
+    <div class="row">
+      <h3>Paper</h3>
+      <table>
+        <tbody><tr></tr>
+        <tr><td>
+          <a href=""><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/thb.jpg" width="150px"></a>
+        </td>
+        <td></td>
+        <td>
+          D. Kim, J. Lee, B. Ham<br>
+          <b> Distance-aware Quantization </b> <br>
+          In <i>Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV) </i>, 2021 <br>
+          [<a href="">Paper on arXiv</a>]
+        </td></tr></tbody>
+      </table>
+    </div>
+
+
+    <div class="row">
+      <h3>Code</h3>
+      <p>
+        <a href="https://github.com/cvlab-yonsei/DAQ"> Training/testing code (Will be released) </a>
+      </p>
+    </div>
+
+    <div class="row">
+      <h3>BibTeX</h3>
+      <pre><tt>@InProceedings{Kim21,
+        author       = "D. Kim, J. Lee, B. Ham",
+        title        = "Distance-aware Quantization",
+        booktitle    = "ICCV",
+        year         = "2021",
+        }</tt></pre>
+    </div>
+
+
+    <div class="row">
+      <h3>Acknowledgements</h3>
+      <p>
+        This research was supported by the Samsung Research Funding & Incubation Center for Future Technology (SRFC-IT1802-06).
+      </p>
+    </div>
+  </div>
+</body>
