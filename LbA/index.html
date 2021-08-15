@@ -17,8 +17,30 @@
 <body>
   <div class="container">
     <div class="header">
-      <h2> <center> Learning by Aligning: Visible-Infrared Person Re-identification using Cross-Modal Correspondences <br>
-        <a href="http://iccv2021.thecvf.com/home">(ICCV 2021)</a></center> </h2>
+      <div class="title">
+        <h2><center>Learning by Aligning: Visible-Infrared Person Re-identification using Cross-Modal Correspondences</center></h2>
+          <h3><center><a href="http://iccv2021.thecvf.com/home">ICCV 2021</a></center></h3>
+      </div>
+    <!-- </div> -->
+
+    <div class="authors">
+      <div class="name">
+        <div class="col-sm-3">
+          <a href="https://hyunjp.github.io/">Hyunjong Park*</a>
+        </div>
+        <div class="col-sm-3">
+          <a href="https://sanghoooon.github.io/">Sanghoon Lee*</a>
+        </div>
+        <div class="col-sm-3">
+          <a href="https://junghyup-lee.github.io/">Junghyup Lee</a>
+        </div>
+        <div class="col-sm-3">
+          <a href="https://bsham.github.io/">Bumsub Ham</a>
+        </div>
+      </div>
+      <div class="contribution">* equal contribution</div>
+      <div class="school">Yonsei University</div>
+    </div>
     </div>
 
     <figure style="display: inline; width: 100%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
@@ -36,7 +58,7 @@
     </center><br>
       <figcaption>An example of dense cross-modal correspondences between RGB and IR person images. For the visualization purpose only, we show the top 20 matches according to similarities between local person representations learned without (left) and with (right) our approach. Our person representations are robust to the cross-modal discrepancies, while being highly discriminative, especially for person regions.</figcaption> -->
 
-    <div class="row">
+    <!-- <div class="row">
       <h3>Authors</h3>
       <div style="font-size: 16px">
       <ul>
@@ -48,7 +70,7 @@
       <p><small>* equal contribution</small></p>
       </div>
 
-    </div>
+    </div> -->
 
     <div class="row">
       <h3>Abstract</h3>
@@ -62,7 +84,7 @@
 
       <figure style="display: inline; width: 100%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
         <div>
-          <center><img src="images/fig2.png" style="max-width:100%;"></center>
+          <center><img src="images/fig2.png" style="max-width:50%;"></center>
         </div>
       </figure>
       <p><br>Overview of our framework for VI-reID. We extract RGB and IR features, 
@@ -77,22 +99,6 @@
             At test time, we compute cosine distances between person representations, 
             obtained by pooling RGB and IR features. See our paper for details.<br>
       </p></p>
-
-      <!-- <center>
-        <img src='images/fig2.png', height='300'>
-      </center><br>
-      Overview of our framework for VI-reID. We extract RGB and IR features, 
-      denoted by \( \mathbf{f}_{\mathrm{RGB}} \) and \( \mathbf{f}_{\mathrm{IR}} \), respectively, using a two-stream CNN. 
-      The CMAlign module computes cross-modal feature similarities and matching probabilities between these features, 
-      and aligns the cross-modal features w.r.t each other using soft warping, 
-      together with parameter-free person masks to mitigate ambiguous matches between background regions. 
-      We exploit both original RGB and IR features and aligned ones (\( \hat{\mathbf{f}}_{\mathrm{RGB}} \) 
-      and \( \hat{\mathbf{f}}_{\mathrm{IR}} \)) during training, 
-      and incorporate them into our objective function consisting of ID (\( \mathcal{L}_{\mathrm{ID}} \)), 
-      ID consistency (\( \mathcal{L}_{\mathrm{IC}} \)) and dense triplet (\( \mathcal{L}_{\mathrm{DT}} \)) terms. 
-      At test time, we compute cosine distances between person representations, 
-      obtained by pooling RGB and IR features. See our paper for details.
-    </div> -->
 
     <div class="row">
       <h3>Experiment</h3>
@@ -118,7 +124,7 @@
       <table>
         <tbody><tr></tr>
         <tr><td>
-          <a href="https://arxiv.org/abs/2104.00903"><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper.jpg" width="150px"></a>
+          <a href=""><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="images/paper_img.png" width="150px"></a>
         </td>
         <td></td>
         <td>
