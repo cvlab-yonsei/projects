@@ -19,18 +19,48 @@ body {
 
 /* Custom page header */
 .header {
+  text-align: center;
   border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 0;
 }
 /* Make the masthead heading the same height as the navigation */
+
 .header h3 {
   margin-top: 0;
   margin-bottom: 0;
   line-height: 40px;
-  padding-bottom: 19px;
+  /* padding-bottom: 19px; */
   font-size: 40px;
 }
 .header h4 {
   font-family: 'Baloo', cursive;
+}
+
+.header .title{
+  margin-bottom: 10px;
+}
+
+.header .title h2{
+  font-size: 30px;
+  margin-bottom: 5px;
+}
+
+.header .title h3{
+  font-size: 20px;
+}
+
+.header .authors{
+  font-size: 20px;
+  margin-bottom: 5px;
+}
+.header .contribution{
+  font-size: 15px;
+  margin-bottom: 5px;
+}
+
+.header .school{
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 
 /* Custom page footer */
