@@ -13,7 +13,7 @@
   <div class="container">
     <div class="header">
       <h3> <center> Video-based Person Re-identification with Spatial and Temporal Memory Networks</center> </h3>
-	<h3> <center> [ICCV 2021] </center> </h3>
+	<h3> <center> (ICCV 2021) </center> </h3>
     </div>
 	  
   <div class="row">
@@ -64,8 +64,7 @@
 	
 	<center>
       	<figure>
-      		<img src="./images/smem.png" style="max-width:43%; margin-left: 28px;">
-      		<figcaption><br>(a) Spatial memory.<br></figcaption>
+      		<img src="./images/smem.png" style="max-width:45%; margin-left: 28px; padding-top: 25px; padding-bottom: 25px;">
   		</figure>
       	</center>
 	    
@@ -73,30 +72,33 @@
 	
 	<center>
       	<figure>
-      		<img src="./images/tmem.png" style="max-width:92%; margin-left: 28px;">
-      		<figcaption><br>(a) Temporal memory.<br></figcaption>
+      		<img src="./images/tmem.png" style="max-width:92%; margin-left: 28px; padding-top: 25px; padding-bottom: 25px;">
   		</figure>
       	</center>
 	    
-	    The temporal memory saves attentions optimized for typical temporal patterns that repeatably occur in person videos. We access the temporal memory with the corresponding query map, and use the output to aggregate the refined frame-level features into a sequence-level person representation. We train our model end-to-end using memory spread, triplet, and cross-entropy terms.
+	    The temporal memory saves attentions optimized for typical temporal patterns that repeatably occur in person videos. We access the temporal memory with the corresponding query map, and use the output to aggregate the refined frame-level features into a sequence-level person representation. 
+
+	<center>
+      	<figure>
+      		<img src="./images/mem_spread_loss.png" style="max-width:45%; margin-left: 28px; padding-top: 25px; padding-bottom: 25px;">
+  		</figure>
+      	</center>
+
+	    We also propose a memory spread loss that prevents our model from accessing few memory items repeatedly, encouraging all items to be used. We train our model end-to-end using memory spread, triplet, and cross-entropy terms.
     </div>
 
     <div class="row">
       <h3>Experiment</h3>
       <p>
-      	<center>
-	        <figure>
-	          <img src="./images/smem_key.png" style="max-height:13%; margin-right: 15px">
-	          <img src="./images/smem_attention.png" style="max-height:13%;  margin-left: 15px">
-	          <figcaption>(a)<br><br></figcaption>
-	        </figure>
-    		<figure>
-	          <img src="./images/tmem_key.png" style="max-height:13%; margin-right: 15px">
-	          <img src="./images/tmem_val.png" style="max-height:13%; margin-left: 15px">
-	          <figcaption>(b)<br><br></figcaption>
-          	</figure>
+
+        We compare STMN with state-of-the-art methods on standard video-based reID benchmarks, including MARS, DukeMTMC-VideoReID, and LS-VID. For fair comparisons, we classify the methods into two groups, depending on whether they follow RRS or all- frames strategies for evaluation (please refer to the paper for the details). We set a new state of the art on the benchmarks. The results of STMN using the RRS even surpass those of previous methods, e.g., COSAM, M3D, and GLTR on the all-frames setting.
+        <center>
+        <figure>
+          <img src="./images/sota.png" style="max-width:45%; margin-left: 28px; padding-top: 25px; padding-bottom: 25px;">
+        </figure>
         </center>
-        Training losses.
+
+        
       </p>
     </div>
 
