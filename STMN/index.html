@@ -59,17 +59,26 @@
 
     <div class="row">
       <h3>Approach</h3>
-      <center>
+	    
+	    STMN mainly consists of three components: an encoder, a spatial memory, and a temporal memory. For each frame, the encoder extracts a person representation and two query maps, where each query is used to access either spatial or temporal memories. 
+	
+	<center>
       	<figure>
       		<img src="./images/smem.png" style="max-width:92%; margin-left: 28px;">
-      		<figcaption><br>(a) The sign of an update for the discrete value <img src="http://latex.codecogs.com/svg.latex? x_q"/> is positive (<i>i</i>.<i>e</i>., <img src="http://latex.codecogs.com/svg.latex? -g_{x_{q}} > 0"/>).<br><br></figcaption>
+      		<figcaption><br>(a) Spatial memory.<br></figcaption>
   		</figure>
-  		<figure>
-      		<img src="./images/tmem_neg.png" style="max-width:90%; margin-right: 35px;">
-      		<figcaption><br>(b) The sign of an update for the discrete value <img src="http://latex.codecogs.com/svg.latex? x_q"/> is negative (<i>i</i>.<i>e</i>., <img src="http://latex.codecogs.com/svg.latex? -g_{x_{q}} < 0"/>).<br><br></figcaption>
+      	</center>
+	    
+	    The spatial memory stores features for scene details, frequently appearing across video frames, such as street lights, trees, and concrete pavers. We extract such features from the spatial memory using the corresponding query map, and use them to refine the person representation, removing information that interferes with identifying persons. 
+	
+	<center>
+      	<figure>
+      		<img src="./images/tmem.png" style="max-width:92%; margin-left: 28px;">
+      		<figcaption><br>(a) Temporal memory.<br></figcaption>
   		</figure>
-      </center>
-      STMN mainly consists of three components: an encoder, (a) a spatial memory, and (b) a temporal memory. For each frame, the encoder extracts a person representa- tion and two query maps, where each query is used to ac- cess either spatial or temporal memories. The spatial mem- ory stores features for scene details, frequently appearing across video frames, such as street lights, trees, and concrete pavers. We extract such features from the spatial memory using the corresponding query map, and use them to refine the person representation, removing information that inter- feres with identifying persons. The temporal memory saves attentions optimized for typical temporal patterns that re- peatably occur in person videos. We access the temporal memory with the corresponding query map, and use the output to aggregate the refined frame-level features into a sequence-level person representation. We train our model end-to-end using memory spread, triplet, and cross-entropy terms.
+      	</center>
+	    
+	    The temporal memory saves attentions optimized for typical temporal patterns that repeatably occur in person videos. We access the temporal memory with the corresponding query map, and use the output to aggregate the refined frame-level features into a sequence-level person representation. We train our model end-to-end using memory spread, triplet, and cross-entropy terms.
     </div>
 
     <div class="row">
@@ -87,7 +96,7 @@
 	          <figcaption>(b)<br><br></figcaption>
           	</figure>
         </center>
-        Training losses and validation accuracies for binarized networks using STE and EWGS. We use ResNet-18 to quantize (a) both weights and activations and (b) weights only, and show the results on ImageNet.
+        Training losses.
       </p>
     </div>
 
