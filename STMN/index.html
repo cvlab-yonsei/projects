@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Video-based Person Re-identification with Spatial and Temporal Memory Networks\n (ICCV 2021)</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <h3> <center> Video-based Person Re-identification with Spatial and Temporal Memory Networks</center> </h3>
+	<h3> <center> [ICCV 2021] </center> </h3>
+    </div>
+	  
+  <div class="row">
+      <div style="font-size: 16px">
+      <ul>
+          <li><a href="https://chanhoeom.github.io/">Chanho Eom</a></li>
+	  <li>Geom Lee</li>
+          <li><a href="https://junghyup-lee.github.io/">Junghyup Lee</a></li>
+          <li><a href="https://bsham.github.io/">Bumsub Ham</a></li>
+      </ul>
+      </div>
+  </div>
+
+    <div class="row">
+      <h3>Abstract</h3>
+	    
+      <p style="text-align: justify;">
+      Video-based person re-identification (reID) aims to retrieve person videos with the same identity as a query person across multiple cameras. Spatial and temporal distractors in person videos, such as background clutter and partial occlusions over frames, respectively, make this task much more challenging than image-based person reID. We observe that spatial distractors appear consistently in a particular location, and temporal distractors show several patterns, e.g., partial occlusions occur in the first few frames, where such patterns provide informative cues for predicting which frames to focus on (i.e., temporal attentions). Based on this, we introduce a novel Spatial and Temporal Memory Networks (STMN). The spatial memory stores features for spatial distractors that frequently emerge across video frames, while the temporal memory saves attentions which are optimized for typical temporal patterns in person videos. We leverage the spatial and temporal memories to refine frame-level person representations and to aggregate the refined frame-level features into a sequence-level person representation, respectively, effectively handling spatial and temporal distractors in person videos. We also introduce a memory spread loss preventing our model from addressing particular items only in the memories. Experimental results on standard benchmarks, including MARS, DukeMTMC-VideoReID, and LS-VID, demonstrate the effectiveness of our method.
+      </p>
+	    
+	    <center>
+  		<figure style="display: inline; width: 50%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
+  			<div>
+      		<img src="./images/teaser_a.png" style="max-width:100%;">
+      		<figcaption> (a)</figcaption>
+      		</div>
+  		</figure>
+  		<figure style="display: inline; width: 50%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
+      		<div>
+      		<img src="./images/teaser_b.png" style="max-width:100%;">
+      		<figcaption> (b)<br><br></figcaption>
+      		</div>
+  		</figure>
+    		</center>
+
+    <div>
+	Examples of (a) spatial distractors that appear frequently in surveillance videos and (b) prototypes of temporal patterns that provide important clues to predict temporal attentions.
+	</div>
+	    
+	    
+	    
+    </div>
+
+    <div class="row">
+      <h3>Approach</h3>
+      <center>
+      	<figure>
+      		<img src="./images/smem.png" style="max-width:92%; margin-left: 28px;">
+      		<figcaption><br>(a) The sign of an update for the discrete value <img src="http://latex.codecogs.com/svg.latex? x_q"/> is positive (<i>i</i>.<i>e</i>., <img src="http://latex.codecogs.com/svg.latex? -g_{x_{q}} > 0"/>).<br><br></figcaption>
+  		</figure>
+  		<figure>
+      		<img src="./images/tmem_neg.png" style="max-width:90%; margin-right: 35px;">
+      		<figcaption><br>(b) The sign of an update for the discrete value <img src="http://latex.codecogs.com/svg.latex? x_q"/> is negative (<i>i</i>.<i>e</i>., <img src="http://latex.codecogs.com/svg.latex? -g_{x_{q}} < 0"/>).<br><br></figcaption>
+  		</figure>
+      </center>
+      STMN mainly consists of three components: an encoder, (a) a spatial memory, and (b) a temporal memory. For each frame, the encoder extracts a person representa- tion and two query maps, where each query is used to ac- cess either spatial or temporal memories. The spatial mem- ory stores features for scene details, frequently appearing across video frames, such as street lights, trees, and concrete pavers. We extract such features from the spatial memory using the corresponding query map, and use them to refine the person representation, removing information that inter- feres with identifying persons. The temporal memory saves attentions optimized for typical temporal patterns that re- peatably occur in person videos. We access the temporal memory with the corresponding query map, and use the output to aggregate the refined frame-level features into a sequence-level person representation. We train our model end-to-end using memory spread, triplet, and cross-entropy terms.
+    </div>
+
+    <div class="row">
+      <h3>Experiment</h3>
+      <p>
+      	<center>
+	        <figure>
+	          <img src="./images/smem_key.png" style="max-width:35%; margin-right: 15px">
+	          <img src="./images/smem_attention.png" style="max-width:35%;  margin-left: 15px">
+	          <figcaption>(a)<br><br></figcaption>
+	        </figure>
+    		<figure>
+	          <img src="./images/tmem_key.png" style="max-width:35%; margin-right: 15px">
+	          <img src="./images/tmem_val.png" style="max-width:35%; margin-left: 15px">
+	          <figcaption>(b)<br><br></figcaption>
+          	</figure>
+        </center>
+        Training losses and validation accuracies for binarized networks using STE and EWGS. We use ResNet-18 to quantize (a) both weights and activations and (b) weights only, and show the results on ImageNet.
+      </p>
+    </div>
+
+    <div class="row">
+      <h3>Code</h3>
+      <p>
+        <!-- Will be released soon. -->
+        <a href="https://github.com/cvlab-yonsei/STMN"> Training/test code (PyTorch) </a>
+      </p>
+    </div>
+
+    <div class="row">
+      <h3>Acknowledgements</h3>
+      <p>
+        This research was supported in part by the National Research Foundation of Korea (NRF) grant funded by the Korea government (MSIP) (NRF-2019R1A2C2084816) and the Yonsei University Research Fund of 2021 (2021-22-0001).
+      </p>
+    </div>
+  </div>
+</body>
+
