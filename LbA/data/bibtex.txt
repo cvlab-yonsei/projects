@@ -1,0 +1,6 @@
+@article{park2021learning,
+  title={Learning by Aligning: Visible-Infrared Person Re-identification using Cross-Modal Correspondences},
+  author={Park, Hyunjong and Lee, Sanghoon and Lee, Junghyup and Ham, Bumsub},
+  journal={arXiv preprint arXiv:2108.07422},
+  year={2021}
+}
