@@ -94,3 +94,98 @@
       </div>
 
     </div>
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+	    
+    <div class="container">
+      <div class="header">
+        <h3> <center>Learning Disentangled Representation for Robust Person Re-identification</center> </h3>
+      </div>
+      
+      <center>
+        <img src="./images/teaser.png" style="max-width:100%;">
+      </center>
+      <p><strong>Fig.</strong> Visual comparison of identity-related and -unrelated features. We generate new person images by interpolating (left) identity-related features and (right) identity-unrelated ones between two images, while fixing the other ones. We can see that identity-related features encode e.g., clothing and color, and identity-unrelated ones involve e.g., human pose and scale changes.</p>
+
+      <div class="row">
+      	<h3>Authors</h3>
+      	<div style="font-size: 16px">
+      	<ul>
+            <li><a href="https://chanhoeom.github.io/">Chanho Eom</a></li>
+            <li><a href="https://bsham.github.io/">Bumsub Ham</a></li>
+      	</ul>
+
+      </div>
+
+      <div class="row">
+        <h3>Abstract</h3>
+        <p style="text-align: justify;">
+        We address the problem of person re-identification (reID), that is, retrieving person images from a large dataset, given a query image of the person of interest. The key challenge is to learn person representations robust to intra-class variations, as different persons can have the same attribute and the same person’s appearance looks different with viewpoint changes. Recent reID methods focus on learning dis- criminative features but robust to only a particular factor of variations (e.g., human pose) and this requires corresponding supervisory signals (e.g., pose annotations). To tackle this problem, we propose to disentangle identity-related and -unrelated features from person images. Identity-related features contain information useful for specifying a particular person (e.g., clothing), while identity-unrelated ones hold other factors (e.g., human pose, scale changes). To this end, we introduce a new generative adversarial network, dubbed identity shuffle GAN (IS-GAN), that factorizes these features using identification labels without any auxiliary information. We also propose an identity-shuffling technique to regularize the disentangled features. Experimental results demonstrate the effectiveness of IS- GAN, largely outperforming the state of the art on standard reID benchmarks including the Market-1501, CUHK03 and DukeMTMC-reID.
+        </p>
+      </div>
+
+      <div class="row">
+      	<h3>Framework</h3>
+      	<center>
+        <img src="./images/framework.png" style="max-width:90%;">
+      	</center>
+      </div>
+
+      <div class="row">
+        <h3>Quantitative results</h3>
+        <center>
+        <img src="./images/results_quanti.png" style="max-width:75%;">
+        </center>
+        <p><strong>†: ReID methods trained using both classification and (hard) triplet losses; ∗: Our implementation.</p>
+      </div>
+
+      <div class="row">
+        <h3>Qualitative results</h3>
+        <center>
+        <img src="./images/results_quali.png" style="max-width:90%;">
+        </center>
+        <p><strong>Fig.</strong>(left) Visual comparison of retrieval results on the Market-1501dataset. Results with green boxes have the same identity as the query, while those with red boxes do not. (right) An example of generated images using a part-level identity shuffling technique.</p>
+      </div>
+
+      <div class="row">
+        <h3>Paper</h3>
+    		<p>
+         	</p><table>
+      		<tbody><tr></tr>
+      		<tr><td>
+        	<img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper.png" width="150px">
+      		</td>
+     		<td></td>
+      		<td>
+        	C. Eom, B. Ham<br>
+        	<b>Learning Disentangled Representation for Robust Person Re-identification</b> <br>
+          [<a href="https://arxiv.org/abs/1910.12003">Paper</a>] [<a href="https://github.com/cvlab-yonsei/ISGAN">Code</a>]
+    		</td></tr></tbody></table>
+     
+      		<h3>BibTeX</h3>
+     		<pre><tt>@inproceedings{eom2019learning,
+		title={Learning Disentangled Representation for Robust Person Re-identification},
+		author={Eom, Chanho and Ham, Bumsub},
+		booktitle={Advances in Neural Information Processing Systems},
+		pages={5298--5309},
+		year={2019}
+		}</tt></pre>
+      </div>
+      
+      <div class="row">
+        <h3>Acknowledgements</h3>
+        <p>
+        This research was supported by R&D program for Advanced Integrated-intelligence for Identification (AIID) through the National Research Foundation of KOREA(NRF) funded by Ministry of Science and ICT (NRF-2018M3E3A1057289).
+		</p>
+      </div>
+
+    </div>
+	    
+	    
