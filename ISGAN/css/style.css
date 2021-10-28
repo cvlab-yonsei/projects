@@ -1,6 +1,6 @@
 /* Space out content a bit */
 
-@import url('https://fonts.googleapis.com/css?family=Baloo|Bungee+Inline|Lato|Righteous|Shojumaru');
+@import url('https://fonts.googleapis.com/css?family=Dosis|Lato');
 
 body {
   padding-top: 20px;
@@ -20,18 +20,31 @@ body {
 
 /* Custom page header */
 .header {
-  border-bottom: 1px solid #e5e5e5;
+  /*border-bottom: 1px solid #e5e5e5;*/
 }
 /* Make the masthead heading the same height as the navigation */
-.header h3 {
+.header h1 {
   margin-top: 0;
   margin-bottom: 0;
   line-height: 40px;
-  padding-bottom: 19px;
+  /*padding-bottom: 19px;*/
   font-size: 40px;
 }
-.header h4 {
-  font-family: 'Shojumaru', cursive;
+.header h2 {
+  margin-top: 10;
+  margin-bottom: 10;
+  line-height: 25px;
+  /*padding-bottom: 19px;*/
+  font-size: 25px;
+  /*font-family: 'Lato', cursive;*/
+}
+.header h3 {
+  margin-top: 100;
+  margin-bottom: 0;
+  line-height: 40px;
+  /*padding-bottom: 19px;*/
+  font-size: 40px;
+}
 }
 
 /* Custom page footer */
@@ -83,7 +96,7 @@ div.row h3 {
   }
   /* Space out the masthead */
   .header {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
   }
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {

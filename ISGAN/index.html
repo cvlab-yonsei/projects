@@ -13,19 +13,24 @@
 
     <div class="container">
       <div class="header">
-        <h3> <center>Learning Disentangled Representation for Robust Person Re-identification</center> </h3>
+        <h1> <center>Disentangled Representations for Short-Term and Long-Term Person Re-identification</center> </h3>
+        <h2> <center> ** NeurIPS 2019 / TPAMI accepted ** </center> </h2>
       </div>
+
       
       <center>
-        <img src="./images/teaser.png" style="max-width:100%;">
+        <img src="./images/teaser_a.png" style="max-width:85%;">
+        <img src="./images/teaser_b.png" style="max-width:85%;">
       </center>
-      <p><strong>Fig.</strong> Visual comparison of identity-related and -unrelated features. We generate new person images by interpolating (left) identity-related features and (right) identity-unrelated ones between two images, while fixing the other ones. We can see that identity-related features encode e.g., clothing and color, and identity-unrelated ones involve e.g., human pose and scale changes.</p>
+      <p><strong>Fig.</strong> Visual comparison of identity-related and -unrelated features. We generate new person images by interpolating (top) identity-related features and (bottom) identity-unrelated ones between two images, while fixing the other ones. We can see that identity-related features encode, e.g., clothing and color, and identity-unrelated ones involve, e.g., human pose and background clutter. Note that we disentangle these features using identification labels only.</p>
 
       <div class="row">
       	<h3>Authors</h3>
       	<div style="font-size: 16px">
       	<ul>
             <li><a href="https://chanhoeom.github.io/">Chanho Eom</a></li>
+            <li><a href="https://cv.wonkyunglee.io/">Wonkyung Lee</a></li>
+            <li><a>Geon Lee</a></li>
             <li><a href="https://bsham.github.io/">Bumsub Ham</a></li>
       	</ul>
 
@@ -34,62 +39,63 @@
       <div class="row">
         <h3>Abstract</h3>
         <p style="text-align: justify;">
-        We address the problem of person re-identification (reID), that is, retrieving person images from a large dataset, given a query image of the person of interest. The key challenge is to learn person representations robust to intra-class variations, as different persons can have the same attribute and the same person’s appearance looks different with viewpoint changes. Recent reID methods focus on learning dis- criminative features but robust to only a particular factor of variations (e.g., human pose) and this requires corresponding supervisory signals (e.g., pose annotations). To tackle this problem, we propose to disentangle identity-related and -unrelated features from person images. Identity-related features contain information useful for specifying a particular person (e.g., clothing), while identity-unrelated ones hold other factors (e.g., human pose, scale changes). To this end, we introduce a new generative adversarial network, dubbed identity shuffle GAN (IS-GAN), that factorizes these features using identification labels without any auxiliary information. We also propose an identity-shuffling technique to regularize the disentangled features. Experimental results demonstrate the effectiveness of IS- GAN, largely outperforming the state of the art on standard reID benchmarks including the Market-1501, CUHK03 and DukeMTMC-reID.
+        We address the problem of person re-identification (reID), that is, retrieving person images from a large dataset, given a query image of the person of interest. A key challenge is to learn person representations robust to intra-class variations, as different persons could have the same attribute, and persons’ appearances look different, e.g., with viewpoint changes. Recent reID methods focus on learning person features discriminative only for a particular factor of variations (e.g., human pose), which also requires corresponding supervisory signals (e.g., pose annotations). To tackle this problem, we propose to factorize person images into identity-related and -unrelated features. Identity-related features contain information useful for specifying a particular person (e.g., clothing), while identity-unrelated ones hold other factors (e.g., human pose). To this end, we propose a new generative adversarial network, dubbed identity shuffle GAN (IS-GAN). It disentangles identity-related and -unrelated features from person images through an identity-shuffling technique that exploits identification labels alone without any auxiliary supervisory signals. We restrict the distribution of identity-unrelated features, or encourage the identity-related and -unrelated features to be uncorrelated, facilitating the disentanglement process. Experimental results validate the effectiveness of IS-GAN, showing state-of-the-art performance on standard reID benchmarks, including Market-1501, CUHK03 and DukeMTMC-reID. We further demonstrate the advantages of disentangling person representations on a long-term reID task, setting a new state of the art on a Celeb-reID dataset. 
         </p>
       </div>
 
       <div class="row">
       	<h3>Framework</h3>
+        We disentangle identity-related and -unrelated features from person images. To this end, our model learns to generate the same images as the inputs while preserving the identities, using disentangled and identity shuffled ones.
       	<center>
-        <img src="./images/framework.png" style="max-width:90%;">
+        <img src="./images/framework.png" style="max-width:70%; margin-left: 28px; padding-top: 25px; padding-bottom: 25px;">
       	</center>
-      </div>
 
-      <div class="row">
-        <h3>Quantitative results</h3>
+        We also apply the identity shuffling technique to part-level features, assuming that horizontal regions in a person image contain discriminative body parts sufficient for distinguishing its identity.
         <center>
-        <img src="./images/results_quanti.png" style="max-width:75%;">
+        <img src="./images/framework2.png" style="max-width:70%; margin-left: 28px; padding-top: 25px; padding-bottom: 25px;">
         </center>
-        <p><strong>†: ReID methods trained using both classification and (hard) triplet losses; ∗: Our implementation.</p>
+
+        We regularize this process by encouraging the distribution of identity-unrelated features to be close to the normal distribution or by enforcing identity-related/-unrelated features to be uncorrelated.
+
+
       </div>
 
       <div class="row">
-        <h3>Qualitative results</h3>
+        <h3>Results</h3>
         <center>
-        <img src="./images/results_quali.png" style="max-width:90%;">
+        <img src="./images/retrieval.png" style="max-width:98%; margin-left: 28px; padding-top: 25px; padding-bottom: 25px;">
         </center>
-        <p><strong>Fig.</strong>(left) Visual comparison of retrieval results on the Market-1501dataset. Results with green boxes have the same identity as the query, while those with red boxes do not. (right) An example of generated images using a part-level identity shuffling technique.</p>
+        <p>Visual comparison of retrieval results on (left) <strong>short-term</strong> and (right) <strong>long-term</strong> reID. We compute the Euclidean distances between identity-related features of query and gallery images, and visualize top-10 results sorted according to the distance. The results with green boxes have the same identity as the query, while those with red boxes do not.</p>
+
+        <center>
+        <img src="./images/regionwise_vis.png" style="max-width:70%; margin-left: 28px; padding-top: 25px; padding-bottom: 25px;">
+        </center>
+        <p>Examples of generated images using a part-level identity shuffling technique on (left) <strong>short-term</strong> and (right) <strong>long-term</strong> reID tasks.</p>
       </div>
 
       <div class="row">
-        <h3>Paper</h3>
-    		<p>
-         	</p><table>
-      		<tbody><tr></tr>
-      		<tr><td>
-        	<img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper.png" width="150px">
-      		</td>
-     		<td></td>
-      		<td>
-        	C. Eom, B. Ham<br>
-        	<b>Learning Disentangled Representation for Robust Person Re-identification</b> <br>
-          [<a href="https://arxiv.org/abs/1910.12003">Paper</a>] [<a href="https://github.com/cvlab-yonsei/ISGAN">Code</a>]
-    		</td></tr></tbody></table>
-     
-      		<h3>BibTeX</h3>
-     		<pre><tt>@inproceedings{eom2019learning,
-		title={Learning Disentangled Representation for Robust Person Re-identification},
-		author={Eom, Chanho and Ham, Bumsub},
-		booktitle={Advances in Neural Information Processing Systems},
-		pages={5298--5309},
-		year={2019}
-		}</tt></pre>
+        <h3>Citation</h3>
+        [<a href="https://papers.nips.cc/paper/2019/file/d3aeec875c479e55d1cdeea161842ec6-Paper.pdf">Paper</a>] [<a href="https://github.com/cvlab-yonsei/ISGAN">Code</a>]
+        <pre><tt>@inproceedings{eom2019learning,
+          author     = "C. Eom and B. Ham",
+          title      = "Learning Disentangled Representation for Robust Person Re-identification",
+          booktitle  = "Advances in Neural Information Processing Systems",
+          year       = "2019",
+        }</tt></pre>
+        [<a>Code will be updated soon</a>]
+        <pre><tt>@article{eom2021disentangled,
+          author     = "C. Eom and W. Lee and G. Lee and B. Ham",
+          title      = "Disentangled Representations for Short-Term and Long-Term Person Re-identification",
+          journal    = "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+        }</tt></pre>
+        </div>
+
       </div>
-      
+
       <div class="row">
         <h3>Acknowledgements</h3>
         <p>
-        This research was supported by R&D program for Advanced Integrated-intelligence for Identification (AIID) through the National Research Foundation of KOREA(NRF) funded by Ministry of Science and ICT (NRF-2018M3E3A1057289).
+        This research was supported by R&D program for Advanced Integrated-intelligence for Identification (AIID) through the National Research Foundation of KOREA(NRF) funded by Ministry of Science and ICT (NRF-2018M3E3A1057289), and Yonsei University Research Fund of 2021 (2021-22-0001).
 		</p>
       </div>
 

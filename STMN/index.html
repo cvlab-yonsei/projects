@@ -12,42 +12,54 @@
 <body>
   <div class="container">
     <div class="header">
-      <h3> <center> Video-based Person Re-identification with Spatial and Temporal Memory Networks</center> </h3>
-	<h3> <center> (ICCV 2021) </center> </h3>
+      <h1> <center> Video-based Person Re-identification with Spatial and Temporal Memory Networks</center> </h1>
+      <h2> <center> ** ICCV 2021 ** </center> </h2>
     </div>
-	  
-  <div class="row">
-      <div style="font-size: 16px">
-      <ul>
-          <li><a href="https://chanhoeom.github.io/">Chanho Eom</a></li>
-	  <li>Geom Lee</li>
-          <li><a href="https://junghyup-lee.github.io/">Junghyup Lee</a></li>
-          <li><a href="https://bsham.github.io/">Bumsub Ham</a></li>
-      </ul>
-      </div>
-  </div>
 
+    <center>
+      <div class="row" style="font-size: 1.5em; margin-left: 5%; margin-right: 5%">
+        <div class="col-sm-3">
+          <a href="https://chanhoeom.github.io/">Chanho Eom</a></li>
+        </div>
+        <div class="col-sm-3">
+          <a>Geon Lee</a></li>
+        </div>
+        <div class="col-sm-3">
+          <a href="https://junghyup-lee.github.io/">Junghyup Lee</a></li>
+        </div>
+        <div class="col-sm-3">
+          <a href="https://bsham.github.io/">Bumsub Ham</a></li>
+        </div>
+        <br>
+        <!-- <div>Yonsei University</div> -->
+        <br>
+      </div>
+    </center>
+
+    <h3><center>
+      <iframe width="100%" height="512" src="https://www.youtube.com/embed/h_iZG3_TL2E" allowfullscreen>></iframe>
+    </center></h3>
+  
     <div class="row">
       <h3>Abstract</h3>
+      <p style="text-align: justify;">
+      Video-based person re-identification (reID) aims to retrieve person videos with the same identity as a query person across multiple cameras. Spatial and temporal distractors in person videos, such as background clutter and partial occlusions over frames, respectively, make this task much more challenging than image-based person reID. We observe that (a) spatial distractors appear consistently in a particular location, and (b) temporal distractors show several patterns, e.g., partial occlusions occur in the first few frames, where such patterns provide informative cues for predicting which frames to focus on (i.e., temporal attentions). Based on this, we introduce a novel Spatial and Temporal Memory Networks (STMN). The spatial memory stores features for spatial distractors that frequently emerge across video frames, while the temporal memory saves attentions which are optimized for typical temporal patterns in person videos. We leverage the spatial and temporal memories to refine frame-level person representations and to aggregate the refined frame-level features into a sequence-level person representation, respectively, effectively handling spatial and temporal distractors in person videos. We also introduce a memory spread loss preventing our model from addressing particular items only in the memories. Experimental results on standard benchmarks, including MARS, DukeMTMC-VideoReID, and LS-VID, demonstrate the effectiveness of our method.
+      </p>
 
       <center>
       <figure style="display: inline; width: 50%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
         <div>
-          <img src="./images/teaser_a.png" style="max-width:100%;">
+          <img src="./images/teaser_a.png" style="max-width:95%;">
           <figcaption> (a)</figcaption>
           </div>
       </figure>
       <figure style="display: inline; width: 50%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
           <div>
-          <img src="./images/teaser_b.png" style="max-width:100%;">
+          <img src="./images/teaser_b.png" style="max-width:95%;">
           <figcaption> (b)<br><br></figcaption>
           </div>
       </figure>
-        </center>
-	    
-      <p style="text-align: justify;">
-      Video-based person re-identification (reID) aims to retrieve person videos with the same identity as a query person across multiple cameras. Spatial and temporal distractors in person videos, such as background clutter and partial occlusions over frames, respectively, make this task much more challenging than image-based person reID. We observe that (a) spatial distractors appear consistently in a particular location, and (b) temporal distractors show several patterns, e.g., partial occlusions occur in the first few frames, where such patterns provide informative cues for predicting which frames to focus on (i.e., temporal attentions). Based on this, we introduce a novel Spatial and Temporal Memory Networks (STMN). The spatial memory stores features for spatial distractors that frequently emerge across video frames, while the temporal memory saves attentions which are optimized for typical temporal patterns in person videos. We leverage the spatial and temporal memories to refine frame-level person representations and to aggregate the refined frame-level features into a sequence-level person representation, respectively, effectively handling spatial and temporal distractors in person videos. We also introduce a memory spread loss preventing our model from addressing particular items only in the memories. Experimental results on standard benchmarks, including MARS, DukeMTMC-VideoReID, and LS-VID, demonstrate the effectiveness of our method.
-      </p>	    
+      </center>
 	    
 	    
     </div>
@@ -95,6 +107,31 @@
 
         
       </p>
+    </div>
+
+    <div class="row">
+        <h3>Citation</h3>
+        <p>
+          </p><table>
+          <tbody><tr></tr>
+          <tr><td>
+          <img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper.png" width="125px">
+          </td>
+        <td></td>
+          <td>
+          [<a href="https://openaccess.thecvf.com/content/ICCV2021/papers/Eom_Video-Based_Person_Re-Identification_With_Spatial_and_Temporal_Memory_Networks_ICCV_2021_paper.pdf">link</a>]
+
+          <pre><tt>@inproceedings{eom2021video,
+  title={Video-based Person Re-identification with Spatial and Temporal Memory Networks},
+  author={Eom, Chanho and Lee, Geon and Lee, Junghyup and Ham, Bumsub},
+  booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
+  pages={12036--12045},
+  year={2021}
+}</tt></pre>
+
+        </td></tr></tbody></table>
+     
+        
     </div>
 
     <div class="row">
