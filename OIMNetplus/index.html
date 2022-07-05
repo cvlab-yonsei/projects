@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Learning by Aligning</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">
+        <h2><center>OIMNet++: Prototypical Normalization <br> and Localization-aware Learning for Person Search</center></h2>
+          <h3><center><a href="https://eccv2022.ecva.net/">ECCV 2022</a></center></h3>
+      </div>
+
+    <div class="authors">
+      <div class="name">
+        <div class="name"><div class="col-sm-4">
+          <a href="https://sanghoooon.github.io/">Sanghoon Lee</a></div>
+        </div>
+        <div class="name"><div class="col-sm-4">
+          <a href="https://50min.github.io/">Youngmin Oh</a></div>
+        </div>
+        <div class="name"><div class="col-sm-4">
+          <a href="https://dh-baek.github.io/">Donghyeon Baek</a></div>
+        </div>
+        <div class="name"><div class="col-sm-6">
+          <a href="https://junghyup-lee.github.io/">Junghyup Lee</a></div>
+        </div>
+        <div class="name"><div class="col-sm-6">
+          <a href="https://cvlab.yonsei.ac.kr/">Bumsub Ham</a></div>
+        </div>
+      </div>
+      <br>
+      <div class="school">Computer Vision Lab, Yonsei University</div>
+    </div>
+    </div>
+
+    <table align="center" width="800px">
+      <tr>
+        <td class="block"><img src="images/2d.jpg" height="100%"></td>
+        <td class="block"><img src="images/norm.jpg" height="100%"></td>
+        <td class="block"><img src="images/standard.jpg" height="100%"></td>
+        <td class="block"><img src="images/ours.jpg" height="100%"></td>
+      </tr>
+      <tr>
+        <td class="block"><center>(a) Synthetic input</center></td>
+        <td class="block"><center>(b) L2 Normalization</center></td>
+        <td class="block"><center>(c) w/ BatchNorm</center></td>
+        <td class="block"><center>(d) w/ ProtoNorm</center></td>
+      </tr>
+    </table>
+    <br>We visualize in (a) synthetic 2D features in circles, where each color represents an ID label. We represent mean obtained from input features and ID prototypes with stars colored in red and yellow, respectively. Note that <span style='color:#CD5C5C'>pink</span> and <span style='color:green'>green</span> features are sampled 4X more. The features are clearly not zero-centered with unit variance. In this case, simply applying L2 normalization degenerates the discriminative power, as shown in (b), where background colors indicate decision boundaries. Adopting a feature standardization with feature mean and variance, i.e., in a BatchNorm-fashion, prior to L2 normalization, alleviates this problem in (c). However, this does not consider a sample distribution across IDs to calibrate the feature distribution. The distribution is thus biased towards majority IDs, which weakens the inter-class separability. Instead, calibrating feature distribution using ID prototypes with ProtoNorm provides highly discriminative L2-normalized features in (d), where each ID is assigned similar angular space.
+
+
+    <div class="row">
+      <h3>Abstract</h3>
+      <p style="text-align: justify;">
+        We address the task of person search, that is, localizing and re-identifying query persons from a set of raw scene images. Recent approaches are typically built upon OIMNet, a pioneer work on person search, that learns joint person representations for performing both detection and person re-identification (reID) tasks. To obtain the representations, they extract features from pedestrian proposals, and then project them on a unit hypersphere with L2 normalization. These methods also incorporate all positive proposals, that sufficiently overlap with the ground truth, equally to learn person representations for reID. We have found that 1) the L2 normalization without considering feature distributions degenerates the discriminative power of person representations, and 2) positive proposals often also depict background clutter and person overlaps, which could encode noisy features to person representations. In this paper, we introduce OIMNet++ that addresses the aforementioned limitations. To this end, we introduce a novel normalization layer, dubbed ProtoNorm, that calibrates features from pedestrian proposals, while considering a long-tail distribution of person IDs, enabling L2 normalized person representations to be discriminative. We also propose a localization-aware feature learning scheme that encourages better-aligned proposals to contribute more in learning discriminative representations. Experimental results and analysis on standard person search benchmarks demonstrate the effectiveness of OIMNet++.
+      </p>
+    </div>
+
+    <div class="row">
+      <h3>Approach</h3>
+
+      <figure style="display: inline; width: 100%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
+        <div>
+          <center><img src="images/overview.jpg" width="850px"></center>
+        </div>
+      </figure>
+      <p><br><b>An overview of OIMNet++.</b> Similar to OIMNet, OIMNet++ mainly consists of three parts: An RPN with a stem network, a reID head, and a projection module. The main differences between OIMNet++ (bottom) and OIMNet (top) are the projection module and the training loss. We incorporate a ProtoNorm layer to explicitly standardize features prior to L2 normalization, while considering the class imbalance problem in person search. We also exploit the LOIM loss that leverages localization accuracies of object proposals to learn discriminative features. See our paper for more details. 
+        <br><br>
+
+        <figure style="display: inline; width: 100%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
+          <div>
+            <center><img src="images/method.jpg" width="850px"></center>
+          </div>
+        </figure>
+        <p><br><b>Left: A comparison between BatchNorm and ProtoNorm.</b> BatchNorm computes feature statistics with input features directly. On the other hand, ProtoNorm aggregates multiple features with the same ID into a single prototype. ProtoNorm then computes mean and variance based on the prototype features, alleviating the bias towards dominant IDs. <b>Right: LUT update scheme within the  LOIM loss.</b> The vanilla OIM loss assigns equal momentum values for all positive proposals, regardless of the localization qualities. The LOIM loss, instead, assigns an adaptive momentum value to each proposal w.r.t its IoU with the ground truth. Thicker arrows indicate larger degree of updates to the LUT. See our paper for more details.
+        </p>
+
+      </p></p>
+
+    <!-- <div class="row">
+      <h3>Experiment</h3>
+      
+      <figure style="display: inline; width: 100%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
+        <div>
+          <center><img src="" width="850px"></center>
+        </div>
+      </figure>
+      <p><br>Quantitative comparison with the state of the art for person search. We report mAP (%) and rank-1 accuracy (%) on CUHK-SYSU and PRW datasets. For fair comparison, we categorize person search methods into two-step and end-to-end approaches. The end-to-end approaches are further split into two groups according to the backbone network. For each category of person search methods, numbers in bold indicate the best and underscored ones indicate the second best. R50 and DC are abbreviations for ResNet50 and deformable convolution, respectively.</p>
+
+    </div> -->
+
+    <div class="row">
+      <h3>Paper</h3>
+      <table>
+        <tbody><tr></tr>
+        <tr><td>
+          <a href=""><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="images/cover.jpg" width="150px"></a>
+        </td>
+        <td></td>
+        <td>
+          S. Lee, Y. Oh, D. Baek, J. Lee, B. Ham<br>
+          <b> OIMNet++: Prototypical Normalization and Localization-aware Learning for Person Search </b> <br>
+          In <i> Proceedings of European Conference on Computer Vision (ECCV)</i>, 2022 <br>
+          <!-- [<a href="">ArXiv</a>] [<a href="">Code</a>] [<a href="data/bibtex.txt">Bibtex</a>] -->
+        </td></tr></tbody>
+      </table>
+    </div>
+
+    <!-- <div class="row">
+      <h3>Acknowledgements</h3>
+      <p>This research was supported by the
+        
+      </p>
+    </div> -->
+  </div>
+</body>
+
