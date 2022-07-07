@@ -25,27 +25,45 @@
     <div class="authors">
       <div class="name">
         <div class="name"><div class="col-sm-4">
-          <a href="https://sanghoooon.github.io/">Sanghoon Lee</a></div>
+          <a href="https://sanghoooon.github.io/">Sanghoon Lee</a><sup>1</sup></div>
         </div>
         <div class="name"><div class="col-sm-4">
-          <a href="https://50min.github.io/">Youngmin Oh</a></div>
+          <a href="https://50min.github.io/">Youngmin Oh</a><sup>1</sup></div>
         </div>
         <div class="name"><div class="col-sm-4">
-          <a href="https://dh-baek.github.io/">Donghyeon Baek</a></div>
+          <a href="https://dh-baek.github.io/">Donghyeon Baek</a><sup>1</sup></div>
         </div>
         <div class="name"><div class="col-sm-6">
-          <a href="https://junghyup-lee.github.io/">Junghyup Lee</a></div>
+          <a href="https://junghyup-lee.github.io/">Junghyup Lee</a><sup>1</sup></div>
         </div>
         <div class="name"><div class="col-sm-6">
-          <a href="https://cvlab.yonsei.ac.kr/">Bumsub Ham</a></div>
+          <a href="https://cvlab.yonsei.ac.kr/">Bumsub Ham</a><sup>1,2</sup></div>
         </div>
       </div>
       <br>
-      <div class="school">Computer Vision Lab, Yonsei University</div>
+      <div class="school"><sup>1</sup>Yonsei University &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <sup>2</sup>Korea Institute of Science and Technology (KIST)</div>
     </div>
     </div>
 
-    <table align="center" width="800px">
+    <div class="row">
+      <table>
+        <tbody><tr></tr>
+        <tr><td>
+          <a href=""><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="images/cover.jpg" width="150px"></a>
+        </td>
+        <td></td>
+        <td>
+          S. Lee, Y. Oh, D. Baek, J. Lee, B. Ham<br>
+          <b> OIMNet++: Prototypical Normalization and Localization-aware Learning for Person Search </b><br>
+          In <i> Proceedings of European Conference on Computer Vision (ECCV)</i>, 2022 <br>
+          <!-- [<a href="">ArXiv</a>] [<a href="">Code</a>] [<a href="">Bibtex</a>] -->
+        </td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="row">
+      <h3></h3>
+    <table align="center" width="100%">
       <tr>
         <td class="block"><img src="images/2d.jpg" height="100%"></td>
         <td class="block"><img src="images/norm.jpg" height="100%"></td>
@@ -60,7 +78,7 @@
       </tr>
     </table>
     <br>We visualize in (a) synthetic 2D features in circles, where each color represents an ID label. We represent mean obtained from input features and ID prototypes with stars colored in red and yellow, respectively. Note that <span style='color:#CD5C5C'>pink</span> and <span style='color:green'>green</span> features are sampled 4X more. The features are clearly not zero-centered with unit variance. In this case, simply applying L2 normalization degenerates the discriminative power, as shown in (b), where background colors indicate decision boundaries. Adopting a feature standardization with feature mean and variance, i.e., in a BatchNorm-fashion, prior to L2 normalization, alleviates this problem in (c). However, this does not consider a sample distribution across IDs to calibrate the feature distribution. The distribution is thus biased towards majority IDs, which weakens the inter-class separability. Instead, calibrating feature distribution using ID prototypes with ProtoNorm provides highly discriminative L2-normalized features in (d), where each ID is assigned similar angular space.
-
+    </div>
 
     <div class="row">
       <h3>Abstract</h3>
@@ -91,18 +109,6 @@
       </p></p>
 
     <!-- <div class="row">
-      <h3>Experiment</h3>
-      
-      <figure style="display: inline; width: 100%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
-        <div>
-          <center><img src="" width="850px"></center>
-        </div>
-      </figure>
-      <p><br>Quantitative comparison with the state of the art for person search. We report mAP (%) and rank-1 accuracy (%) on CUHK-SYSU and PRW datasets. For fair comparison, we categorize person search methods into two-step and end-to-end approaches. The end-to-end approaches are further split into two groups according to the backbone network. For each category of person search methods, numbers in bold indicate the best and underscored ones indicate the second best. R50 and DC are abbreviations for ResNet50 and deformable convolution, respectively.</p>
-
-    </div> -->
-
-    <div class="row">
       <h3>Paper</h3>
       <table>
         <tbody><tr></tr>
@@ -114,17 +120,17 @@
           S. Lee, Y. Oh, D. Baek, J. Lee, B. Ham<br>
           <b> OIMNet++: Prototypical Normalization and Localization-aware Learning for Person Search </b> <br>
           In <i> Proceedings of European Conference on Computer Vision (ECCV)</i>, 2022 <br>
-          <!-- [<a href="">ArXiv</a>] [<a href="">Code</a>] [<a href="data/bibtex.txt">Bibtex</a>] -->
+          [<a href="">ArXiv</a>] [<a href="">Code</a>] [<a href="data/bibtex.txt">Bibtex</a>]
         </td></tr></tbody>
       </table>
-    </div>
+    </div> -->
 
-    <!-- <div class="row">
+    <div class="row">
       <h3>Acknowledgements</h3>
-      <p>This research was supported by the
+      <p>This work was supported by Institute of Information & communications Technology Planning & Evaluation (IITP) grant funded by the Korea government (MSIT) (No.2021-0-02068, Artificial Intelligence Innovation Hub and No.RS-2022-00143524, Development of Fundamental Technology and Integrated Solution for Next-Generation Automatic Artificial Intelligence System), the Yonsei Signature Research Cluster Program of 2022 (2022-22-0002), and the KIST Institutional Program (Project No.2E31051-21-203).
         
       </p>
-    </div> -->
+    </div>
   </div>
 </body>
 
