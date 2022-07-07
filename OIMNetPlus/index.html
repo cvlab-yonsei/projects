@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-	<title>Learning by Aligning</title>
+	<title>OIMNet++</title>
 	<meta name="author" content="CV-lab">
 
 	<link href="./css/bootstrap.min.css" rel="stylesheet">
@@ -63,18 +63,18 @@
 
     <div class="row">
       <h3></h3>
-    <table align="center" width="100%">
-      <tr>
-        <td class="block"><img src="images/2d.jpg" width="100%"></td>
-        <td class="block"><img src="images/norm.jpg" width="100%"></td>
-        <td class="block"><img src="images/standard.jpg" width="100%"></td>
-        <td class="block"><img src="images/ours.jpg" width="100%"></td>
+    <table align="center" width="90%">
+      <tr width="80%">
+        <td class="block" width="25%"><img src="images/2d.jpg" width="100%"></td>
+        <td class="block" width="25%"><img src="images/norm.jpg" width="100%"></td>
+        <td class="block" width="25%"><img src="images/standard.jpg" width="100%"></td>
+        <td class="block" width="25%"><img src="images/ours.jpg" width="100%"></td>
       </tr>
-      <tr>
-        <td class="block"><center>(a) Synthetic input</center></td>
-        <td class="block"><center>(b) L2 Normalization</center></td>
-        <td class="block"><center>(c) w/ BatchNorm</center></td>
-        <td class="block"><center>(d) w/ ProtoNorm</center></td>
+      <tr width="80%">
+        <td class="block" width="25%"><center>(a) Synthetic input</center></td>
+        <td class="block" width="25%"><center>(b) L2 Normalization</center></td>
+        <td class="block" width="25%"><center>(c) w/ BatchNorm</center></td>
+        <td class="block" width="25%"><center>(d) w/ ProtoNorm</center></td>
       </tr>
     </table>
     <br>We visualize in (a) synthetic 2D features in circles, where each color represents an ID label. We represent mean obtained from input features and ID prototypes with stars colored in red and yellow, respectively. Note that <span style='color:#CD5C5C'>pink</span> and <span style='color:green'>green</span> features are sampled 4X more. The features are clearly not zero-centered with unit variance. In this case, simply applying L2 normalization degenerates the discriminative power, as shown in (b), where background colors indicate decision boundaries. Adopting a feature standardization with feature mean and variance, i.e., in a BatchNorm-fashion, prior to L2 normalization, alleviates this problem in (c). However, this does not consider a sample distribution across IDs to calibrate the feature distribution. The distribution is thus biased towards majority IDs, which weakens the inter-class separability. Instead, calibrating feature distribution using ID prototypes with ProtoNorm provides highly discriminative L2-normalized features in (d), where each ID is assigned similar angular space.
