@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Learning by Aligning</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">
+        <h2><center>Bi-directional Contrastive Learning for Domain
+          Adaptive Semantic Segmentation</center></h2>
+          <h3><center><a href="https://eccv2022.ecva.net/">ECCV 2022</a></center></h3>
+      </div>
+
+    <div class="authors">
+      <div class="name">
+        <div class="name"><div class="col-sm-4">
+          Geon Lee</a></div>
+          <!-- <a href="https://sanghoooon.github.io/">Sanghoon Lee</a></div> -->
+        </div>
+        <div class="name"><div class="col-sm-4">
+          Chanho Eom</a></div>
+        </div>
+        <div class="name"><div class="col-sm-4">
+          Wonkyung Lee</a></div>
+        </div>
+        <div class="name"><div class="col-sm-6">
+          Hyekang Park</a></div>
+        </div>
+        <div class="name"><div class="col-sm-6">
+          Bumsub Ham</a></div>
+        </div>
+      </div>
+      <br>
+      <div class="school">Computer Vision Lab, Yonsei University</div>
+    </div>
+    </div>
+
+    <div class="row">
+      <h3>Abstract</h3>
+      <figure style="display: inline; width: 100%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
+        <div>
+          <center><img src="images/teaser.png" width="1300px"></center>
+        </div>
+      </figure>
+      <p style="text-align: justify;">
+        We present a novel unsupervised domain adaptation method for semantic segmentation that generalizes a model trained with source images and corresponding ground-truth labels to a target domain. A key to domain adaptive semantic segmentation is to learn domain-invariant and discriminative features without target ground-truth labels. To this end, we propose a bi-directional pixel-prototype contrastive learning framework that minimizes intra-class variations of features for the same object class, while maximizing inter-class variations for different ones, regardless of domains. Specifically, our framework aligns pixel-level features and a prototype of the same object class in target and source images (i.e., positive pairs), respectively, sets them apart for different classes (i.e., negative pairs), and performs the alignment and separation processes toward the other direction with pixel-level features in the source image and a prototype in the target image. The cross-domain matching encourages domain-invariant feature representations, while the bidirectional pixel-prototype correspondences aggregate features for the same object class, providing discriminative features. To establish training pairs for contrastive learning, we propose to generate dynamic pseudo labels of target images using a non-parametric label transfer, that is, pixel-prototype correspondences across different domains. We also present a calibration method compensating class-wise domain biases of prototypes gradually during training.
+      </p>
+    </div>
+
+    <div class="row">
+      <h3>Approach</h3>
+
+      <figure style="display: inline; width: 100%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
+        <div>
+          <center><img src="images/overview.png" width="850px"></center>
+        </div>
+      </figure>
+      <p><br><b>An overview of our framework.</b> 
+        (Left) Bi-directional contrastive learning: We first extract feature maps,  from source and target images, respectively. We then obtain prototypes in a source domain using ground-truth labels of source images . Prototypes in a target domain are similarly computed but with dynamic pseudo labels of target images. Bidirectional contrastive terms, FCL and BCL, exploit pixel-prototype correspondences across domains to learn domain-invariant and discriminative features for UDASS. (Right) Hybrid pseudo labels: We generate dynamic pseudo labels using pixel-prototype correspondences across domains, while calibrating the prototypes to reduce domain discrepancies. We then combine them with static ones using a parametric approach to obtain hybrid pseudo labels.
+        <br><br>
+
+      </p></p>
+
+    <div class="row">
+      <!-- <h3>Experiment</h3>
+      
+      <figure style="display: inline; width: 100%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
+        <div>
+          <center><img src="" width="850px"></center>
+        </div>
+      </figure>
+      <p><br>Quantitative comparison with state-of-the-art methods on GTA5 to Cityscapes in terms of mIoU. AT: methods based on adversarial training; ST: methods based on self-training. $\dagger$: a method using a different network architecture. Experimental results show the effectiveness of our framework, setting a new state of the art on standard benchmarks. </p> -->
+
+    </div>
+
+    <div class="row">
+      <h3>Paper</h3>
+      <table>
+        <tbody><tr></tr>
+        <tr><td>
+          <a href="https://arxiv.org/abs/2108.07422"><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="images/paper_img.png" width="150px"></a>
+        </td>
+        <td></td>
+        <td>
+          G. Lee, C. Eom, W. Lee, H. Park, B. Ham<br>
+          <b> Bi-directional Contrastive Learning for Domain Adaptive Semantic Segmentation </b> <br>
+          In <i> Proceedings of European Conference on Computer Vision (ECCV)</i>, 2022 <br>
+          [<a href="">ArXiv</a>] [<a href="">Code</a>] [<a href="data/bibtex.txt">Bibtex</a>]
+        </td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="row">
+      <h3>Acknowledgements</h3>
+      <p> 
+        This work was supported by Institue of Information & communications Technology Planning & Evaluation (IITP) grant funded by the Korea goverment(MSIT) (No. 2021-0-02068, Artificial Intelligence Innovation Hub, and No.RS-20222-00143524, Development of Fundamental Technology and Integrated Solution for Next-generation Automatic Artificial Intelligence System, and No.2022-0-00124, Development of Artificial Intelligence Technology for Self-Improving Competency-Aware Learning Capabilities), and the Yonsei Signature Research Cluster Program of 2022 (2022-22-0002).
+      </p>
+    </div>
+  </div>
+</body>
+
