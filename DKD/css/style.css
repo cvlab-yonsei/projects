@@ -20,81 +20,94 @@ body {
 /* Custom page header */
 .header {
   text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-  margin-bottom: 0;
-}
-
-.header h3 {
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
-  font-size: 40px;
-}
-.header h4 {
-  font-family: 'Baloo', cursive;
-}
-
-.header .title{
-  margin-bottom: 15px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 25px;
 }
 
 .header .title h2{
   font-size: 30px;
-  margin-bottom: 5px;
 }
 
 .header .title h3{
   font-size: 20px;
 }
 
-.header .authors{
+.header .name{
+  padding-top: 20px;
   font-size: 20px;
-  margin-bottom: 20px;
 }
 
-.header .name{
+.header .school{
   font-size: 20px;
-  margin-bottom: 20px;
+  padding-top: 20px;
 }
 
 .header .contribution{
   font-size: 15px;
-  margin-top: 5px;
-  margin-bottom: 20px;
+  padding-top: 5px;
+  padding-bottom: 20px;
 }
 
 .teaser{
-  /* margin-top: 20px; */
-  margin: 20px 50px 0 50px;
+  padding-top: 30px;
+  padding-bottom: 10px;
   text-align: center;
 }
 
-.teaser img{
-  max-width:80%
+.teaser .image_left{
+  /* padding-top: 10px; */
+  padding-left: 10px;
+  padding-right: 0px;
+}
+.teaser .image_right{
+  /* padding-top: 10px; */
+  padding-left: 0px;
+  padding-right: 40px;
+}
+
+.teaser .caption{
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  text-align: justify;
+
+}
+
+.abstract{
+  text-align: justify;
 }
 
 .approach{
-  float: left;
-  display: flex;
+  text-align: justify;
 }
 
-.approach-content{
-  padding: 0;
+.approach .image{
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
-.approach-image{
-  padding-left: 30px;
-  padding-right: 0;
-  align-self: center;
-  text-align: center;
+.approach .caption{
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  text-align: justify;
 }
 
+.approach .content{
+  padding-top: 20px;
+  text-align: justify;
+}
+
+.ack{
+  text-align: justify;
+}
 
 /* Custom page footer */
 .footer {
   padding-top: 19px;
   color: #777;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid #ccc;
 }
 
 /* Customize container */
@@ -104,7 +117,7 @@ body {
   }
 }
 .container-narrow > hr {
-  margin: 20px 0;
+  padding: 20px 0;
 }
 
 /* Main marketing message and sign up button */
@@ -120,7 +133,7 @@ body {
 } */
 
 .row p + h3 {
-  margin-top: 28px;
+  padding-top: 28px;
 }
 
 div.row h3 {
@@ -141,23 +154,15 @@ div.row h3 {
   } */
 }
 
-@media screen and (max-width: 767px) {
-  .teaser img{
-    max-width:90%
-  }
-  .approach-image{
-    display: none;
-  }
-}
 @media screen and (max-width: 736px) {
-  .teaser{
-    margin: 20px 10px 0 10px;
-  }
-  .teaser img{
-    max-width:100%
-  }
+  /* .teaser{
+    padding: 20px 10px 0 10px;
+  } */
   .paper-image{
     display: none;
+  }
+  .bibtex{
+      display: none;
   }
 }
 
