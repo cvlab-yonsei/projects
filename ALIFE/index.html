@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Decomposed Knowledge Distillation for Class-Incremental Semantic Segmentation</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/style.css" rel="stylesheet">
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">
+        <h2>ALIFE: <u>A</u>daptive <u>L</u>ogit Regular<u>I</u>zer and <u>F</u>eature R<u>E</u>play<br>for Incremental Semantic Segmentation</h2>
+        <h3>NeurIPS 2022</h3>
+      </div>
+
+      <div class="row authors name">
+        <div class="col-sm-4"><a href="https://50min.github.io">Youngmin Oh</a></div>
+        <div class="col-sm-4"><a href="https://dh-baek.github.io">Donghyeon Baek</a></div>
+        <div class="col-sm-4"><a href="https://cvlab.yonsei.ac.kr">Bumsub Ham</a></div>
+      </div>
+      <div class="row authors school">
+        <div>Yonsei University</div>
+      </div>
+    </div>
+
+    <div class="row teaser">
+      <div class="col-xs-6 image_left"><img src="images/teaser_a_bar.png" style="width: 85%;"></div>
+      <div class="col-xs-6 image_right"><img src="images/teaser_b_16-5-ov.png" style="width: 86%;"></div>
+      <div style="clear: both;"></div>
+      <div class="col-xs-6 image_left">(a) IoU scores on ADE20K.</div>
+      <div class="col-xs-6 image_right">(b) hIoU-memory compariso on PASCAL VOC.</div>
+      <div style="clear: both;"></div>
+      <div class="col-sm-12 caption">Quantitative comparison of intersection-of-union (IoU) scores on ADE20K. Each model learns 50 novel categories after learning 100 categories. To be specific, there is a total of 5 incremental stages, and each model learns 10 new categories at every incremental stage. mIoU: an average IoU score for 150 categories. hIoU: a harmonic mean between two average IoU scores for previous (100) and novel (50) categories. (b) Quantitative comparison of hIoU and memory requirement on PASCAL VOC. Each method learns 5 novel categories after learning 16 categories. Ours-M memorizes 1K features for each previous category. For RECALL and SSUL-M, we consider the size of memory required to store images only, and discard that for corresponding labels or saliency maps.</div>
+    </div>
+
+    <div class="row abstract">
+      <div class="col-sm-12"><h3>Abstract</h3></div>
+      <div class="col-sm-12 content">We address the problem of incremental semantic segmentation (ISS) recognizing novel object/stuff categories continually without forgetting previous ones that have been learned. The catastrophic forgetting problem is particularly severe in ISS, since pixel-level ground-truth labels are available only for the novel categories at training time. To address the problem, regularization-based methods exploit probability calibration techniques to learn semantic information from unlabeled pixels. While such techniques are effective, there is still a lack of theoretical understanding of them. Replay-based methods propose to memorize a small set of images for previous categories. They achieve state-of-the-art performance at the cost of large memory footprint. We propose in this paper a novel ISS method, dubbed ALIFE, that provides a better compromise between accuracy and efficiency. To this end, we first show an in-depth analysis on the calibration techniques to better understand the effects on ISS. Based on this, we then introduce an adaptive logit regularizer (ALI) that enables our model to better learn new categories, while retaining knowledge for previous ones. We also present a feature replay scheme that memorizes features, instead of images directly, in order to reduce memory requirements significantly. Since a feature extractor is changed continually, memorized features should also be updated at every incremental stage. To handle this, we introduce category-specific rotation matrices updating the features for each category separately. We demonstrate the effectiveness of our approach with extensive experiments on standard ISS benchmarks, and show that our method achieves a better trade-off in terms of accuracy and efficiency.</div>
+    </div>
+
+    <div class="row approach">
+      <div class="col-sm-12"><h3>Results</h3></div>
+      <div class="col-sm-12 image"><img src="images/results.png" style="width: 100%;"></div>
+      <div class="col-sm-12 caption">Quantitative results on ADE20K in terms of IoU scores. SSUL-M uses a replay buffer that consists of 300 previously seen images together with corresponding ground-truth labels. Numbers in bold are the best performance, while underlined ones are the second best. We show standard deviations in parentheses. Numbers for other methods are taken from SSUL. &dagger;: Results are obtained by running the source codes provided by the authors.</div>
+      <div class="col-sm-12 content">We compare in this table our approach with state-of-the-art methods, including MiB, PLOP, and SSUL. Note that RECALL is not designed to handle stuff categories, and results on ADE20K are not available. From this table, we have three findings as follows: (1) Our approach exploiting the first step only, denoted by ALIFE, already outperforms all other methods in terms of both mIoU and hIoU scores by significant margins for all scenarios. This validates the effectiveness of our approach without memorizing features. In particular, we can see that ALIFE even outperforms SSUL-M that memorizes 300 images along with ground-truth labels for replaying. A plausible reason is that SSUL freezes a feature extractor, limiting the flexibility to deal with new categories. (2) ALIFE shows substantial IoU gains over MiB using CCE and CKD for all scenarios. This verifies that both CCE and CKD are not always helpful for ISS. ALI is free from the limitations of CCE and CKD, and it allows our model to better learn new categories without forgetting previous ones. (3) Our approach memorizing features, denoted by ALIFE-M, improves the performance over ALIFE in terms of all metrics for all scenarios. Note that SSUL-M even performs worse than SSUL for 100-50(1) and 100-50(6) cases. Considering that we rely on at least 9 times less memory requirements than SSUL-M for 100-50(1) and 50-100(2) cases, the gains from memorizing features are remarkable compared to those of SSUL-M over SSUL.</div>
+    </div>
+
+    <div class="row paper">
+      <div class="col-sm-12"><h3>Paper</h3></div>
+      <div class="col-sm-12">
+        <table>
+          <tbody><tr></tr>
+          <tr><td>
+            <div class="paper-image">
+              <a href=""><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/camera-ready.png" width="150px"></a>
+            </div>
+          </td>
+          <td></td>
+          <td>
+            Y. Oh, D. Baek, B. Ham<br>
+            <b>ALIFE: Adaptive Logit Regularizer and Feature Replay for Incremental Semantic Segmentation</b>
+            <br>
+            In <i>Advances in Neural Information Processing Systems (NeurIPS) </i>, 2022 <br>
+            [<a href="">arXiv</a>][<a href="https://github.com/cvlab-yonsei/ALIFE">Code</a>]
+          </td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row ack">
+      <div class="col-sm-12"><h3>Acknowledgements</h3></div>
+      <div class="col-sm-12">This work was supported by Institute of Information & Communications Technology Planing & Evaluation (IITP) grant funded by the Korea government (MSIT) (No.RS-2022-00143524, Development of Fundamental Technology and Integrated Solution for Next-Generation Automatic Artificial Intelligence System) and the Yonsei Signature Research Cluster Program of 2022 (2022-22-0002).</div>
+    </div>
+  </div>
+</body>
+
