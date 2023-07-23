@@ -1,0 +1,102 @@
+note: 'train'
+# configs of data
+
+model: 'deeplab'
+train: True
+multigpu: False
+fixbn: True
+fix_seed: True
+
+src_prop: 1
+# target Plabel
+cb_prop: 0.1
+thres_inc: 0
+num_center: 10
+lamb: 0.4
+lamb_metric1 : 0.2
+lamb_metric2 : 0.2
+
+# Loss
+lambt: 0.3
+
+# # source Image Selection
+# src_count: 1191
+# src_pix_prop: 0.9
+# src_pix_select: True
+# pool_prop: 0.2
+
+# # Selction and Fix
+# src_fix: False
+# tgt_fix: False
+# src_select: True
+# tgt_select: True
+
+# Re start training
+resume: False
+start: 0
+round_start: 0
+
+# Optimizaers
+learning_rate: 7.5e-5
+num_steps: 5000
+epochs: 2
+weight_decay: 0.0005
+momentum: 0.9
+power: 0.9
+round: 10
+
+# Logging
+print_freq: 1
+save_freq: 2000
+tensorboard: False
+neptune: False
+screen: False
+val: True
+val_freq: 300
+
+# Dataset
+source: 'gta5'
+target: 'cityscapes'
+worker: 4
+batch_size: 2
+num_classes: 19
+
+#Transforms
+input_src: 850
+input_tgt: 850
+crop_src: 730
+crop_tgt: 730
+mirror: True
+scale_min: 0.8
+scale_max: 1.2
+rec: False
+
+# Model hypers
+# init_weight: './weights/'
+init_weight: './weights/gta5_source_only_adaptation_3.pth'
+# init_weight: './weights/gta5_source_only_adaptation.pth'
+# init_weight: './weights/gta5_source_only.pth'
+restore_from: None
+
+snapshot: './results/dam/snapshot/'
+result: './results/dam/miou_result/'
+log: './results/dam/log/'
+plabel: './plabel/dam/'
+
+gta5: {
+        data_dir: '/dataset/GTA5/',
+        data_list: './dataset/list/gta5_list.txt',
+        input_size: [1280, 720]
+        }
+
+synthia: {
+        data_dir: '/dataset/SYNTHIA/',
+        data_list: './dataset/list/synthia_list.txt',
+        input_size: [1280, 760]
+        }
+
+cityscapes: {
+        data_dir: '/dataset/cityscapes',
+        data_list: './dataset/list/cityscapes_train.txt',
+        input_size: [1024, 512]
+        }
