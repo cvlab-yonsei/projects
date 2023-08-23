@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>ACLS: Adaptive and Conditional Label Smoothing for Network Calibration</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/style.css" rel="stylesheet">
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">
+        <h2>ACLS: Adaptive and Conditional Label Smoothing<br>for Network Calibration</h2>
+        <h3><a href="https://iccv2023.thecvf.com/">ICCV 2023</a></h3>
+      </div>
+
+      <div class="row authors name">
+        <div class="col-sm-4"><a href="https://github.com/HyekangPark">Hyekang Park</a><sup>1</sup></div>
+        <div class="col-sm-4"><a href="https://github.com/njyoun">Jongyoun Noh</a><sup>1</sup></div>
+        <div class="col-sm-4"><a href="https://50min.github.io">Youngmin Oh</a><sup>1</sup></div>
+        <div style="clear: both;"></div>
+        <div class="col-sm-6"><a href="https://dh-baek.github.io">Donghyeon Baek</a><sup>1</sup></div>
+        <div class="col-sm-6"><a href="https://cvlab.yonsei.ac.kr">Bumsub Ham</a><sup>1,2</sup></div>
+      </div>
+      <div class="row authors school">
+        <div class="col-sm-4"><sup>1</sup>Yonsei University</div>
+        <div class="col-sm-8"><sup>2</sup>Korea Institute of Science and Technology (KIST)</div>
+      </div>
+    </div>
+
+    <div class="row teaser">
+      <div class="col-sm-12 image"><img src="images/teaser.png" style="width: 60%;"></div>
+      <div class="col-sm-12 caption">Comparison of regularization-based methods for network calibration. Expected calibration error (ECE) is computed with 15 bins using ResNet-50 on Tiny-ImageNet. We denote by $\bigtriangleup$ adaptive or conditional regularizers with negative effects. LS: Label smoothing.</div>
+    </div>
+
+    <div class="row abstract">
+      <div class="col-sm-12"><h3>Abstract</h3></div>
+      <div class="col-sm-12 content">We address the problem of network calibration adjusting miscalibrated confidences of deep neural networks. Many approaches to network calibration adopt a regularizationbased method that exploits a regularization term to smooth the miscalibrated confidences. Although these approaches have shown the effectiveness on calibrating the networks, there is still a lack of understanding on the underlying principles of regularization in terms of network calibration. We present in this paper an in-depth analysis of existing regularization-based methods, providing a better understanding on how they affect to network calibration. Specifically, we have observed that 1) the regularization-based methods can be interpreted as variants of label smoothing, and 2) they do not always behave desirably. Based on the analysis, we introduce a novel loss function, dubbed ACLS, that unifies the merits of existing regularization methods, while avoiding the limitations. We show extensive experimental results for image classification and semantic segmentation on standard benchmarks, including CIFAR10, Tiny-ImageNet, ImageNet, and PASCAL VOC, demonstrating the effectiveness of our loss function.</p></div>
+    </div>
+
+    <div class="row approach">
+      <div class="col-sm-12"><h3>Results</h3></div>
+      <div class="col-sm-12 image"><img src="images/results.png" style="width: 100%;"></div>
+      <div class="col-sm-12 caption">Quantitative results on the validation split of CIFAR10, Tiny-ImageNet, and ImageNet in terms of the top-1 accuracy (ACC), ECE, and AECE. We compute the calibration metrics with 15 bins. Numbers in bold are the best performance and underlined ones are the second best.</div>
+      <div class="col-sm-12 content">We show in this table quantitative comparisons between our method with state-of-the-art network calibration methods on image classification. For CIFAR10 and Tiny-ImageNet, the numbers for the methods are taken from MbLS. For a fair comparison, we reproduce the results of MMCE, CRL, CPC, and MDCA with the same experimental configuration, including network architectures and datasets. For ImageNet, we reproduce all the methods in the table with ResNet-50. From the table, we can clearly see that ACLS outperforms all previous calibration methods by significant margins on all benchmarks in terms of ECE and AECE. In particular, we have three findings as follows: (1) ACLS outperforms the AR methods by large margins. MDCA and CPC penalize target labels using adaptive smoothing functions, but they often behave undesirably in terms of network calibration. ACLS addresses this limitation, providing better ECE and AECE, compared with the AR methods. (2) The CR method, MbLS, regularizes confidence values selectively. However, it does not penalize the target labels of predicted classes, outperformed by ACLS on all benchmarks. (3) ACLS alleviates the limitations of AR and CR, and it also surpasses CRL in terms of ECE and AECE.</div>
+    </div>
+
+    <div class="row paper">
+      <div class="col-sm-12"><h3>Paper</h3></div>
+      <div class="col-sm-12">
+        <table>
+          <tbody><tr></tr>
+          <tr><td>
+            <div class="paper-image">
+              <a href=""><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper_image.png" width="150px"></a>
+            </div>
+          </td>
+          <td></td>
+          <td>
+            H. Park, J. Noh, Y. Oh, D. Baek, B. Ham<br>
+            <b>ACLS: Adaptive and Conditional Label Smoothing for Network Calibration</b> <br>
+            In <i>IEEE/CVF International Conference on Computer Vision (ICCV) </i>, 2023 <br>
+            [<a href="http://arxiv.org/">arXiv</a>][<a href="https://github.com/cvlab-yonsei/ACLS">Code</a>]
+          </td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="row ack">
+      <div class="col-sm-12"><h3>Acknowledgements</h3></div>
+      <div class="col-sm-12">This work was partly supported by IITP grant funded by the Korea government (MSIT) (No.RS-2022-00143524, Development of Fundamental Technology and Integrated Solution for Next-Generation Automatic Artificial Intelligence System, No.2022-0-00124, Development of Artificial Intelligence Technology for Self-Improving Competency-Aware Learning Capabilities) and the KIST Institutional Program (Project No.2E31051- 21-203).</div>
+    </div>
+  </div>
+</body>
+
