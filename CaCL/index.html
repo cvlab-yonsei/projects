@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Camera-Driven Representation Learning for Unsupervised Domain Adaptive Person Re-identification</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">
+        <h2><center>Camera-Driven Representation Learning for Unsupervised Domain Adaptive Person Re-identification</center></h2>
+          <h3><center><a href="https://iccv2023.thecvf.com/">ICCV 2023</a></center></h3>
+      </div>
+
+    <div class="authors">
+      <!-- <div class="name"> -->
+        <div class="name"><div class="col-sm-4">
+          Geon Lee</a></div>
+        </div>
+        <div class="name"><div class="col-sm-4">
+          Sanghoon Lee</a></div>
+        </div>
+        <div class="name"><div class="col-sm-4">
+          Dohyung Kim</a></div>
+        </div>
+        <div class="name"><div class="col-sm-4">
+          Younghoon Shin</a></div>
+        </div>
+        <div class="name"><div class="col-sm-4">
+          Yongsang Yoon</a></div>
+        </div>
+        <div class="name"><div class="col-sm-4">
+          Bumsub Ham</a></div>
+        </div>
+      </div>
+      <br>
+      <div class="school">Computer Vision Lab, Yonsei University</div>
+    </div>
+    </div>
+
+  <div class="container">
+    <div class="row">
+      <h3>Abstract</h3>
+      <figure style="display: inline; width: 100%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
+        <div>
+          <center><img src="images/teaser.png" width="500px"></center>
+        </div>
+      </figure>
+      <p style="text-align: justify;">
+        We present a novel unsupervised domain adaption method for person re-identification~(reID) that generalizes a model trained on a labeled source domain to an unlabeled target domain. We introduce a camera-driven curriculum learning~(CaCL) framework that leverages camera labels of person images to transfer knowledge from source to target domains progressively. To this end, we divide target domain dataset into multiple subsets based on the camera labels, and initially train our model with a single subset~(i.e., images captured by a single camera). We then gradually exploit more subsets for training, according to a curriculum sequence obtained with a camera-driven scheduling rule. The scheduler considers maximum mean discrepancies~(MMD) between each subset and the source domain dataset, such that the subset closer to the source domain is exploited earlier within the curriculum. For each curriculum sequence, we generate pseudo labels of person images in a target domain to train a reID model in a supervised way. We have observed that the pseudo labels are highly biased toward cameras, suggesting that person images obtained from the same camera are likely to have the same pseudo labels, even for different IDs. To address the camera bias problem, we also introduce a camera-diversity~(CD) loss encouraging person images of the same pseudo label, but captured across various cameras, to involve more for discriminative feature learning, providing person representations robust to inter-camera variations. Experimental results on standard benchmarks, including real-to-real and synthetic-to-real scenarios, demonstrate the effectiveness of our framework.
+      </p>
+    </div>
+
+    <span class="vr"></span>
+
+    <div class="row">
+      <h3>Approach</h3>
+
+      <figure style="display: inline; width: 100%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
+        <div>
+          <center><img src="images/overview.png" width="800px"></center>
+        </div>
+      </figure>
+      <p><br><b>An overview of our framework.</b> 
+        We divide target images into multiple subsets based on camera labels. The camera-driven scheduler takes the subsets of the target domain, along with source images as inputs, to establish a curriculum sequence. We train our model progressively with CD loss for a target domain, along with the cross-entropy term for a source domain.
+        <br><br>
+
+      </p></p>
+
+    <div class="row">
+  </div>
+
+    <div class="row">
+      <h3>Paper</h3>
+      <table>
+        <tbody><tr></tr>
+        <td></td>
+        <td>
+          G. Lee, S. Lee, D. Kim, Y. Shin, Y. Yoon, B. Ham<br>
+          <b> Camera-driven Representation Learning for Unsupervised Domain Adaptive Person Re-identification </b> <br>
+          In <i> International Conference on Computer Vision (ICCV)</i>, 2023 <br>
+          [<a href="">ArXiv</a>][<a href="">Bibtex</a>]
+        </td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="row">
+      <h3>Acknowledgements</h3>
+      <p> 
+        This work was partly supported by the IITP and NRF grants funded by the Korea government(MSIT) (No.RS-2022-00143524, Development of Fundamental Technology and Integrated Solution for Next Generation Automatic Artificial Intelligence System, No.2023R1A2C2004306), and the Yonsei Signature Research Cluster Program of 2023 (2023-22-0008).
+      </p>
+    </div>
+  </div>
+</body>
+
