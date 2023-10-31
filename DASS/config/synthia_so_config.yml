@@ -1,0 +1,62 @@
+note: 'train'
+# configs of data
+
+model: 'deeplab'
+train: True
+multigpu: False
+fixbn: True
+fix_seed: True
+
+# Optimizaers
+learning_rate: 7.5e-5
+num_steps: 10000
+epochs: 2
+weight_decay: 0.0005
+momentum: 0.9
+power: 0.9
+round: 6
+
+# Logging
+print_freq: 1
+save_freq: 2000
+tensorboard: False
+neptune: False
+screen: False
+val: True
+val_freq: 300
+
+# Dataset
+source: 'synthia'
+target: 'cityscapes'
+worker: 2
+batch_size: 2
+
+#Transforms
+input_src: 720
+input_tgt: 720
+crop_src: 600
+crop_tgt: 600
+mirror: True
+scale_min: 0.5
+scale_max: 1.5
+rec: False
+
+# Model hypers
+init_weight: './weights/DeepLab_init.pth'
+restore_from: None
+
+snapshot: './results/synthia_source_only/snapshot/'
+result: './results/synthia_source_only/miou_result/'
+log: './results/synthia_source_only/log/'
+plabel: './plabel'
+
+synthia: {
+        data_dir: '/dataset/SYNTHIA/',
+        data_list: './dataset/list/synthia_list.txt',
+        input_size: [1280, 760]
+        }
+cityscapes: {
+        data_dir: '/dataset/cityscapes',
+        data_list: './dataset/list/cityscapes_train.txt',
+        input_size: [1024, 512]
+        }
