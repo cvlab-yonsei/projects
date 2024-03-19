@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>AZ-NAS: Assembling Zero-Cost Proxies for Network Architecture Search</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/style.css" rel="stylesheet">
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">
+        <h2>AZ-NAS: Assembling Zero-Cost Proxies<br>for Network Architecture Search</h2>
+        <h3><a href="https://cvpr.thecvf.com/Conferences/2024">CVPR 2024</a></h3>
+      </div>
+
+      <div class="row authors name">
+        <div class="col-sm-6"><a href="https://junghyup-lee.github.io/">Junghyup Lee</a><sup>1</sup></div>
+        <div class="col-sm-6"><a href="https://cvlab.yonsei.ac.kr">Bumsub Ham</a><sup>1,2</sup></div>
+      </div>
+      <div class="row authors school">
+        <div class="col-sm-4"><sup>1</sup>Yonsei University</div>
+        <div class="col-sm-8"><sup>2</sup>Korea Institute of Science and Technology (KIST)</div>
+      </div>
+    </div>
+
+    <div class="row teaser">
+      <div class="col-sm-12 image"><img src="images/teaser.png" style="width: 60%;"></div>
+      <div class="col-sm-12 caption">Comparison of training-free NAS methods on ImageNet16-120 of NAS-Bench-201. We compare correlation coefficients (Kendall's $\tau$) between predicted rankings of networks and the ground truth in the x-axis, and test accuracies for the selected networks in the y-axis. The runtime costs are visualized by the circle size and color. By assembling the proposed zero-cost proxies, AZ-NAS achieves the best consistency between predicted rankings of the networks and the ground truth efficiently, which helps to find the network with the highest accuracy.</div>
+    </div>
+
+    <div class="row abstract">
+      <div class="col-sm-12"><h3>Abstract</h3></div>
+      <div class="col-sm-12 content">Training-free network architecture search (NAS) aims to discover high-performing networks with zero-cost proxies, capturing network characteristics related to the final performance. However, network rankings estimated by previous training-free NAS methods have shown weak correlations with the performance. To address this issue, we propose AZ-NAS, a novel approach that leverages the ensemble of various zero-cost proxies to enhance the correlation between a predicted ranking of networks and the ground truth substantially in terms of the performance. To achieve this, we introduce four novel zero-cost proxies that are complementary to each other, analyzing distinct traits of architectures in the views of expressivity, progressivity, trainability, and complexity. The proxy scores can be obtained simultaneously within a single forward and backward pass, making an overall NAS process highly efficient. In order to integrate the rankings predicted by our proxies effectively, we introduce a non-linear ranking aggregation method that highlights the networks highly-ranked consistently across all the proxies. Experimental results conclusively demonstrate the efficacy and efficiency of AZ-NAS, outperforming state-of-the-art methods on standard benchmarks, all while maintaining a reasonable runtime cost.</p></div>
+    </div>
+
+    <div class="row approach">
+      <div class="col-sm-12"><h3>Results</h3></div>
+      <div class="col-sm-12 image"><img src="images/results.png" style="width: 100%;"></div>
+      <div class="col-sm-12 caption">Quantitative comparison of the training-free NAS methods on NAS-Bench-201. We categorize the types of zero-cost proxies into architectural (A), backward (B), and forward (F) ones depending on the inputs of the proxies. We report Kendall's $\tau$ (KT) and Spearman's $\rho$ (SPR) computed with all candidate architectures, together with an average runtime. We also provide the average and standard deviation of test accuracies (Acc.) on each dataset, where they are obtained through 5 random runs. To this end, we randomly sample 3000 candidate architectures for each run and share the same architecture sets across all the methods. All results are reproduced with the official codes provided by the authors.</div>
+      <div class="col-sm-12 content">We show in this table a quantitative comparison between AZ-NAS and the state-of-the-art training-free NAS methods on NAS-Bench-201. We report correlation coefficients between predicted and ground-truth rankings of networks, and top-1 test accuracies of selected networks. We can see that AZ-NAS achieves the best ranking consistency w.r.t the performance in terms of Kendall's $\tau$ and Spearman's $\rho$, outperforming others by significant margins across all the datasets. This enables discovering networks that consistently show better performance compared to the networks chosen from other methods. The training-free NAS methods in this table focus on capturing a single network characteristic using either activations or gradients only, except for TE-NAS requiring lots of computational costs. On the contrary, AZ-NAS examines networks from various perspectives based on activations, gradients, and FLOPs, providing a comprehensive evaluation of networks. Moreover, the proposed proxies tailored for AZ-NAS are computationally efficient and can be computed simultaneously within a single forward and backward pass.</div>
+    </div>
+
+    <div class="row paper">
+      <div class="col-sm-12"><h3>Paper</h3></div>
+      <div class="col-sm-12">
+        <table>
+          <tbody><tr></tr>
+          <tr><td>
+            <div class="paper-image">
+              <a href=""><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper_image.png" width="150px"></a>
+            </div>
+          </td>
+          <td></td>
+          <td>
+            J. Lee and B. Ham<br>
+            <b>AZ-NAS: Assembling Zero-Cost Proxies for Network Architecture Search</b> <br>
+            In <i>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) </i>, 2024 <br>
+            [To be appeared]
+            <!-- [<a href="https://arxiv.org/abs/2308.11911">arXiv</a>][<a href="https://github.com/cvlab-yonsei/ACLS">Code</a>] -->
+          </td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="row ack">
+      <div class="col-sm-12"><h3>Acknowledgements</h3></div>
+      <div class="col-sm-12">This work was partly supported by IITP grants funded by the Korea government (MSIT) (No.RS-2022-00143524, Development of Fundamental Technology and Integrated Solution for Next-Generation Automatic Artificial Intelligence System, No.2022-0-00124, Development of Artificial Intelligence Technology for Self-Improving Competency-Aware Learning Capabilities) and the KIST Institutional Program (Project No.2E31051-21-203).</div>
+    </div>
+  </div>
+</body>
+
