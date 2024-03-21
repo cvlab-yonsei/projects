@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Instance-Aware Group Quantization for Vision Transformers</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/style.css" rel="stylesheet">
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">
+        <h2>Instance-Aware Group Quantization for Vision Transformers</h2>
+        <h3><a href="https://cvpr.thecvf.com/Conferences/2024">CVPR 2024</a></h3>
+      </div>
+
+      <div class="row authors name">
+        <div class="col-sm-6"><a href="https://github.com/JaeHyeonMoon/">Jaehyeon Moon</a><sup>1,2</sup></div>
+        <div class="col-sm-6"><a href="https://github.com/shape-kim">Dohyung Kim</a><sup>1</sup></div>
+        <div class="col-sm-6"><a href="https://github.com/Jun-Yong-Cheon">Junyong Cheon</a><sup>1</sup></div>
+        <div class="col-sm-6"><a href="https://cvlab.yonsei.ac.kr">Bumsub Ham</a><sup>1</sup></div>
+      </div>
+      <div class="row authors school">
+        <div class="col-sm-4"><sup>1</sup>School of Electrical and Electronic Engineering, Yonsei University</div>
+        <div class="col-sm-8"><sup>2</sup>Articron</div>
+      </div>
+    </div>
+
+    <div class="row teaser">
+      <div class="col-sm-12 image"><img src="images/teaser.png" style="width: 60%;"></div>
+      <div class="col-sm-12 caption">Visual comparison of group quantization and IGQ-ViT. Conventional group quantization techniques divide consecutive channels uniformly into a number of groups without considering their dynamic ranges. The distribution of activations in each group varies significantly for individual input instances. To alleviate this problem, IGQ-ViT proposes an instance-aware grouping technique that splits the channels of activation maps and softmax attentions across tokens dynamically for each input instance at runtime.</div>
+    </div>
+
+    <div class="row abstract">
+      <div class="col-sm-12"><h3>Abstract</h3></div>
+      <div class="col-sm-12 content">Post-training quantization (PTQ) is an efficient model compression technique that quantizes a pretrained full-precision model using only a small calibration set of unlabeled samples without retraining. PTQ methods for convolutional neural networks (CNNs) provide quantization results comparable to full-precision counterparts. Directly applying them to vision transformers (ViTs), however, incurs severe performance degradation, mainly due to the differences in architectures between CNNs and ViTs. In particular, the distribution of activations for each channel vary drastically according to input instances, making PTQ methods for CNNs inappropriate for ViTs. To address this, we introduce instance-aware group quantization for ViTs (IGQ-ViT). To this end, we propose to split the channels of activation maps into multiple groups dynamically for each input instance, such that activations within each group share similar statistical properties. We also extend our scheme to quantize softmax attentions across tokens. In addition, the number of groups for each layer is adjusted to minimize the discrepancies between predictions from quantized and full-precision models, under a bit-operation (BOP) constraint. We show extensive experimental results on image classification, object detection, and instance segmentation, with various transformer architectures, demonstrating the effectiveness of our approach.</p></div>
+    </div>
+
+    <div class="row approach">
+      <div class="col-sm-12"><h3>Results</h3></div>
+      <div class="col-sm-12 image"><img src="images/results.png" style="width: 100%;"></div>
+      <div class="col-sm-12 caption">Quantitative results of quantizing ViT architectures on ImageNet. W/A represents the bit-width of weights (W) and activations (A), respectively. We report the top-1 validation accuracy (%) with different group sizes for comparison. $^\dagger$: Results without using a group size allocation (i.e., a fixed group size for all layers).</div>
+      <div class="col-sm-12 content">We show in this table the top-1 accuracy (%) on the validation split of ImageNet with various ViT architectures. We report the accuracy with an average group size of 8 and 12. We summarize our findings as follows: (1) Our IGQ-ViT framework with 8 groups already outperforms the state of the art except for ViT-B and Swin-S under 6/6-bit setting, while using more groups further boosts the performance. (2) Our approach under 4/4-bit setting consistently outperforms RepQ-ViT by a large margin. Similar to ours, RepQ-ViT also addresses the scale variations between channels, but it can be applied to the activations with preceding LayerNorm only. In contrast, our method handles the scale variations on all input activations of FC layers and softmax attentions, providing better results. (3) Our group size allocation technique boosts the quantization performance for all models, indicating that using the same number of groups for all layers is suboptimal. (4) Exploiting 12 groups for our approach incurs less than 0.9% accuracy drop, compared to the upper bound under the 6/6-bit setting. Note that the results of upper bound are obtained by using a separate quantizer for each channel of activations and each row of softmax attentions.</div>
+    </div>
+
+    <div class="row paper">
+      <div class="col-sm-12"><h3>Paper</h3></div>
+      <div class="col-sm-12">
+        <table>
+          <tbody><tr></tr>
+          <tr><td>
+            <div class="paper-image">
+              <a href=""><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper_image.png" width="150px"></a>
+            </div>
+          </td>
+          <td></td>
+          <td>
+            J. Moon, D. Kim, J. Cheon and B. Ham<br>
+            <b>Instance-Aware Group Quantization for Vision Transformers</b> <br>
+            In <i>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) </i>, 2024 <br>
+            [To be appeared]
+          </td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="row ack">
+      <div class="col-sm-12"><h3>Acknowledgements</h3></div>
+      <div class="col-sm-12">This work was supported in part by the NRF and IITP grants funded by the Korea government (MSIT) (No.2023R1A2C2004306, No.RS-2022-00143524, Development of Fundamental Technology and Integrated Solution for Next-Generation Automatic Artificial Intelligence System, and No.2021-0-02068, Artificial Intelligence Innovation Hub).</div>
+    </div>
+  </div>
+</body>
+
