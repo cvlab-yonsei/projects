@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Toward INT4 Fixed-Point Training via Exploring Quantization Error for Gradients</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/style.css" rel="stylesheet">
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">
+        <h2>Toward INT4 Fixed-Point Training via Exploring <br> Quantization Error for Gradients</h2>
+        <h3><a href="https://eccv.ecva.net/Conferences/2024">ECCV 2024</a></h3>
+      </div>
+
+      <div class="row authors name">
+        <div class="col-sm-4"><a href="https://shape-kim.github.io/">Dohyung Kim</a><sup>1</sup></div>
+        <div class="col-sm-4"><a href="https://junghyup-lee.github.io/">Junghyup Lee</a><sup>1</sup></div>
+        <div class="col-sm-4"><a href="https://cvlab.yonsei.ac.kr">Jeimin Jeon</a><sup>1,2</sup></div>
+        <div style="clear: both;"></div>
+        <div class="col-sm-6"><a href="https://github.com/JaeHyeonMoon/">Jaehyeon Moon</a><sup>1,2</sup></div>
+        <div class="col-sm-6"><a href="https://cvlab.yonsei.ac.kr">Bumsub Ham</a><sup>1</sup></div>
+      </div>
+      <div class="row authors school">
+        <div class="col-sm-6"><sup>1</sup>Yonsei University</div>
+        <div class="col-sm-6"><sup>2</sup>Articron Inc.</div>
+      </div>
+    </div>
+
+    <div class="row teaser">
+      <div class="col-sm-12 image"><img src="images/teaser.png" style="width: 80%;"></div>
+      <div class="col-sm-12 caption">Comparison of ours with the baselines in terms of quantization error for gradients. (a-c) $E(G_{L})$, quantization error for large gradients, in 5th, 15th, 17th layers, respectively; (d) Training loss; (e-g) $E(G)$, quantization error for entire gradients, in 5th, 15th, 17th layers, respectively; (h) Clipping factors.</div>
+    </div>
+
+    <div class="row abstract">
+      <div class="col-sm-12"><h3>Abstract</h3></div>
+      <div class="col-sm-12 content">Network quantization generally converts full-precision weights and/or activations into low-bit fixed-point values in order to accelerate an inference process. Recent approaches to network quantization further discretize the gradients into low-bit fixed-point values, enabling an efficient training. They typically set a quantization interval using a min-max range of the gradients or adjust the interval such that the quantization error for entire gradients is minimized. In this paper, we analyze the quantization error of gradients for the low-bit fixed-point training, and show that lowering the error for large-magnitude gradients boosts the quantization performance significantly. Based on this, we derive an upper bound of quantization error for the large gradients in terms of the quantization interval, and obtain an optimal condition for the interval minimizing the quantization error for large gradients. We also introduce an interval update algorithm that adjusts the quantization interval adaptively to maintain a small quantization error for large gradients. Experimental results demonstrate the effectiveness of our quantization method for various combinations of network architectures and bit-widths on various tasks, including image classification, object detection, and super-resolution.</p></div>
+    </div>
+
+    <div class="row approach">
+      <div class="col-sm-12"><h3>Results</h3></div>
+      <div class="col-sm-12 image"><img src="images/results.png" style="width: 100%;"></div>
+      <div class="col-sm-12 caption">Quantitative comparison of gradient quantization methods on image classification. We report results on the validation split of ImageNet in terms of a top-1 accuracy. W/A/G: Bit-precision of weights/activations/gradients; FP: Results obtained by full-precision models; $\dagger$: Results reproduced by ourselves. Numbers in bold and parentheses are the best result and accuracy improvements or degradations, w.r.t full-precision models, respectively.</div>
+      <div class="col-sm-12 content">From these tables, we observe four things: 1) Our method outperforms other FXP training methods by a significant margin in terms of a top-1 accuracy, regardless of datasets, network architectures, and bit-widths. The accuracy of DSGC is slightly better than ours for the 8/8/8-bit setting only on the ResNet-50 architecture. Nevertheless, ours shows a lower accuracy drop w.r.t the full-precision model. Note that the full-precision model in DSGC also shows a higher accuracy, possibly due to different training settings for, e.g., the number of epochs and learning rate scheduling. 2) We can see that the accuracy drop of DSGC becomes severe as bit-widths decrease. A plausible reason is that reducing the bit-width increases the quantization error for entire gradients, and the quantization interval of DSGC becomes narrower in order for keeping a small error for entire gradients. It incurs a significant quantization error for large gradients, and the performance in turn degrades drastically. Compared to DSGC, our method provides better results consistently, confirming once more that lowering the quantization error for large gradients is important in the FXP training. 3) Our method shows better results compared to the state of the art, including DSGC and IQB, in particularly low-bit settings (i.e., 6/6/6, 5/5/5, and 4/4/4-bit settings). For example, our method performs better than IQB employing a piecewise FXP format for gradient quantization, when training ResNet-18 and -34 in 4/4/4 and 5/5/5-bit settings, and obtains the superior results over the baseline when training in 4/4/4 and 5/5/5-bit settings. This suggests that maintaining a small error for large gradients is effective to improve the quantization performance in the low-bit settings. 4) We can clearly observe that ours gives better results than the baselines with various architectures consistently, especially in the 4/4/4 and 5/5/5-bit settings. This indicates that maintaining a small quantization error for large gradients, regardless of the layers or training iterations, is significant in the FXP training. </div>
+    </div>
+
+    <div class="row paper">
+      <div class="col-sm-12"><h3>Paper</h3></div>
+      <div class="col-sm-12">
+        <table>
+          <tbody><tr></tr>
+          <tr><td>
+            <div class="paper-image">
+              <a href=""><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper_image.png" width="150px"></a>
+            </div>
+          </td>
+          <td></td>
+          <td>
+            D. Kim, J. Lee, J. Jeon, J. Moon and B. Ham<br>
+            <b>Toward INT4 Fixed-Point Training via Exploring Quantization Error for Gradients</b> <br>
+            In <i>European Conference on Computer Vision (ECCV) </i>, 2024 <br>
+            [<a href="">arXiv</a>][<a href="">Code</a>]
+          </td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="row ack">
+      <div class="col-sm-12"><h3>Acknowledgements</h3></div>
+      <div class="col-sm-12">This research was supported by Samsung Research Funding \& Incubation Center of Samsung Electronics under Project Number SRFC-IT2102-06.</div>
+    </div>
+  </div>
+</body>
+
