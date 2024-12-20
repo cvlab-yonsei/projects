@@ -1,0 +1,177 @@
+/* Space out content a bit */
+
+@import url('https://fonts.googleapis.com/css?family=Baloo|Bungee+Inline|Lato|Righteous|Shojumaru');
+
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-family: 'Lato', serif;
+  font-size: 15px;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.row,
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Custom page header */
+.header {
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 25px;
+}
+
+.header .title h2{
+  font-size: 30px;
+}
+
+.header .title h3{
+  font-size: 20px;
+}
+
+.header .name{
+  padding-top: 20px;
+  font-size: 20px;
+}
+
+.header .school{
+  font-size: 20px;
+  padding-top: 20px;
+}
+
+.header .contribution{
+  font-size: 15px;
+  padding-top: 5px;
+  padding-bottom: 20px;
+}
+
+.teaser{
+  padding-top: 30px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.teaser .image_left{
+  /* padding-top: 10px; */
+  padding-left: 10px;
+  padding-right: 0px;
+}
+.teaser .image_right{
+  /* padding-top: 10px; */
+  padding-left: 0px;
+  padding-right: 40px;
+}
+
+.teaser .caption{
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  text-align: justify;
+
+}
+
+.abstract{
+  text-align: justify;
+}
+
+.approach{
+  text-align: justify;
+}
+
+.approach .image{
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+.approach .image_center{
+  padding-top: 10px;
+  padding-left: 200px;
+  padding-right: 130px;
+}
+
+
+.approach .caption{
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  text-align: justify;
+}
+
+.approach .content{
+  padding-top: 20px;
+  text-align: justify;
+}
+
+.ack{
+  text-align: justify;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #ccc;
+}
+
+/* Customize container */
+@media (min-width: 938px) {
+  .container {
+    max-width: 900px;
+  }
+}
+.container-narrow > hr {
+  padding: 20px 0;
+}
+
+/* Main marketing message and sign up button */
+/* .container .jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+  padding-left: 20px;
+  padding: 30px;
+} */
+/* .jumbotron .btn {
+  font-size: 21px;
+  padding: 14px 24px;
+} */
+
+.row p + h3 {
+  padding-top: 28px;
+}
+
+div.row h3 {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 938px) {
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* .jumbotron {
+    border-bottom: 0;
+  } */
+}
+
+@media screen and (max-width: 736px) {
+  /* .teaser{
+    padding: 20px 10px 0 10px;
+  } */
+  .paper-image{
+    display: none;
+  }
+  .bibtex{
+      display: none;
+  }
+}
+
+.readme h1 {
+  display: none;
+}

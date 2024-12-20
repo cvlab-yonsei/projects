@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Efficient Few-Shot Neural Architecture Search by Counting the Number of Nonlinear Functions</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/style.css" rel="stylesheet">
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">
+        <h2>Efficient Few-Shot Neural Architecture Search<br>by Counting the Number of Nonlinear Functions</h2>
+        <h3>AAAI 2025</h3>
+      </div>
+
+      <div class="row authors name">
+        <div class="col-sm-4"><a href="https://50min.github.io">Youngmin Oh</a><sup>1</sup></div>
+        <div class="col-sm-4"><a href="https://dlguswn3659.github.io">Hyunju Lee</a><sup>1</sup></div>
+        <div class="col-sm-4"><a href="https://cvlab.yonsei.ac.kr">Bumsub Ham</a><sup>1,2</sup></div>
+      </div>
+      <div class="row authors school">
+        <div class="col-sm-4"><sup>1</sup>Yonsei University</div>
+        <div class="col-sm-8"><sup>2</sup>Korea Institute of Science and Technology (KIST)</div>
+      </div>
+    </div>
+
+    <div class="row teaser">
+      <div class="col-xs-12 image"><img src="images/teaser.png" style="width: 85%;"></div>
+      <div style="clear: both;"></div>
+      <div class="col-sm-12 caption">Illustration of search space splitting strategies. Individual supernets are highlighted in different colors. Subnets with similar characteristics are marked by the same shape. <i>Left:</i> FS-NAS splits the space randomly. Although the random splitting strategy is efficient, each supernet could contain subnets that are likely to conflict with each other. <i>Middle:</i> GM-NAS compares gradients of a supernet to split the space, better grouping subnets. This however incurs a lot of computational cost. <i>Right:</i> We propose to count the number of nonlinear functions within a subnet such that each subspace contains subnets with the same number of nonlinear functions only. Our splitting criterion incurs negligible overheads, while separating the space effectively. Best viewed in color.</div>
+    </div>
+
+    <div class="row abstract">
+      <div class="col-sm-12"><h3>Abstract</h3></div>
+      <div class="col-sm-12 content">Neural architecture search (NAS) enables finding the best-performing architecture from a search space automatically. Most NAS methods exploit an over-parameterized network (<i>i.e.</i>, a supernet) containing all possible architectures (<i>i.e.</i>, subnets) in the search space. However, the subnets that share the same set of parameters are likely to have different characteristics, interfering with each other during training. To address this, few-shot NAS methods have been proposed that divide the space into a few subspaces and employ a separate supernet for each subspace to limit the extent of weight sharing. They achieve state-of-the-art performance, but the computational cost increases accordingly. We introduce in this paper a novel few-shot NAS method that exploits the number of nonlinear functions to split the search space. To be specific, our method divides the space such that each subspace consists of subnets with the same number of nonlinear functions. Our splitting criterion is efficient, since it does not require comparing gradients of a supernet to split the space. In addition, we have found that dividing the space allows us to reduce the channel dimensions required for each supernet, which enables training multiple supernets in an efficient manner. We also introduce a supernet-balanced sampling (SBS) technique, sampling several subnets at each training step, to train different supernets evenly within a limited number of training steps. Extensive experiments on standard NAS benchmarks demonstrate the effectiveness of our approach.</div>
+    </div>
+
+    <div class="row approach">
+      <div class="col-sm-12"><h3>Results</h3></div>
+      <div class="col-sm-12 image_center"><img src="images/results.png" style="width: 100%;"></div>
+      <div class="col-sm-12 caption">Quantitative results of searched architectures on ImageNet. We use two constraints in terms of FLOPs for the evolutionary search algorithm. FS-NAS and GM-NAS exploit five and six supernets with full channel dimensions, respectively, while our method adopts six supernets with half channel dimensions (<i>i.e.</i>, G=2). Params: the number of network parameters for the chosen architecture.</div>
+      <div class="col-sm-12 content">This table shows top-1 and top-5 accuracies of our architectures chosen from the MobileNet search space. To this end, we perform the evolutionary search using FLOPs as a hardware constraint. We can see from this table that our method with a constraint of 530M FLOPs provides better results than FS-NAS and GM-NAS in terms of test accuracy, FLOPs, and the number of parameters. This is remarkable in that our method exploits six supernets with reduced channel dimensions to alleviate the computational cost, while FS-NAS and GM-NAS adopt five and six supernets with full channel dimensions, respectively. We can also see that our architecture searched with a constraint of 600M FLOPs achieves the highest test accuracy. This suggests the importance of effectively dividing the search space to improve the search performance. 
+      </div>
+    </div>
+
+    <div class="row paper">
+      <div class="col-sm-12"><h3>Paper</h3></div>
+      <div class="col-sm-12">
+        <table>
+          <tbody><tr></tr>
+          <tr><td>
+            <div class="paper-image">
+              <img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/camera-ready.png" width="150px">
+            </div>
+          </td>
+          <td></td>
+          <td>
+            Y. Oh, H. Lee, B. Ham<br>
+            <b>Efficient Few-Shot Neural Architecture Search by Counting the Number of Nonlinear Functions</b>
+            <br>
+            In <i>AAAI Conference on Artificial Intelligence</i>, 2025 <br>
+            [<a href="https://arxiv.org/abs/2412.14678">arXiv</a>][<a href="https://github.com/cvlab-yonsei/EFS-NAS">Github</a>]
+          </td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row ack">
+      <div class="col-sm-12"><h3>Acknowledgements</h3></div>
+      <div class="col-sm-12">This work was supported in part by the NRF and IITP grants funded by the Korea government (MSIT) (No.2023R1A2C2004306, No.RS-2022-00143524, Development of Fundamental Technology and Integrated Solution for Next-Generation Automatic Artificial Intelligence System), the KIST Institutional Program (Project No.2E31051-21-203), and the Yonsei Signature Research Cluster Program of 2024 (2024-22-0161).</div>
+    </div>
+  </div>
+</body>
+
