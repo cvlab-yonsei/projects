@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Maximizing the Position Embedding for Vision Transformers with Global Average Pooling">
+  <meta name="keywords" content="Vision Transformer, Position Embedding, Global Average Pooling">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- favicon 제거됨 -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-2 publication-title">Maximizing the Position Embedding for Vision Transformers with Global Average Pooling</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://velpegor.github.io">Wonjun Lee</a><sup>1, 2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://cvlab.yonsei.ac.kr/">Bumsub Ham</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://kdst.re.kr/">Suhyun Kim</a><sup>2</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Yonsei University,</span>
+            <span class="author-block"><sup>2</sup>Korea Institute of Science and Technology (KIST)</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/pdf/2011.12948" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2502.02919"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span> -->
+              <!-- Dataset Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                </a>
+              </span> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            In vision transformers, position embedding (PE) plays a crucial role in capturing the order of tokens. However, in vision transformer structures, there is a limitation in the expressiveness of PE due to the structure where position embedding is simply added to the token embedding. A layer-wise method that delivers PE to each layer and applies independent Layer Normalizations for token embedding and PE has been adopted to overcome this limitation. In this paper, we identify the conflicting result that occurs in a layer-wise structure when using the global average pooling (GAP) method instead of the class token. To overcome this problem, we propose MPVG, which maximizes the effectiveness of PE in a layer-wise structure with GAP. Specifically, we identify that PE counterbalances token embedding values at each layer in a layer-wise structure. Furthermore, we recognize that the counterbalancing role of PE is insufficient in the layer-wise structure, and we address this by maximizing the effectiveness of PE through MPVG. Through experiments, we demonstrate that PE performs a counterbalancing role and that maintaining this counterbalancing directionality significantly impacts vision transformers. As a result, the experimental results show that MPVG outperforms existing methods across vision transformers on various tasks.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<section class="section" id="Figure2">
+	<div class="container is-max-desktop">
+	  <div class="columns is-centered">
+		<div class="column is-full-width">
+		  <img src="./static/images/Figure2.jpg" alt="Figure 2" style="width:100%; max-width:1000px;">
+		  <p>
+			Figure: The heatmaps depict the characteristics of each layer in both the original structure and the Layer-wise structure with the GAP method. For the Layer-wise structure, the heatmaps illustrate cases both with and without PE in the Last LN. For each heatmap based on DeiT-Ti, the x-axis represents the dimension of DeiT-Ti (256), and the y-axis represents the number of tokens (196). In both (a) and the top row (token embedding) of (b), the heatmaps represent the average value of token embedding in each layer, while the bottom row of (b) shows the heatmap of PE. The correlation in (b) refers to the correlation coefficient between token embedding and position embedding.		  
+	      </p>
+		</div>
+	  </div>
+	</div>
+  </section>
+
+  <section class="section" id="Figure3">
+	<div class="container is-max-desktop">
+	  <div class="columns is-centered">
+		<div class="column is-full-width">
+		  <img src="./static/images/Figure3.jpg" alt="Figure 3" style="width:100%; max-width:1000px;">
+		  <p>
+			Figure: The overview of the various methods. (a) ViT. (b) LaPE~\cite{lape}. (c) PVG, an improved Layer-wise structure. Specifically, we adopt a structure where the token embedding and PE are added before entering layer 0 and a hierarchical structure for delivering PE, excluding layer 0. (d) MPVG. The main difference from PVG is whether the initial PE is delivered to the Last LN.
+	      </p>
+		</div>
+	  </div>
+	</div>
+  </section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Quantitative Results</h2>
+        <div class="columns is-vcentered">
+			<!-- 왼쪽 열: result.png -->
+			<div class="column is-half">
+			  <img src="./static/images/result.png" alt="result" style="width:100%; max-width:1000px; display:block; margin:0 auto;">
+			</div>
+			<!-- 오른쪽 열: result2, result3, result4 (세로로 배치) -->
+			<div class="column is-half">
+			  <img src="./static/images/result2.png" alt="result2" style="width:100%; max-width:1000px; display:block; margin:20px auto;">
+			  <img src="./static/images/result3.png" alt="result3" style="width:100%; max-width:1000px; display:block; margin:20px auto;">
+			  <img src="./static/images/result4.png" alt="result4" style="width:100%; max-width:1000px; display:block; margin:20px auto;">
+			</div>
+		  </div>
+	  </div>
+	</div>
+		<p>
+            <p>
+				Table: <strong>Left</strong>, Top-1 accuracy comparison with various methods, using DeiT-T, DeiT-S, DeiT-B, Swin-Ti, CeiT-Ti, and T2T-ViT-7 on ImageNet-1K. <strong>Upper-Right</strong>, Top-1 accuracy comparison with various methods, using ViT-Lite and T2T-ViT-7 on CIFAR-100.
+				<strong>Middle-Right</strong>, Performance comparison of object detection on COCO2017.
+				<strong>Lower-Right</strong>, Performance comparison of semantic segmentation on ADE20K.
+			  </p>
+			  
+
+          </p>
+        </div>
+        <br/>
+        <!--/ Interpolating. -->
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{Lee2025maximizing,
+  author    = {Lee, Wonjun and Ham, Bumsub and Kim, Suhyun},
+  title     = {Maximizing the Position Embedding for Vision Transformers with Global Average Pooling},
+  journal   = {AAAI},
+  year      = {2025},
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+			Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">NeRFies</a>.
+		</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
