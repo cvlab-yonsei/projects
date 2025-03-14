@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Subnet-Aware Dynamic Supernet Training for Neural Architecture Search</title>
+  <meta name="author" content="CV-lab">
+
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/style.css" rel="stylesheet">
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">
+        <h2>Subnet-Aware Dynamic Supernet Training for Neural Architecture Search</h2>
+        <h3><a href="https://cvpr.thecvf.com/Conferences/2025">CVPR 2025</a></h3>
+      </div>
+
+      <div class="row authors name">
+        <div class="col-sm-3"><a href="https://jeiminjeon.github.io/">Jeimin Jeon</a><sup>1,2</sup></div>
+        <div class="col-sm-3"><a href="https://50min.github.io/">Youngmin Oh</a><sup>1</sup></div>
+        <div class="col-sm-3"><a href="https://junghyup-lee.github.io/">Junghyup Lee</a><sup>3</sup></div>
+        <div class="col-sm-3"><a href="https://dh-baek.github.io/">Donghyeon Baek</a><sup>1</sup></div>
+      </div>
+      <div style="clear: both;"></div>
+      <div class="row authors name">
+        <div class="col-sm-4"><a href="https://shape-kim.github.io/">Dohyung Kim</a><sup>4</sup></div>
+        <div class="col-sm-4"><a href="https://pailab.cau.ac.kr/home">Chanho Eom</a><sup>5</sup></div>
+        <div class="col-sm-4"><a href="https://cvlab.yonsei.ac.kr">Bumsub Ham</a><sup>1</sup></div>
+      </div>
+      
+      <div class="row authors school">
+        <div class="col-sm-4"><sup>1</sup>Yonsei University</div>
+        <div class="col-sm-4"><sup>2</sup>Articron Inc.</div>
+        <div class="col-sm-4"><sup>3</sup>Samsung Research</div>
+      </div>
+      <div class="row authors school">
+        <div class="col-sm-6"><sup>4</sup>Samsung Advanced Institute of Technology</div>
+        <div class="col-sm-5"><sup>5</sup>Chung-Ang University</div>
+        <!-- <div class="col-sm-4"></div> -->
+      </div>
+      
+      
+    </div>
+
+    <div class="row teaser">
+      <div class="col-sm-12 image"><img src="images/teaser.png" style="width: 80%;"></div>
+      <div class="col-sm-12 caption">Illustrations of the challenges of <i>N</i>-shot NAS methods. (a) We visualize validation losses for the subnets having different complexities at training time. Existing methods do not consider the distinct optimization speed of subnets w.r.t. complexities. This causes an unfairness problem, where the high-complexity subnet is trained insufficiently, and the predicted performance falls behind the low-complexity one, even if it might be supposed to provide better performance. (b) We illustrate gradients \( g^t \) of subnets and the momentum \( \mu^t \) at the \( t \)-th iteration. We can see that the gradients vary according to the subnets, resulting in a noisy momentum and preventing a stable training process.
+        
+        </div>
+    </div>
+
+    <div class="row abstract">
+      <div class="col-sm-12"><h3>Abstract</h3></div>
+      <div class="col-sm-12 content">
+        <p>N-shot neural architecture search (NAS) exploits a supernet containing all candidate subnets for a given search space. The subnets are typically trained with a static training strategy (e.g., using the same learning rate (LR) scheduler and optimizer for all subnets). This, however, does not consider that individual subnets have distinct characteristics, leading to two problems: (1) The supernet training is biased towards the low-complexity subnets (unfairness); (2) the momentum update in the supernet is noisy (noisy momentum). We present a dynamic supernet training technique to address these problems by adjusting the training strategy adaptive to the subnets. Specifically, we introduce a complexity-aware LR scheduler (CaLR) that controls the decay ratio of LR adaptive to the complexities of subnets, which alleviates the unfairness problem. We also present a momentum separation technique (MS). It groups the subnets with similar structural characteristics and uses a separate momentum for each group, avoiding the noisy momentum problem. Our approach can be applicable to various N-shot NAS methods with marginal cost, while improving the search performance drastically. We validate the effectiveness of our approach on various search spaces (e.g., NAS-Bench-201, Mobilenet spaces) and datasets (e.g., CIFAR-10/100, ImageNet).</p>
+      </div>
+    </div>
+
+    <div class="row approach">
+      <div class="col-sm-12"><h3>Results</h3></div>
+      <div class="col-sm-12 image"><img src="images/results.png" style="width: 100%;"></div>
+      <div class="col-sm-12 caption">Quantitative comparison of different supernet training methods on CIFAR-10, CIFAR-100 and ImageNet16-120 datasets in NAS-Bench-201. We report the Kendall's Tau, along with the top-1 accuracy (Top-1 Acc.) for each method. We also report the peak memory usage, and the GPU hours for training supernets on CIFAR-10, computed with a single RTX 2080Ti. The results include the average and standard deviations for 3 runs.</div>
+
+      <div class="col-sm-12 content">We show in this table the search performance in the NAS-Bench-201 space, in terms of ranking consistencies and top-1 accuracies. We can see that the three baselines (SPOS, FairNAS, FSNAS) coupled with our dynamic supernet training method provide better search performance consistently with negligible additional search cost. Note that each baseline exploits distinct supernet training strategy, e.g., sampling a single (SPOS) or multiple (FairNAS) subnets at each training iteration, or using multiple sub-supernets (FSNAS). This suggests that our method can be applied in a plug-and-play manner across diverse supernet training algorithms. </div>
+    </div>
+
+    <div class="row paper">
+      <div class="col-sm-12"><h3>Paper</h3></div>
+      <div class="col-sm-12">
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <div class="paper-image">
+                  <a href=""><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper_image.png" width="150px"></a>
+                </div>
+              </td>
+              <td></td>
+              <td>
+                J. Jeon, Y. Oh, J. Lee, D. Baek, D. Kim, C. Eom, and B. Ham<br>
+                <b>Subnet-Aware Dynamic Supernet Training for Neural Architecture Search</b><br>
+                In <i>In IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) </i>, 2025 <br>
+                [<a href="">arXiv</a>][<a href="">Code</a>]
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row ack">
+      <div class="col-sm-12"><h3>Acknowledgements</h3></div>
+      <div class="col-sm-12">This work was partly supported by IITP grant funded by the Korea government (MSIT) (No.RS-2022-00143524, Development of Fundamental Technology and Integrated Solution for Next-Generation Automatic Artificial Intelligence System, No.2022-0-00124, RS-2022-II220124, Development of Artificial Intelligence Technology for Self-Improving Competency-Aware Learning Capabilities) and the Yonsei Signature Research Cluster Program of 2024 (2024-22-0161).</div>
+    </div>
+  </div>
+</body>
+</html>
