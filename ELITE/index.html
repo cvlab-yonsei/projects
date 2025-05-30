@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="ELITE: Enhanced Language-Image Toxicity Evaluation for Safety">
+  <meta name="keywords" content="Vision Language Models, Safety, Benchmark">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- favicon 제거됨 -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">ELITE: Enhanced Language-Image Toxicity Evaluation for Safety</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://velpegor.github.io">Wonjun Lee</a><sup>*1, 2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://doehyeonlee.github.io/">Doehyeon Lee</a><sup>*4, 5</sup>,
+            </span>
+            <span class="author-block">
+              Eugene Choi<sup>4, 6</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://aim-intelligence.com/">Sangyoon Yu</a><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://hireashkan.com/">Ashkan Yousefpour</a><sup>4, 5</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://aim-intelligence.com/">Haon Park</a><sup>4</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://cvlab.yonsei.ac.kr/">Bumsub Ham</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://kdst.re.kr/">Suhyun Kim</a><sup>3†</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Yonsei University,</span>
+            <span class="author-block"><sup>2</sup>Korea Institute of Science and Technology</span>
+		<span class="author-block"><sup>3</sup>Kyung Hee University</span>
+            <span class="author-block"><sup>4</sup>AIM Intelligence</span> 
+            <span class="author-block"><sup>5</sup>Seoul National University</span>
+            <span class="author-block"><sup>6</sup>Sookmyung Women’s University</span>
+          </div>
+
+          <div class="is-size-6 publication-authors">
+            <span class="author-block"><sup>*</sup>Equal Contribution, <sup>†</sup>Corresponding Author</span>
+          </div>
+		
+	<div>
+                <span class="is-size-5 publication-venue">ICML 2025</span>
+
+        </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/pdf/2011.12948" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2502.04757"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/velpegor/ELITE"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/WonjunL/ELITE"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Dataset</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+            Current Vision Language Models (VLMs) remain vulnerable to malicious prompts that induce harmful outputs. Existing safety benchmarks for VLMs primarily rely on automated evaluation methods, but these methods struggle to detect implicit harmful content or produce inaccurate evaluations. Therefore, we found that existing benchmarks have low levels of harmfulness, ambiguous data, and limited diversity in image-text pair combinations. To address these issues, we propose the ELITE benchmark, a high-quality safety evaluation benchmark for VLMs, underpinned by our enhanced evaluation method, the ELITE evaluator. The ELITE evaluator explicitly incorporates a toxicity score to accurately assess harmfulness in multimodal contexts, where VLMs often provide specific, convincing, but unharmful descriptions of images. We filter out ambiguous and low-quality image-text pairs from existing benchmarks using the ELITE evaluator and generate diverse combinations of safe and unsafe image-text pairs. Our experiments demonstrate that the ELITE evaluator achieves superior alignment with human evaluations compared to prior automated methods, and the ELITE benchmark offers enhanced benchmark quality and diversity. By introducing ELITE, we pave the way for safer, more robust VLMs, contributing essential tools for evaluating and mitigating safety risks in real-world applications.
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+<section class="section" id="Figure2">
+	<div class="container is-max-desktop">
+	  <div class="columns is-centered">
+		<div class="column is-full-width">
+		  <img src="./static/images/figure1 (1)-1.png" alt="Figure 1" style="width:100%; max-width:1000px;">
+		  <div class="content has-text-justified">
+        Contributions of ELITE. (a) Benchmark Construction: The ELITE benchmark is a high-quality benchmark built by filtering out unsuccessful image-text pairs using the ELITE evaluator. (b) Generated Image-Text Pairs: Image-text pair with various methods for inducing harmful responses from VLMs. (c) Evaluation Method: The ELITE evaluator is a more precise rubric-based safety evaluation method compared to existing methods for VLMs.		  
+      </div>
+		</div>
+	  </div>
+	</div>
+  </section>
+
+  <section class="section" id="Figure3">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">ELITE Benchmark</h2>
+          <img src="./static/images/table.png" alt="Figure 3" style="width:100%; max-width:1000px;">
+          <div class="content has-text-justified">
+            Overview of the ELITE benchmark. We created 4,587 image-text pairs by filtering out ambiguous image-text pairs that are unable to induce harmful responses in both existing benchmarks and the in-house generated image-text pairs. "New" refers to the image-text pairs we generated using various methods. In the case of JailbreakV-28k, filtering is performed only on insufficient taxonomies to maintain balance across taxonomies.
+          </div>
+        </div>
+      </div>
+  
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <img src="./static/images/figure3 (4)-1.png" alt="result" style="width:100%; max-width:1000px; display:block; margin:0 auto;">
+        </div>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <div class="content has-text-justified">
+            The pipeline for constructing ELITE benchmark. 1) Taxonomy Alignment: Align the image-text pairs in existing benchmarks with the taxonomy of the ELITE benchmark. 2) Filtering: Integrate only image-text pairs where at least two out of three model responses assign an ELITE evaluator score of 10 or higher. 3) Balancing the Taxonomy: Remove image-text pairs with the lowest combined ELITE evaluator score from overly concentrated taxonomies to maintain balance across taxonomies after filtering.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="Figure3">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full-width">
+          <h2 class="title is-3">ELITE evaluator</h2>
+          <div class="columns is-centered">
+            <div class="column is-half">
+              <img src="./static/images/figure2 (3)-1.png" alt="result" style="width:100%; max-width:1000px; display:block; margin:0 auto;">
+            </div>
+          </div>
+          <div class="columns is-centered">
+            <div class="column is-full-width">
+              <div class="content has-text-justified">
+                Examples of safety evaluations about the victim model's response by ELITE and StrongREJECT evaluator. 
+                \( r \), \( s \), \( c \), and \( t \) represent refused, specific, convincing, and toxicity, respectively. 
+                The ELITE evaluator can effectively evaluate utilizing the toxicity score to make more accurate judgments.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- MathJax 라이브러리 추가 -->
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.0/es5/tex-mml-chtml.js">
+  </script>
+  
+  
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Quantitative Results</h2>
+        <img src="./static/images/table2.png" alt="Figure 1" style="width:100%; max-width:1000px;">
+      <div class="content has-text-justified">
+        ELITE evaluator score-based ASR of various VLMs across taxonomies. The upper group in the table represents proprietary models, and the lower group represents open-source models. The most vulnerable model is highlighted in <b>bold</b> and the second-most vulnerable with an <span class="underline">underline</span>.
+	    </div>
+			</div>
+		</div>
+    <!-- 좌우 배치된 이미지 -->
+    <div class="columns is-centered">
+      <div class="column is-half">
+        <img src="./static/images/figure4 (2)-1.png" alt="Figure 4" style="width:100%; max-width:1000px; display:block; margin:0 auto;">
+      </div>
+      <div class="column is-half" style="margin-top: 70px;">
+        <img src="./static/images/table3.png" alt="Table 3" style="width:100%; max-width:1000px; display:block; margin:30 auto;">
+      </div>
+    </div>
+
+    <!-- 전체 너비의 설명 문장 -->
+    <div class="columns is-centered">
+      <div class="content has-text-justified">
+        <ul>
+          <li><b>Left</b>: The comparison of AU-ROC curves between the ELITE evaluator and StrongREJECT evaluator on our human evaluation dataset.</li>
+          <li><b>Right</b>: Performance comparison of the ELITE (GPT-4o), ELITE (InternVL2.5-8B, 26B), ELITE (InternVL2.5-26B), LlamaGuard3-Vision-11B, LlavaGuard-13B, and OpenAI Moderation API on our human evaluation dataset. The best-performing method is highlighted in <b>bold</b> and the second-best method with an <span class="underline">underline</span>.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{Lee2025elite,
+  author    = {Lee, Wonjun and Lee, Doehyeon and Choi, Eugene and Yu, Sangyoon and Yousefpour, Ashkan and Park, Haon and Ham, Bumsub and Kim, Suhyun},
+  title     = {ELITE: Enhanced Language-Image Toxicity Evaluation for Safety},
+  journal   = {International Conference on Machine Learning (ICML)},
+  year      = {2025},
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+			Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io" target="_blank">NeRFies</a>.
+		</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
