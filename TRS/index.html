@@ -19,24 +19,44 @@
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
 </script>
 
-<body>
-  <div class="container">
-    <div class="header">
-      <div class="title">
-        <h2>Transition Rate Scheduling for<br>Quantization-Aware Training</h2>
-        <!-- <h3><a href="https://cvpr.thecvf.com/Conferences/2024">CVPR 2024</a></h3> -->
-      </div>
+      <body>
+        <div class="container">
+          <div class="header">
+            <div class="title">
+              <h2>Scheduling Weight Transitions for Quantization-Aware Training</h2>
+              <h3><a href="https://iccv.thecvf.com/">ICCV 2025</a></h3>
+            </div>
+      
+            <div class="row authors name">
+              <div class="col-sm-3"><a href="https://junghyup-lee.github.io/">Junghyup Lee</a><sup>1,*</sup></div>
+              <div class="col-sm-3"><a href="https://jeiminjeon.github.io/">Jeimin Jeon</a><sup>2,3,*</sup></div>
+              <div class="col-sm-3"><a href="https://shape-kim.github.io/">Dohyung Kim</a><sup>4</sup></div>
+              <div class="col-sm-3"><a href="https://cvlab.yonsei.ac.kr">Bumsub Ham</a><sup>2</sup></div>
+            </div>
 
-      <div class="row authors name">
-        <div class="col-sm-3"><a href="https://junghyup-lee.github.io/">Junghyup Lee</a></div>
-        <div class="col-sm-3"><a href="https://shape-kim.github.io/">Dohyung Kim</a></div>
-        <div class="col-sm-3">Jeimin Jeon</a></div>
-        <div class="col-sm-3"><a href="https://cvlab.yonsei.ac.kr">Bumsub Ham</a></div>
-      </div>
-      <div class="row authors school">
-        <div class="col-sm-12">Yonsei University</div>
-      </div>
-    </div>
+            <div class="row authors note">
+              <div class="col-sm-12">
+                <sup>*</sup>Equal contribution
+              </div>
+            </div>
+            
+            <div class="row authors school">
+              <div class="col-sm-6"><sup>1</sup>Samsung Research</div>
+              <div class="col-sm-6"><sup>2</sup>Yonsei University</div>
+              
+              
+            </div>
+            <div class="row authors school">
+              <div class="col-sm-6"><sup>3</sup>Articron Inc.</div>
+              <div class="col-sm-6"><sup>4</sup>Samsung AI Center</div>
+              <!-- <div class="col-sm-4"></div> -->
+            </div>
+            
+            
+          </div>
+
+      
+      
 
     <div class="row teaser">
       <div class="col-sm-12 image"><img src="images/teaser.png" style="width: 100%;"></div>
@@ -45,13 +65,15 @@
 
     <div class="row abstract">
       <div class="col-sm-12"><h3>Abstract</h3></div>
-      <div class="col-sm-12 content">Quantization-aware training (QAT) simulates a quantization process during training to lower bit-precision of weights/activations. It learns quantized weights indirectly by updating latent weights, <i>i.e.</i>, full-precision inputs to a quantizer, using gradient-based optimizers. We claim that coupling a user-defined learning rate (LR) with these optimizers is sub-optimal for QAT. Quantized weights transit discrete levels of a quantizer, only if corresponding latent weights pass transition points, where the quantizer changes discrete states. This suggests that the changes of quantized weights are affected by both the LR for latent weights and their distributions. It is thus difficult to control the degree of changes for quantized weights by scheduling the LR manually. We conjecture that the degree of parameter changes in QAT is related to the number of quantized weights transiting discrete levels. Based on this, we introduce a transition rate (TR) scheduling technique that controls the number of transitions of quantized weights explicitly. Instead of scheduling a LR for latent weights, we schedule a target TR of quantized weights, and update the latent weights with a novel transition-adaptive LR (TALR), enabling considering the degree of changes for the quantized weights during QAT. Experimental results demonstrate the effectiveness of our approach on standard benchmarks.</p></div>
+      <div class="col-sm-12 content">Quantization-aware training (QAT) simulates a quantization process during training to lower bit-precision of weights/activations. It learns quantized weights indirectly by updating latent weights, i.e., full-precision inputs to a quantizer, using gradient-based optimizers. We claim that coupling a user-defined learning rate (LR) with these optimizers is sub-optimal for QAT. Quantized weights transit discrete levels of a quantizer, only if corresponding latent weights pass transition points, where the quantizer changes discrete states. This suggests that the changes of quantized weights are affected by both the LR for latent weights and their distributions. It is thus difficult to control the degree of changes for quantized weights by scheduling the LR manually. We conjecture that the degree of parameter changes in QAT is related to the number of quantized weights transiting discrete levels. Based on this, we introduce a transition rate (TR) scheduling technique that controls the number of transitions of quantized weights explicitly. Instead of scheduling a LR for latent weights, we schedule a target TR of quantized weights, and update the latent weights with a novel transition-adaptive LR (TALR), enabling considering the degree of changes for the quantized weights during QAT. Experimental results demonstrate the effectiveness of our approach on standard benchmarks.</p></div>
     </div>
 
     <div class="row approach">
       <div class="col-sm-12"><h3>Results</h3></div>
       <div class="col-sm-12 image"><img src="images/results.png" style="width: 100%;"></div>
       <div class="col-sm-12 caption">Quantitative comparison of quantized models on ImageNet in terms of a top-1 validation accuracy. We train quantized models with plain optimization methods (SGD and Adam) or ours using a TR scheduler (SGDT and AdamT). The bit-widths of weights (W) and activations (A) are represented in the form of W/A. For comparison, we also report the performance of full-precision (FP) and activation-only binarized (W32A1) models. The results of ReActNet-18 for the plain optimizers are reproduced with an official source code.</div>
+
+
       <div class="col-sm-12 content">We provide in this table a quantitative comparison of quantized models trained with optimizers using a LR (SGD and Adam) and our approach (SGDT and AdamT). We report a top-1 classification accuracy on ImageNet using the MobileNetV2, ReActNet-18 and ResNet-18 architectures. From this table, we can see that our method provides substantial accuracy gains over the plain optimizers, regardless of the network architectures and quantization bit-widths. This indicates that scheduling a target TR is a better choice for the optimization process in QAT compared to the conventional strategy scheduling a LR. We can also observe that the performance gaps using light-weight MobileNetV2 (0.6~6.7%) are more significant than the ones using ReActNet-18 or ResNet-18 (0.1~0.5%). Moreover, the performance gaps become larger for smaller bit-widths of MobileNetV2. These results suggest that the TR scheduling technique is especially useful for compressing networks aggressively, such as quantizing a light-weight model or extremely low-bit quantization.</div>
     </div>
 
@@ -67,21 +89,24 @@
           </td>
           <td></td>
           <td>
-            J. Lee, D. Kim, J. Jeon, and B. Ham<br>
-            <b>Transition Rate Scheduling for Quantization-Aware Training</b> <br>
-            Submitted to IEEE Transactions on Pattern Analysis and Machine Intelligence on Apr. 03, 2023 <br>
+            J. Lee, J. Jeon, D. Kim, and B. Ham<br>
+            <b>Scheduling Weight Transitions for Quantization-Aware Training</b> <br>
+            In <i>IEEE/CVF International Conference on Computer Vision (ICCV) </i>, 2025 <br>
             [<a href="https://arxiv.org/abs/2404.19248">arXiv</a>] [Code will be released]
-            <!-- [<a href="https://arxiv.org/abs/2308.11911">arXiv</a>][<a href="https://github.com/cvlab-yonsei/ACLS">Code</a>] -->
-          </td></tr></tbody>
+          </td>
+        </tr>
+      </tbody>
         </table>
       </div>
     </div>
 
+    
 
-    <!-- <div class="row ack">
+
+    <div class="row ack">
       <div class="col-sm-12"><h3>Acknowledgements</h3></div>
-      <div class="col-sm-12">This work was partly supported by IITP grants funded by the Korea government (MSIT) (No.RS-2022-00143524, Development of Fundamental Technology and Integrated Solution for Next-Generation Automatic Artificial Intelligence System, No.2022-0-00124, Development of Artificial Intelligence Technology for Self-Improving Competency-Aware Learning Capabilities) and the KIST Institutional Program (Project No.2E31051-21-203).</div>
-    </div> -->
+      <div class="col-sm-12">This work was supported in part by NRF and IITP grants funded by the Korea government (MSIT) (No. 2023R1A2C2004306, No.RS-2022-00143524, Development of Fundamental Technology and Integrated Solution for Next-Generation Automatic Artificial Intelligence System, RS-2021-II212068, Artificial Intelligence Innovation Hub) and the Yonsei Signature Research Cluster Program of 2025 (2025-22-0013).</div>
+    </div>
   </div>
 </body>
 
