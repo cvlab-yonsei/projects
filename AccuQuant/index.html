@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>AccuQuant: Simulating Multiple Denoising Steps for Quantizing Diffusion Models</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/style.css" rel="stylesheet">
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+      <body>
+        <div class="container">
+          <div class="header">
+            <div class="title">
+              <h2>AccuQuant: Simulating Multiple Denoising Steps for Quantizing Diffusion Models</h2>
+              <h3><a href="https://neurips.cc/Conferences/2025">NeurIPS 2025</a></h3>
+            </div>
+      
+            <div class="row authors name">
+              <div class="col-sm-4"><a href="https://seung-hoon-lee.github.io/">Seunghoon Lee</a><sup>*</sup></div>
+              <div class="col-sm-4"><a href="https://jeongwoo1213.github.io/">Jeongwoo Choi</a><sup>*</sup></div>
+              <div class="col-sm-4"><a href="https://byunggwan-son.github.io/">Byunggwan Son</a><sup></sup></div>
+              <div style="clear: both;"></div>
+              <div class="col-sm-4"><a href="https://github.com/JaeHyeonMoon/">Jaehyeon Moon</a><sup></sup></div>
+              <div class="col-sm-4"><a href="https://jeiminjeon.github.io/">Jeimin Jeon</a><sup></sup></div>
+              <div class="col-sm-4"><a href="https://cvlab.yonsei.ac.kr">Bumsub Ham</a><sup></sup></div>
+            </div>
+
+            <div class="row authors note">
+              <div class="col-sm-12">
+                <sup>*</sup>Equal contribution
+              </div>
+            </div>
+            <div class="row authors school">
+              <div>Yonsei University</div>
+            </div>
+            
+            
+          </div>
+
+      
+      
+    <div class="row teaser">
+      <div class="col-sm-12 image"><img src="images/error.png" style="width: 100%;"></div>
+      <div class="col-sm-12 caption">Left: Magnitude of the quantization error per step and the accumulated error at each denoising step. The accumulated error increases drastically, while the step error remains relatively constant, suggesting that reducing the accumulated error is crucial for generating better images, compared to the step error. Right: Q-Diffusion accumulates quantization errors according to denoising steps, resulting in a very high FID2FP32 score. On the contrary, our method effectively mitigates the problem, maintaining a low score.</div>
+    </div>
+
+    <div class="row teaser">
+      <div class="col-sm-12 image"><img src="images/overview.png" style="width: 100%;"></div>
+      <div class="col-sm-12 caption">Calibration processes of previous approaches and AccuQuant. Left: Previous methods minimize the quantization error at each denoising step individually, failing to account for accumulated quantization errors during calibration. Right: AccuQuant addresses this problem effectively and efficiently by simulating multiple denoising steps of diffusion models, that is, aligning generated images of full-precision and quantized models over multiple denoising steps, with a memory complexity of $\mathcal{O}(1)$, independent of the number of steps.</div>
+    </div>
+
+    <div class="row abstract">
+      <div class="col-sm-12"><h3>Abstract</h3></div>
+      <div class="col-sm-12 content">We present in this paper a novel post-training quantization (PTQ) method, dubbed AccuQuant, for diffusion models. We show analytically and empirically that quantization errors for diffusion models are accumulated over denoising steps in a sampling process. To alleviate the error accumulation problem, AccuQuant minimizes the discrepancies between outputs of a full-precision diffusion model and its quantized version within a couple of denoising steps. That is, it simulates multiple denoising steps of a diffusion sampling process explicitly for quantization, accounting the accumulated errors over multiple denoising steps, which is in contrast to previous approaches to imitating a training process of diffusion models, namely, minimizing the discrepancies independently for each step. We also present an efficient implementation technique for AccuQuant, together with a novel objective, which reduces a memory complexity significantly from $\mathcal{O}(n)$ to $\mathcal{O}(1)$, where $n$ is the number of denoising steps. We demonstrate the efficacy and efficiency of AccuQuant across various tasks and diffusion models on standard benchmarks.</p></div>
+    </div>
+
+    <div class="row approach">
+      <div class="col-sm-12"><h3>Quantitative Results</h3></div>
+      <div class="col-sm-12 image"><img src="images/table.png" style="width: 100%;"></div>
+      <div class="col-sm-12 caption" style="text-align: center;"> Quantization results for class-/text-conditional image generation on various dataset.</div>
+
+      <div class="col-sm-12 content">We show in those Tables, quantitative comparisons of our method and the state-of-the-art methods for class-/text-conditional image generation on ImageNet and MS-COCO dataset. We summarize our findings as follows: (1) AccuQuant outperforms all previous approaches, specially designed to quantize diffusion models, by significant margins in terms of FID2FP32. Specifically, it provides better results than PCR, even with lower bit-widths. This demonstrates that AccuQuant reduces accumulated errors effectively, and better maintains the behavior of full-precision models compared to other methods. (2) AccuQuant achieves significant performance gains, especially in low-bit settings for activation quantization. Note that low-bit settings are more vulnerable to accumulated errors, due to the limited representational capacity. This demonstrates the robustness of AccuQuant and its ability to maintain high performance, even under constrained conditions. (3) AccuQuant outperforms the state-of-the-art methods in various standard benchmarks, verifying that considering multiple denoising steps in a sampling process is effective to reduce accumulated errors for quantizing diffusion models.</div>
+    </div>
+
+    <div class="row approach" id="qual-slider">
+      <div class="col-sm-12"><h3>Qualitative Results</h3></div>
+      <div class="col-sm-12 image"><img src="images/quali1.png" style="width: 100%;"></div>
+      <div class="col-sm-12 image"><img src="images/quali2.png" style="width: 100%;"></div>
+      <div class="col-sm-12 image"><img src="images/quali3.png" style="width: 100%;"></div>
+      <div class="col-sm-12 image"><img src="images/quali4.png" style="width: 100%;"></div>
+      <div class="col-sm-12 image"><img src="images/quali5.png" style="width: 100%;"></div>
+      <div class="col-sm-12 image"><img src="images/quali6.png" style="width: 100%;"></div>
+      <div class="col-sm-12 caption" style="text-align: center;">
+        Quantization results for text-conditional image generation with stable-diffusion v1.4 under W4A8. Images of each row correspond to the output of the full-precision model and AccuQuant.
+      </div>
+    </div>
+
+    <div class="row paper">
+      <div class="col-sm-12"><h3>Paper</h3></div>
+      <div class="col-sm-12">
+        <table>
+          <tbody><tr></tr>
+          <tr><td>
+            <div class="paper-image">
+              <a href="https://arxiv.org/abs/2510.20348"><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper_image.png" width="150px"></a>
+            </div>
+          </td>
+          <td></td>
+          <td>
+            S. Lee*, J. Choi*, B. Son, J. Moon, J. Jeon and B. Ham (*equal contribution)<br>
+            <b>AccuQuant: Simulating Multiple Denoising Steps for Quantizing Diffusion Models</b> <br>
+            In <i>Conference on Neural Information Processing Systems (NeurIPS) </i>, 2025 <br>
+            [<a href="https://arxiv.org/abs/2510.20348">arXiv</a>]
+          </td>
+        </tr>
+      </tbody>
+        </table>
+      </div>
+    </div>
+
+    
+
+
+    <div class="row ack">
+      <div class="col-sm-12"><h3>Acknowledgements</h3></div>
+      <div class="col-sm-12">This work was supported by Institute of Information & Communications Technology Planning & Evaluation (IITP) grants funded by the Korea government (MSIT) (No.RS-2022-00143524, Development of Fundamental Technology and Integrated Solution for Next-Generation Automatic Artificial Intelligence System, No.RS-2025-09942968, AI Semiconductor Innovation Lab(Yonsei University)), the National Research Foundation of Korea(NRF) grants funded by the Korea government(MSIT) (No. 2023R1A2C2004306, RS-2025-02216328), Samsung Electronics Co., Ltd (IO240520-10013-01), and the Yonsei Signature Research Cluster Program of 2025 (2025-22-0013).</div>
+    </div>
+  </div>
+    <script>
+    (function () {
+      const root = document.getElementById('qual-slider');
+      if (!root) return;
+
+      const originalSlides = Array.from(root.querySelectorAll('.image'));
+      const caption = root.querySelector('.caption');
+      if (originalSlides.length === 0) return;
+
+      // === 뷰포트/트랙 구성 ===
+      const viewport = document.createElement('div');
+      viewport.className = 'aq-viewport';
+      const track = document.createElement('div');
+      track.className = 'aq-track';
+      viewport.appendChild(track);
+      root.insertBefore(viewport, caption);
+      originalSlides.forEach(el => track.appendChild(el));
+
+      // 양쪽 복제(무한 루프)
+      const firstClone = originalSlides[0].cloneNode(true);
+      const lastClone  = originalSlides[originalSlides.length - 1].cloneNode(true);
+      track.insertBefore(lastClone, track.firstChild);
+      track.appendChild(firstClone);
+
+      // 컨트롤
+      const controls = document.createElement('div');
+      controls.className = 'aq-controls';
+      controls.innerHTML = `
+        <button class="aq-prev" aria-label="Previous" type="button">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline>
+          </svg>
+        </button>
+        <button class="aq-next" aria-label="Next" type="button">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+            <polyline points="9 6 15 12 9 18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline>
+          </svg>
+        </button>
+      `;
+      root.insertBefore(controls, caption);
+
+      // === 상태 ===
+      const TOTAL = originalSlides.length;
+      const INTERVAL = 3000;   // 자동 전환 3s
+      const DURATION = 600;    // 슬라이드 애니메이션 0.6s
+      let index = 1;           // 실제 첫 장 위치([last*] [1] ... [n] [first*])
+      let animating = false;
+      let nextTimer = null;
+
+      // === 유틸 ===
+      function setTransition(on) {
+        track.style.transition = on ? `transform ${DURATION}ms ease` : 'none';
+      }
+      function applyTransform() {
+        track.style.transform = `translateX(-${index * 100}%)`;
+      }
+      function forceReflow(el) { void el.offsetWidth; }  // 강제 리플로우(핵심!)
+
+      function lockHeightTo(i) {
+        // 실제 인덱스(복제 제외) → 0..TOTAL-1
+        const real = ((i - 1 + TOTAL) % TOTAL);
+        const slideEl = originalSlides[real];
+        if (slideEl) viewport.style.height = slideEl.offsetHeight + 'px';
+      }
+
+      function scheduleNext() {
+        clearTimeout(nextTimer);
+        nextTimer = setTimeout(() => next(), INTERVAL);
+      }
+
+      function go(step) {
+        if (animating) return;
+        animating = true;
+        setTransition(true);
+        index += step;          // 자동재생은 항상 +1로 "앞으로만"
+        lockHeightTo(index);
+        applyTransform();
+      }
+
+      function next() { go(1); }
+      function prev() { go(-1); }
+
+      // === 래핑(경계) 처리: 되감는 느낌 0으로 숨기기 ===
+      track.addEventListener('transitionend', () => {
+        animating = false;
+
+        if (index === 0) {
+          // 왼쪽 복제 → 실제 마지막으로 "같은 프레임"에 순간이동
+          setTransition(false);
+          index = TOTAL;
+          applyTransform();
+          forceReflow(track);        // ← 이 줄 덕에 눈으로 못 느낍니다
+          setTransition(true);
+        } else if (index === TOTAL + 1) {
+          // 오른쪽 복제 → 실제 첫 장으로 "같은 프레임"에 순간이동
+          setTransition(false);
+          index = 1;
+          applyTransform();
+          forceReflow(track);        // ← 이 줄 덕에 눈으로 못 느낍니다
+          setTransition(true);
+        }
+
+        // 전환이 끝난 시점 기준으로 다음 타이머 스케줄(간격 균일)
+        scheduleNext();
+      });
+
+      // 컨트롤/호버/키보드
+      controls.querySelector('.aq-next').addEventListener('click', () => { clearTimeout(nextTimer); next(); });
+      controls.querySelector('.aq-prev').addEventListener('click', () => { clearTimeout(nextTimer); prev(); });
+      root.addEventListener('mouseenter', () => clearTimeout(nextTimer));
+      root.addEventListener('mouseleave', () => { if (!animating) scheduleNext(); });
+      root.tabIndex = 0;
+      root.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') { clearTimeout(nextTimer); next(); }
+        if (e.key === 'ArrowLeft')  { clearTimeout(nextTimer); prev(); }
+      });
+
+      // 초기 세팅: 첫 실제 슬라이드 위치로(무전환) + 높이 고정 후 타이머 시작
+      setTransition(false);
+      applyTransform();
+      lockHeightTo(index);
+      // 첫 프레임 준비되면 전환 활성화 후 다음 예약
+      requestAnimationFrame(() => { setTransition(true); scheduleNext(); });
+
+      // 탭 비활성화/복귀 처리
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) clearTimeout(nextTimer);
+        else if (!animating) scheduleNext();
+      });
+    })();
+    </script>
+</body>
+
