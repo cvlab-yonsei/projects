@@ -224,3 +224,40 @@ div.row h3 {
 #qual-slider .aq-next { right: .5rem; }
 #qual-slider .aq-controls button svg { display:block; }
 #qual-slider .aq-viewport { transition: height 300ms ease; }
+
+/* ===============================
+   Link Buttons (Custom Rounded Buttons)
+   =============================== */
+/* 중앙 정렬 */
+.link-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;   /* 이 줄 추가 → 중앙 정렬 */
+}
+
+/* 버튼 스타일 */
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 18px;
+  border-radius: 30px;
+  background: #333;
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background 0.2s ease;
+}
+
+.link-button:hover {
+  background: #555;
+}
+
+.link-button .icon {
+  margin-right: 8px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}

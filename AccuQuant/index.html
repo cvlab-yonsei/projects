@@ -6,6 +6,13 @@
 
 	<link href="./css/bootstrap.min.css" rel="stylesheet">
   <link href="./css/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!-- <script defer src="./static/js/fontawesome.all.min.js"></script> -->
 
   <script type="text/x-mathjax-config">
   MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
@@ -45,12 +52,34 @@
             <div class="row authors school">
               <div>Yonsei University</div>
             </div>
-            
-            
-          </div>
 
-      
-      
+            <!-- <div class="row authors poster" style="clear: both; margin-top: 8px;">
+              <div>
+                <a href="images/poster.png" target="_blank" style="font-size: 20px; font-weight: 600;">
+                  Poster
+                </a>
+              </div>
+            </div> -->
+            
+
+            <div class="link-buttons">
+              
+              <!-- OpenReview
+              <a class="link-button" href="https://openreview.net/forum?id=Or1pDhbSag" target="_blank">
+                <span class="icon"><i class="fa-solid fa-link"></i></span>
+                <span>Openreview</span>
+              </a> -->
+                <a class="link-button" href="https://arxiv.org/abs/2510.20348" target="_blank">
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
+                  <span>arXiv</span>
+                </a>
+                  <a class="link-button" href="./images/poster.png" target="_blank">
+                    <span class="icon"><i class="fa-solid fa-image"></i></span>
+                    <span>Poster</span>
+                  </a>
+            </div>
+          </div>
+    
     <div class="row teaser">
       <div class="col-sm-12 image"><img src="images/error.png" style="width: 100%;"></div>
       <div class="col-sm-12 caption">Left: Magnitude of the quantization error per step and the accumulated error at each denoising step. The accumulated error increases drastically, while the step error remains relatively constant, suggesting that reducing the accumulated error is crucial for generating better images, compared to the step error. Right: Q-Diffusion accumulates quantization errors according to denoising steps, resulting in a very high FID2FP32 score. On the contrary, our method effectively mitigates the problem, maintaining a low score.</div>
@@ -95,6 +124,7 @@
           <tr><td>
             <div class="paper-image">
               <a href="https://arxiv.org/abs/2510.20348"><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper_image.png" width="150px"></a>
+              
             </div>
           </td>
           <td></td>
@@ -103,12 +133,39 @@
             <b>AccuQuant: Simulating Multiple Denoising Steps for Quantizing Diffusion Models</b> <br>
             In <i>Conference on Neural Information Processing Systems (NeurIPS) </i>, 2025 <br>
             [<a href="https://arxiv.org/abs/2510.20348">arXiv</a>]
+            [<a href="./images/poster.png">Poster</a>]
+            
           </td>
         </tr>
+        
       </tbody>
+      
         </table>
+
       </div>
-    </div>
+    <!-- <div class="row poster">
+      <div class="col-sm-12"><h3>Poster</h3></div>
+      <div class="col-sm-12">
+      <table>
+          <tbody><tr></tr>
+          <tr><td>
+            <div class="paper-image">
+              <a href="./images/poster.png"><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/poster.png" width="150px"></a>
+            </div>
+          </td>
+          <td></td>
+          <td>
+            Wed 3 Dec 11 a.m - 2 p.m <br>
+            In Room: Exhibit Hall C,D,E Poster Location: #4304 </i> <br>
+            [<a href="./images/poster.png">Poster page</a>]
+          </td>
+        </tr>
+        
+      </tbody>
+      
+        </table>
+
+    </div> -->
 
     
 
