@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>GrowTAS: Progressive Expansion from Small to Large Subnets for Efficient ViT Architecture Search</title>
+  <meta name="author" content="CV-lab">
+
+  <link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/style.css" rel="stylesheet">
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">
+        <h2>GrowTAS: Progressive Expansion from Small to Large Subnets for Efficient ViT Architecture Search</h2>
+        <h3><a href="https://wacv.thecvf.com/Conferences/2026">WACV 2026</a></h3>
+      </div>
+
+      <div class="row authors name">
+        <div class="col-sm-4"><a href="https://dlguswn3659.github.io/">Hyunju Lee</a></div>
+        <div class="col-sm-4"><a href="https://jeiminjeon.github.io/">Jeimin Jeon</a></div>
+        <div class="col-sm-4"><a href="https://50min.github.io/">Youngmin Oh</a></div>
+        <div style="clear: both;"></div>
+        <div class="col-sm-6"><a href="https://dh-baek.github.io/">Donghyeon Baek</a></div>
+        <div class="col-sm-6"><a href="https://cvlab.yonsei.ac.kr">Bumsub Ham</a></div>
+      </div>
+      
+      <div class="row authors school">
+        <div>Yonsei University</div>
+      </div>
+      
+      
+    </div>
+
+    <div class="row teaser">
+      <div class="col-sm-12 image"><img src="images/teaser.jpg" style="width: 80%;"></div>
+      <div class="col-sm-12 caption">
+          <strong>Top</strong>: We first train a small subnet and then evaluate 100 larger subnets
+          derived from it without further training. To be specific, the large subnets are obtained
+          by appending randomly initialized weights to those of the trained one. We can see that
+          the large subnets achieve test accuracies comparable to the trained one (marked by the
+          red dashed line) even with the random initialization.
+          <strong>Bottom</strong>: We first train a large subnet and then evaluate 100 smaller
+          subnets derived from it without further training. Specifically, we obtain the small
+          variants by cropping a subset of weights from the trained subnet randomly. We can see
+          that the small subnets fail to maintain the performance of the well-trained one.
+        </div>
+    </div>
+
+    <div class="row abstract">
+      <div class="col-sm-12"><h3>Abstract</h3></div>
+      <div class="col-sm-12 content">
+        <p>Transformer architecture search (TAS) aims to automatically discover efficient vision
+        transformers (ViTs), reducing the need for manual design. Existing TAS methods typically
+        train an over-parameterized network (<em>i.e.</em>, a supernet) that encompasses all
+        candidate architectures (<em>i.e.</em>, subnets). However, subnets partially share
+        weights within the supernet, which leads to interference that degrades the smaller
+        subnets severely. We have found that well-trained small subnets can serve as a good
+        foundation for training larger ones. Motivated by this, we propose a progressive
+        training framework, dubbed GrowTAS, that begins with training small subnets and
+        incorporates larger ones gradually. This enables reducing the interference and
+        stabilizing training. We also introduce GrowTAS+ that fine-tunes a subset of weights
+        only to further enhance the performance of large subnets. Extensive experiments on
+        ImageNet and several transfer learning benchmarks, including CIFAR-10/100, Flowers,
+        CARS, and INAT-19, demonstrate the effectiveness of our approach over current TAS
+        methods.</p>
+      </div>
+    </div>
+
+    <div class="row approach">
+      <div class="col-sm-12"><h3>Results</h3></div>
+      <div class="col-sm-12 image"><img src="images/results.jpg" style="width: 100%;"></div>
+      <div class="col-sm-12 caption">Quantitative results of transfer learning across multiple datasets: CIFAR-10/100, Flowers, Cars, and INAT-19. We report top-1 accuracy (%) and the number of model parameters. For GrowTAS-S (ours), we report mean ± std across 3 runs.</div>
+
+      <div class="col-sm-12 content">We show in this table the results of GrowTAS on various downstream classification tasks, including CIFAR-10/100, Flowers, Cars, and iNat-19. We can see that GrowTAS-S achieves highly competitive or state-of-the-art performance across all benchmarks. These datasets span a broad spectrum of domains, covering general objects, fine-grained categories, and large-scale species classification. This suggests that our progressive subnet training strategy effectively preserves transferable features, demonstrating its generalization ability across diverse domains.</div>
+    </div>
+
+    <div class="row paper">
+      <div class="col-sm-12"><h3>Paper</h3></div>
+      <div class="col-sm-12">
+        <table>
+          <tbody>
+            <tr>
+              <td>
+                <div class="paper-image">
+                  <a href="https://arxiv.org/abs/2503.10740"><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper_image.jpg" width="150px"></a>
+                </div>
+              </td>
+              <td></td>
+              <td>
+                H. Lee, Y. Oh, J. Jeon, D. Baek, and B. Ham<br>
+                <b>GrowTAS: Progressive Expansion from Small to Large Subnets for Efficient ViT Architecture Search</b><br>
+                In <i>IEEE/CVF Winter Conference on Applications of Computer Vision (WACV) </i>, 2026 <br>
+                [<a href="https://arxiv.org/abs/2503.10740">arXiv</a>][<a href="https://github.com/cvlab-yonsei/One-Shot-TAS">Code</a>]
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row ack">
+      <div class="col-sm-12"><h3>Acknowledgements</h3></div>
+      <div class="col-sm-12">This work was supported by Institute of Information &amp; Communications Technology
+      Planning &amp; Evaluation (IITP) grants funded by the Korea government (MSIT)
+      (No.RS-2022-00143524, Development of Fundamental Technology and Integrated Solution for
+      Next-Generation Automatic Artificial Intelligence System, No.RS-2025-09942968, AI
+      Semiconductor Innovation Lab (Yonsei University)), and the National Research Foundation
+      of Korea (NRF) grants funded by the Korea government (MSIT) (RS-2025-02216328).</div>
+    </div>
+  </div>
+</body>
+</html>
