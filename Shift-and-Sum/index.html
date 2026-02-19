@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Shift-and-Sum Quantization for Visual Autoregressive Modelsh</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/style.css" rel="stylesheet">
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">
+        <h2>Shift-and-Sum Quantization for Visual Autoregressive Models</h2>
+        <h3><a href="https://iclr.cc/Conferences/2026">ICLR 2026</a></h3>
+      </div>
+
+      <div class="row authors name">
+        <div class="col-sm-6"><a href="https://jaehyeonmoon.github.io/">Jaehyeon Moon</a><sup>1,2</sup></div>
+        <div class="col-sm-6"><a href="https://cvlab.yonsei.ac.kr">Bumsub Ham</a><sup>1</sup></div>
+      </div>
+      <div class="row authors school">
+        <div class="col-sm-4"><sup>1</sup>Yonsei University</div>
+        <div class="col-sm-8"><sup>2</sup>Articron</div>
+      </div>
+    </div>
+
+    <div class="row teaser">
+      <div class="col-sm-12 image"><img src="images/teaser.png" style="width: 90%;"></div>
+      <div class="col-sm-12 caption">Visualization of attention-value products using shift-and-sum quantization with kernel orders of 1. Shift-and-sum quantization technique effectively reduces reconstruction errors in attention-value products by aggregating quantized results from symmetrically shifted duplicates of value tokens.</div>
+    </div>
+
+    <div class="row abstract">
+      <div class="col-sm-12"><h3>Abstract</h3></div>
+      <div class="col-sm-12 content">Post-training quantization (PTQ) enables efficient deployment of deep networks using a small set of data. Its application to visual autoregressive models (VAR), however, remains relatively unexplored. We identify two key challenges for applying PTQ to VAR: (i) large reconstruction errors in attention–value products, especially at coarse scales where high attention scores occur more frequently; and (ii) a discrepancy between the sampling frequencies of codebook entries and their predicted probabilities due to limited calibration data. To address these challenges, we propose a PTQ framework tailored for VAR. First, we introduce a shift-and-sum quantization method that reduces reconstruction errors by aggregating quantized results from symmetrically shifted duplicates of value tokens. Second, we present a resampling strategy for calibration data that aligns sampling frequencies of codebook entries with their predicted probabilities. Experiments on class-conditional image generation, inpainting, outpainting, and class-conditional editing show consistent improvements across VAR architectures, establishing a new state of the art in PTQ for VAR.</p></div>
+    </div>
+
+    <div class="row approach">
+      <div class="col-sm-12"><h3>Quantitative results</h3></div>
+      <div class="col-sm-12 image"><img src="images/results.png" style="width: 100%;"></div>
+      <div class="col-sm-12 caption">Quantitative comparison of quantizing VAR with various methods for the task of conditional image generation on ImageNet.  We denote by W/A the bit-widths of weights (W) and activations (A), respectively. We report IS, FID, and FID2FP16 for VARs of varying depths. Note that we have re-implemented LiteVAR for a fair comparison under consistent evaluation settings.</div>
+      <div class="col-sm-12 content">We show in this table a quantitative comparison of our method with prior approaches for the task of class-conditional image generation on ImageNet. We can see that our method consistently outperforms BRECQ across all bit-widths and architectures, demonstrating the effectiveness of the proposed shift-and-sum quantization and calibration data resampling techniques. In addition, our method achieves quantization performance comparable to LiteVAR, although it retains FC layers after GELU non-linearity in full-precision, which is suboptimal in terms of efficiency. Finally, applying our approach in combination with LiteVAR yields further improvements, suggesting that the two approaches are complementary.</div>
+      
+      <div class="col-sm-12"><h3>Qualitative results</h3></div>
+      <div class="col-sm-12 image"><img src="images/qualitative_results.png" style="width: 100%;"></div>
+      <div class="col-sm-12 caption">Comparison of generated images using Infinity-2B (Han et al., 2025) and its quantized counterparts using different methods.</div>
+      <div class="col-sm-12 content">We show in this figure a qualitative comparison of images generated by Infinity-2B quantized with BRECQ, LiteVAR, and our method. We can see that our method
+        consistently produces images with better fidelity compared to other methods.</div>
+    </div>
+
+    <div class="row paper">
+      <div class="col-sm-12"><h3>Paper</h3></div>
+      <div class="col-sm-12">
+        <table>
+          <tbody><tr></tr>
+          <tr><td>
+            <div class="paper-image">
+              <a href="https://iclr.cc/virtual/2026/poster/10010803"><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper_image.png" width="150px"></a>
+            </div>
+          </td>
+          <td></td>
+          <td>
+            J. Moon and B. Ham<br>
+            <b>Shift-and-Sum Quantization for Visual Autoregressive Models</b> <br>
+            In <i>International Conference on Learning Representations (ICLR) </i>, 2026 <br>
+            [<a href="https://iclr.cc/virtual/2026/poster/10010803">Paper</a>]
+          </td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="row ack">
+      <div class="col-sm-12"><h3>Acknowledgements</h3></div>
+      <div class="col-sm-12">This work was supported in part by Institute of Information & Communications Technology Planning & Evaluation (IITP) grant funded by the Korea government (MSIT) (No.RS-2022-00143524, Development of Fundamental Technology and Integrated Solution for Next-Generation Automatic Artificial Intelligence System, No.RS-2025-09942968, AI Semiconductor Innovation Lab (Yonsei University)), and the National Research Foundation of Korea (NRF) grant funded by the Korea government (MSIT) (RS-2025-02216328).</div>
+    </div>
+  </div>
+</body>
+
