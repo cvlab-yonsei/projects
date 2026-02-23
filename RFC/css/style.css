@@ -1,0 +1,423 @@
+/* Space out content a bit */
+
+@import url('https://fonts.googleapis.com/css?family=Baloo|Bungee+Inline|Lato|Righteous|Shojumaru');
+
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-family: 'Lato', serif;
+  font-size: 15px;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.row,
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Custom page header */
+.header {
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 25px;
+}
+
+.header .title h2{
+  font-size: 30px;
+}
+
+.header .title h3{
+  font-size: 20px;
+}
+
+.header .name{
+  padding-top: 10px;
+  font-size: 22px;
+}
+
+.header .school{
+  font-size: 20px;
+  padding-top: 10px;
+}
+
+.header .note{
+  font-size: 15px;
+  padding-top: 5px;
+}
+
+.header .contribution{
+  font-size: 15px;
+  padding-top: 5px;
+  padding-bottom: 20px;
+}
+
+.teaser{
+  padding-top: 30px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.teaser .image_left{
+  /* padding-top: 10px; */
+  padding-left: 10px;
+  padding-right: 0px;
+}
+.teaser .image_right{
+  /* padding-top: 10px; */
+  padding-left: 0px;
+  padding-right: 40px;
+}
+
+.teaser .caption{
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  text-align: justify;
+}
+
+.abstract{
+  text-align: justify;
+}
+
+.approach{
+  text-align: justify;
+}
+
+.approach .image{
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.approach .caption{
+  padding-top: 10px;
+  padding-left: 40px;
+  padding-right: 40px;
+  text-align: justify;
+}
+
+.approach .content{
+  padding-top: 20px;
+  text-align: justify;
+}
+
+.ack{
+  text-align: justify;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #ccc;
+}
+
+/* Customize container */
+@media (min-width: 938px) {
+  .container {
+    max-width: 900px;
+  }
+}
+.container-narrow > hr {
+  padding: 20px 0;
+}
+
+.row p + h3 {
+  padding-top: 28px;
+}
+
+div.row h3 {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 938px) {
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media screen and (max-width: 736px) {
+  .paper-image{
+    display: none;
+  }
+  #bibtex { display: block !important; }
+  #bibtex .bibtex-card { display: block !important; }
+  #bibtex .bibtex-pre { display: block !important; }
+}
+
+.readme h1 {
+  display: none;
+}
+
+/* =========================================================
+   Quan Slider (legacy #quan-slider)
+   ========================================================= */
+#quan-slider { position: relative; }
+#quan-slider .aq-viewport { position: relative; overflow: hidden; }
+#quan-slider .aq-track {
+  display: flex;
+  width: 100%;
+  will-change: transform;
+  transition: transform 600ms ease;
+}
+#quan-slider .aq-viewport .image {
+  flex: 0 0 100%;
+  max-width: 100%;
+  float: none;
+}
+#quan-slider .aq-viewport .image > img {
+  width: 100%;
+  display: block;
+}
+#quan-slider .aq-controls button {
+  position: absolute; top: 45%; transform: translateY(-50%);
+  z-index: 5;
+  border: 0; background: rgba(0,0,0,.45); color:#fff;
+  padding: .6rem .8rem; border-radius: 999px; cursor: pointer;
+}
+#quan-slider .aq-prev { left: .5rem; }
+#quan-slider .aq-next { right: .5rem; }
+#quan-slider .aq-controls button svg { display:block; }
+#quan-slider .aq-viewport { transition: height 300ms ease; }
+
+/* ===============================
+   Link Buttons (Custom Rounded Buttons)
+   =============================== */
+.link-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.link-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 18px;
+  border-radius: 30px;
+  background: #333;
+  color: white;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 16px;
+  transition: background 0.2s ease;
+}
+
+.link-button:hover {
+  background: #555;
+}
+
+.link-button .icon {
+  margin-right: 8px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+/* ===============================
+   BibTeX
+   =============================== */
+.bibtex-pre{
+  margin: 0;
+  padding: 12px 12px;
+  border-radius: 12px;
+  background: rgba(0,0,0,0.03);
+  overflow-x: auto;
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.bibtex-pre.flash {
+  animation: bibtexPreFlash 850ms ease-out;
+}
+
+@keyframes bibtexPreFlash {
+  0% { box-shadow: none; background: rgba(0,0,0,0.03); }
+  35% {
+    box-shadow:
+      0 0 0 5px rgba(0,0,0,0.06),
+      0 10px 26px rgba(0,0,0,0.10);
+    background: rgba(0,0,0,0.045);
+  }
+  100% { box-shadow: none; background: rgba(0,0,0,0.03); }
+}
+
+#bibtex, #bibtex .bibtex-card, #bibtex .bibtex-pre {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+#bibtex .bibtex-pre {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+#bibtex .bibtex-pre code {
+  display: block;
+  min-width: max-content;
+}
+
+#bibtex .col-sm-12,
+#bibtex .bibtex-card {
+  overflow: visible;
+}
+
+/* =========================================================
+   Qualitative Results (Images + Videos)
+   목표:
+   - 4개 한 줄로 "폭"을 꽉 채움 (각 칸 1/4)
+   - 이미지/비디오 모두 "원본 비율 유지" (절대 크롭/찌그러짐 X)
+   - prompt 여러 줄 허용
+   - 모바일은 4개 유지 + 가로 스크롤
+   ========================================================= */
+
+/* ===== Controls ===== */
+#qual-img-slider .qual-controls,
+#qual-vid-slider .qual-controls{
+  text-align: center;
+  margin: 8px 0 12px;
+}
+
+#qual-img-slider .btn-group,
+#qual-vid-slider .btn-group{
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+#qual-img-slider .qual-img-btn,
+#qual-vid-slider .qual-vid-btn{
+  border-radius: 999px !important;
+  padding: 6px 10px;
+  line-height: 1.1;
+  transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+}
+
+#qual-img-slider .qual-img-btn:not(.active):hover,
+#qual-vid-slider .qual-vid-btn:not(.active):hover{
+  transform: translateY(-1px);
+  background: rgba(0,0,0,0.04);
+  border-color: rgba(0,0,0,0.25);
+}
+
+#qual-img-slider .qual-img-btn.active,
+#qual-vid-slider .qual-vid-btn.active{
+  background: rgba(0,0,0,0.85);
+  color: #fff;
+  border-color: rgba(0,0,0,0.85);
+}
+
+/* ===== Stage ===== */
+#qual-img-slider .qual-stage,
+#qual-vid-slider .qual-stage{
+  border: 1px solid rgba(0,0,0,0.10);
+  border-radius: 14px;
+  background: rgba(0,0,0,0.02);
+  padding: 10px;
+  overflow: hidden; /* stage만 클립 (아이템은 클립 안 함) */
+}
+
+/* ===== Prompt (여러 줄) ===== */
+#qual-img-slider .qual-prompt,
+#qual-vid-slider .qual-prompt{
+  display: block;
+  margin: 2px auto 10px;
+  padding: 0;
+
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+
+  font-family: "Google Sans", "Noto Sans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.1px;
+  color: rgba(0,0,0,0.72);
+  text-align: center;
+
+  white-space: normal;
+  overflow: visible;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+/* ===== Grid: 데스크탑 4칸 ===== */
+#qual-img-slider .qual-grid,
+#qual-vid-slider .qual-grid{
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  align-items: start !important;
+}
+
+/* 모바일에서도 4개 유지 + 가로 스크롤 */
+@media (max-width: 768px){
+  #qual-img-slider .qual-grid,
+  #qual-vid-slider .qual-grid{
+    grid-template-columns: repeat(4, 260px) !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+  }
+}
+
+/* ===== 각 칸 ===== */
+#qual-img-slider .qual-item,
+#qual-vid-slider .qual-item{
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* ===== 이미지: 원본 비율 유지 + 가로폭 꽉 ===== */
+#qual-img-slider .qual-img{
+  width: 100% !important;
+  height: auto !important;          /* ✅ 원본 비율 */
+  display: block !important;
+  border-radius: 12px !important;
+  background: transparent !important;
+}
+
+/* ===== 비디오: 원본 비율 유지 + 가로폭 꽉 ===== */
+#qual-vid-slider .qual-vid{
+  width: 100% !important;
+  height: auto !important;          /* ✅ 원본 비율 */
+  display: block !important;
+  border-radius: 12px !important;
+  background: rgba(0,0,0,0.06) !important;
+}
+
+/* (선택) 비디오가 너무 세로로 길어지는 경우만: 최대 높이 제한 + 레터박스(contain) */
+#qual-vid-slider .qual-vid{
+  max-height: 260px;                /* ✅ 필요 없으면 지워도 됨 */
+  object-fit: contain;              /* ✅ 크롭 없이, 남는 공간은 레터박스 */
+}
+
+/* Caption */
+#qual-img-slider .qual-cap,
+#qual-vid-slider .qual-cap{
+  margin-top: 6px;
+  text-align: center;
+  font-size: 12.5px;
+  color: rgba(0,0,0,0.65);
+  font-weight: 600;
+}
+
+#quan-slider .quan-cap{
+  margin-top: 8px;
+  text-align: center;
+  font-size: 15px;
+  color: rgba(0,0,0,0.70);
+  line-height: 1.25;
+}

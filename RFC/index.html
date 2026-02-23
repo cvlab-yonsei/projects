@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Relational Feature Caching for Accelerating Diffusion Transformers</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+      <body>
+        <div class="container">
+          <div class="header">
+            <div class="title">
+              <h2>Relational Feature Caching for Accelerating Diffusion Transformers</h2>
+              <h3><a href="https://iclr.cc/">ICLR 2026</a></h3>
+            </div>
+      
+            <div class="row authors name">
+              <div class="col-sm-3"><a href="https://byunggwan-son.github.io/">Byunggwan Son</a><sup>1*</sup></div>
+              <div class="col-sm-3"><a href="https://jeiminjeon.github.io/">Jeimin Jeon</a><sup>1*</sup></div>
+              <div class="col-sm-3"><a href="https://jeongwoo1213.github.io/">Jeongwoo Choi</a><sup>1*</sup></div>
+              <div class="col-sm-3"><a href="https://cvlab.yonsei.ac.kr">Bumsub Ham</a><sup>1,2 &dagger;</sup></div>
+            </div>
+
+            <div class="row authors school">
+              <div class="col-sm-12">
+                <sup>1</sup>&nbsp;Yonsei University,&nbsp;<sup>2</sup>&nbsp;Korea Institute of Science and Technology (KIST)
+              </div>
+            </div>
+            
+            <div class="row authors note">
+              <div class="col-sm-12">
+                *&nbsp;Equal contribution&nbsp;&nbsp;,&nbsp;&nbsp;&dagger;&nbsp;Corresponding author
+              </div>
+            </div>
+
+            <!-- <div class="row authors poster" style="clear: both; margin-top: 8px;">
+              <div>
+                <a href="RFC_files/images/poster.png" target="_blank" style="font-size: 20px; font-weight: 600;">
+                  Poster
+                </a>
+              </div>
+            </div> -->
+            
+
+            <div class="link-buttons">
+              
+                <a class="link-button" href="https://openreview.net/forum?id=w8ksWcSuFb" target="_blank">
+                  <span class="icon"><i class="fa-regular fa-file-lines"></i></span>
+                  <span>Paper</span>
+                </a>
+                <!-- <a class="link-button" href="./RFC_files/images/poster.png" target="_blank">
+                  <span class="icon"><i class="fa-solid fa-image"></i></span>
+                  <span>Poster</span>
+                </a> -->
+                <a class="link-button" href="https://github.com/cvlab-yonsei" target="_blank">
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code (coming soon)</span>
+                </a>
+                <a class="link-button" href="#bibtex" id="bibtex-link">
+                  <span class="icon"><i class="fa-solid fa-quote-right"></i></span>
+                  <span>BibTeX</span>
+                </a>
+            </div>
+          </div>
+    
+      <div class="row teaser">
+
+      <div class="col-sm-12 image"><img src="RFC_files/images/rfc teaser.pdf" style="width: 100%;"></div>
+
+      <div class="col-sm-12 caption"> Feature analysis and comparison between existing approaches (FORA, TaylorSeer), and our method (RFC) using DiT-XL/2. (a-b) Min-max normalized L2 distances of output and input features, measured between consecutive timesteps. While the variations of feature changes are irregular, those of input and output remain closely aligned with each other. (c) The prediction errors across different modules. We measure the relative L1 error between output features with and without applying caching methods and average the values over the timesteps. (d) Quantitative results on ImageNet evaluated in terms of FLOPs and sFID. </div>
+    </div>
+
+    <div class="row teaser">
+
+      <div class="col-sm-12 caption"> </div>
+    </div>
+
+    <div class="row abstract">
+      <div class="col-sm-12"><h3>Abstract</h3></div>
+      <div class="col-sm-12 content">We propose relational feature caching (RFC), a novel framework that leverages the input-output relationship to enhance the accuracy of the feature prediction. Specifically, we introduce relational feature estimation (RFE) to estimate the magnitude of changes in the output features from the inputs, enabling more accurate feature predictions. We also present relational cache scheduling (RCS), which estimates the prediction errors using the input features and performs full computations only when the errors are expected to be substantial. Extensive experiments across various DiT models demonstrate that RFC consistently outperforms prior approaches significantly.</p></div>
+    </div>
+
+    <div class="row approach" id="quan-slider">
+      <div class="col-sm-12"><h3>Quantitative Results</h3></div>
+    
+      <div class="col-sm-12 image">
+        <figure style="margin:0;">
+          <img src="RFC_files/images/quant_dit.png" style="width:100%; display:block;">
+          <figcaption class="quan-cap" style="margin-top:8px; text-align:center;">
+            Class-conditional image generation for DiT-XL/2 on ImageNet.
+          </figcaption>
+        </figure>
+      </div>
+    
+      <div class="col-sm-12 image">
+        <figure style="margin:0;">
+          <img src="RFC_files/images/quant_flux.png" style="width:100%; display:block;">
+          <figcaption class="quan-cap" style="margin-top:8px; text-align:center;">
+            Text-to-image generation for FLUX.1 dev on DrawBench.
+          </figcaption>
+        </figure>
+      </div>
+    
+      <div class="col-sm-12 image">
+        <figure style="margin:0;">
+          <img src="RFC_files/images/quant_video.png" style="width:100%; display:block;">
+          <figcaption class="quan-cap" style="margin-top:8px; text-align:center;">
+            Text-to-video generation for HunyuanVideo on VBench.
+          </figcaption>
+        </figure>
+      </div>
+    
+      <!-- ✅ 슬라이더 스크립트가 insert 위치를 잡을 수 있게 더미 caption 하나 추가 -->
+      <div class="col-sm-12 caption" style="display:none;"></div>
+    </div>
+
+    <script>
+      (function () {
+        const root = document.getElementById('quan-slider');
+        if (!root) return;
+      
+        const slides = Array.from(root.querySelectorAll('.image'));
+        const caption = root.querySelector('.caption');
+        if (slides.length <= 1) return;
+      
+        // viewport/track 생성
+        const viewport = document.createElement('div');
+        viewport.className = 'aq-viewport';
+        const track = document.createElement('div');
+        track.className = 'aq-track';
+        viewport.appendChild(track);
+      
+        root.insertBefore(viewport, caption);
+        slides.forEach(el => track.appendChild(el));
+      
+        // 무한루프용 복제
+        const firstClone = slides[0].cloneNode(true);
+        const lastClone  = slides[slides.length - 1].cloneNode(true);
+        track.insertBefore(lastClone, track.firstChild);
+        track.appendChild(firstClone);
+      
+        // controls
+        const controls = document.createElement('div');
+        controls.className = 'aq-controls';
+        controls.innerHTML = `
+          <button class="aq-prev" aria-label="Previous" type="button">
+            <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline>
+            </svg>
+          </button>
+          <button class="aq-next" aria-label="Next" type="button">
+            <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+              <polyline points="9 6 15 12 9 18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></polyline>
+            </svg>
+          </button>
+        `;
+        root.insertBefore(controls, caption);
+      
+        // 상태
+        const TOTAL = slides.length;
+        const INTERVAL = 3500;
+        const DURATION = 600;
+        let index = 1;            // track 기준 (0: lastClone, 1..TOTAL: real, TOTAL+1: firstClone)
+        let animating = false;
+        let nextTimer = null;
+      
+        function setTransition(on){
+          track.style.transition = on ? `transform ${DURATION}ms ease` : 'none';
+        }
+        function applyTransform(){
+          track.style.transform = `translateX(-${index * 100}%)`;
+        }
+        function forceReflow(el){ void el.offsetWidth; }
+      
+        // ✅ "지금 화면에 보이는" track의 자식으로 높이 측정
+        function currentSlideEl(){
+          return track.children[index]; // clone 포함
+        }
+      
+        // ✅ 높이 맞추기 (img 로드 전이면 기다렸다가 다시)
+        function syncHeight(){
+          const el = currentSlideEl();
+          if (!el) return;
+      
+          const measure = () => {
+            const h = el.getBoundingClientRect().height;
+            if (h > 0) viewport.style.height = h + 'px';
+          };
+      
+          // 이미지 로드 기다리기
+          const img = el.querySelector('img');
+          if (img && !img.complete) {
+            img.addEventListener('load', () => measure(), { once: true });
+          }
+      
+          // 즉시 1번, 다음 프레임 1번(레이아웃 안정화)
+          measure();
+          requestAnimationFrame(measure);
+        }
+      
+        function scheduleNext(){
+          clearTimeout(nextTimer);
+          nextTimer = setTimeout(() => next(), INTERVAL);
+        }
+      
+        function go(step){
+          if (animating) return;
+          animating = true;
+          setTransition(true);
+          index += step;
+          applyTransform();
+          syncHeight(); // ✅ 이동 시작 시 바로 높이 갱신
+        }
+      
+        function next(){ go(1); }
+        function prev(){ go(-1); }
+      
+        track.addEventListener('transitionend', () => {
+          animating = false;
+      
+          if (index === 0){
+            setTransition(false);
+            index = TOTAL;
+            applyTransform();
+            forceReflow(track);
+            setTransition(true);
+          } else if (index === TOTAL + 1){
+            setTransition(false);
+            index = 1;
+            applyTransform();
+            forceReflow(track);
+            setTransition(true);
+          }
+      
+          syncHeight();   // ✅ 래핑 후에도 높이 갱신
+          scheduleNext();
+        });
+      
+        controls.querySelector('.aq-next').addEventListener('click', () => { clearTimeout(nextTimer); next(); });
+        controls.querySelector('.aq-prev').addEventListener('click', () => { clearTimeout(nextTimer); prev(); });
+      
+        root.addEventListener('mouseenter', () => clearTimeout(nextTimer));
+        root.addEventListener('mouseleave', () => { if (!animating) scheduleNext(); });
+      
+        window.addEventListener('resize', () => syncHeight());
+      
+        // 초기
+        setTransition(false);
+        applyTransform();
+        syncHeight();
+        requestAnimationFrame(() => { setTransition(true); scheduleNext(); });
+      
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) clearTimeout(nextTimer);
+          else if (!animating) scheduleNext();
+        });
+      })();
+    </script>
+
+    <div class="row approach" id="qual-results">
+      <div class="col-sm-12"><h3>Qualitative Results</h3></div>
+    
+      <!-- =======================
+           Images
+           ======================= -->
+      <div class="col-sm-12" id="qual-img-slider">
+        <h4 style="margin-top: 10px; margin-bottom: 6px;">Images</h4>
+    
+        <div class="qual-controls">
+          <div class="btn-group" role="group" aria-label="Qual image prompts" id="qual-img-prompts">
+            <button type="button" class="btn btn-sm btn-outline-dark qual-img-btn active"
+              data-prompt="A side view of an owl sitting in a field."
+    
+              data-img-1="RFC_files/images/quali/1_full.png"
+              data-cap-1="Full-compute"
+    
+              data-img-2="RFC_files/images/quali/1_fora.jpg"
+              data-cap-2="FORA [x6.23]"
+    
+              data-img-3="RFC_files/images/quali/1_taylor.jpg"
+              data-cap-3="TaylorSeer [x6.23]"
+    
+              data-img-4="RFC_files/images/quali/1_ours.png"
+              data-cap-4="RFC (Ours) [x6.23]">
+              Prompt 1
+            </button>
+    
+            <button type="button" class="btn btn-sm btn-outline-dark qual-img-btn"
+              data-prompt="A black apple and a green backpack."
+    
+              data-img-1="RFC_files/images/quali/2_full.png"
+              data-cap-1="Full-compute"
+    
+              data-img-2="RFC_files/images/quali/2_fora.jpg"
+              data-cap-2="FORA [x6.23]"
+    
+              data-img-3="RFC_files/images/quali/2_taylor.jpg"
+              data-cap-3="TaylorSeer [x6.23]"
+    
+              data-img-4="RFC_files/images/quali/2_ours.png"
+              data-cap-4="RFC (Ours) [x6.23]">
+              Prompt 2
+            </button>
+        
+            <button type="button" class="btn btn-sm btn-outline-dark qual-img-btn"
+              data-prompt="A shark in the desert."
+    
+              data-img-1="RFC_files/images/quali/3_full.png"
+              data-cap-1="Full-compute"
+    
+              data-img-2="RFC_files/images/quali/3_fora.jpg"
+              data-cap-2="FORA [x6.23]"
+    
+              data-img-3="RFC_files/images/quali/3_taylor.jpg"
+              data-cap-3="TaylorSeer [x6.23]"
+    
+              data-img-4="RFC_files/images/quali/3_ours.png"
+              data-cap-4="RFC (Ours) [x6.23]">
+              Prompt 3
+            </button>
+        
+            <button type="button" class="btn btn-sm btn-outline-dark qual-img-btn"
+              data-prompt="Two cats and three dogs sitting on the grass."
+    
+              data-img-1="RFC_files/images/quali/4_full.png"
+              data-cap-1="Full-compute"
+    
+              data-img-2="RFC_files/images/quali/4_fora.jpg"
+              data-cap-2="FORA [x6.23]"
+    
+              data-img-3="RFC_files/images/quali/4_taylor.jpg"
+              data-cap-3="TaylorSeer [x6.23]"
+    
+              data-img-4="RFC_files/images/quali/4_ours.png"
+              data-cap-4="RFC (Ours) [x6.23]">
+              Prompt 4
+            </button>
+      
+            <button type="button" class="btn btn-sm btn-outline-dark qual-img-btn"
+              data-prompt="A triangular orange picture frame. An orange picture frame in the shape of a triangle."
+    
+              data-img-1="RFC_files/images/quali/5_full.png"
+              data-cap-1="Full-compute"
+    
+              data-img-2="RFC_files/images/quali/5_fora.jpg"
+              data-cap-2="FORA [x6.23]"
+    
+              data-img-3="RFC_files/images/quali/5_taylor.jpg"
+              data-cap-3="TaylorSeer [x6.23]"
+    
+              data-img-4="RFC_files/images/quali/5_ours.png"
+              data-cap-4="RFC (Ours) [x6.23]">
+              Prompt 5
+            </button>
+        
+            <button type="button" class="btn btn-sm btn-outline-dark qual-img-btn"
+              data-prompt="A cube made of brick. A cube with the texture of brick."
+    
+              data-img-1="RFC_files/images/quali/6_full.png"
+              data-cap-1="Full-compute"
+    
+              data-img-2="RFC_files/images/quali/6_fora.jpg"
+              data-cap-2="FORA [x6.23]"
+    
+              data-img-3="RFC_files/images/quali/6_taylor.jpg"
+              data-cap-3="TaylorSeer [x6.23]"
+    
+              data-img-4="RFC_files/images/quali/6_ours.png"
+              data-cap-4="RFC (Ours) [x6.23]">
+              Prompt 6
+            </button>
+        
+            <button type="button" class="btn btn-sm btn-outline-dark qual-img-btn"
+              data-prompt="A stack of 3 cubes. A red cube is on the top, sitting on a red cube. The red cube is in the middle, sitting on a green cube. The green cube is on the bottom."
+    
+              data-img-1="RFC_files/images/quali/7_full.png"
+              data-cap-1="Full-compute"
+    
+              data-img-2="RFC_files/images/quali/7_fora.jpg"
+              data-cap-2="FORA [x6.23]"
+    
+              data-img-3="RFC_files/images/quali/7_taylor.jpg"
+              data-cap-3="TaylorSeer [x6.23]"
+    
+              data-img-4="RFC_files/images/quali/7_ours.png"
+              data-cap-4="RFC (Ours) [x6.23]">
+              Prompt 7
+            </button>
+        
+            <button type="button" class="btn btn-sm btn-outline-dark qual-img-btn"
+              data-prompt="An emoji of a baby panda wearing a red hat, green gloves, red shirt, and green pants."
+    
+              data-img-1="RFC_files/images/quali/8_full.png"
+              data-cap-1="Full-compute"
+    
+              data-img-2="RFC_files/images/quali/8_fora.jpg"
+              data-cap-2="FORA [x6.23]"
+    
+              data-img-3="RFC_files/images/quali/8_taylor.jpg"
+              data-cap-3="TaylorSeer [x6.23]"
+    
+              data-img-4="RFC_files/images/quali/8_ours.png"
+              data-cap-4="RFC (Ours) [x6.23]">
+              Prompt 8
+            </button>
+        
+            <button type="button" class="btn btn-sm btn-outline-dark qual-img-btn"
+              data-prompt="A stop sign on the right of a refrigerator."
+    
+              data-img-1="RFC_files/images/quali/9_full.png"
+              data-cap-1="Full-compute"
+    
+              data-img-2="RFC_files/images/quali/9_fora.jpg"
+              data-cap-2="FORA [x6.23]"
+    
+              data-img-3="RFC_files/images/quali/9_taylor.jpg"
+              data-cap-3="TaylorSeer [x6.23]"
+    
+              data-img-4="RFC_files/images/quali/9_ours.png"
+              data-cap-4="RFC (Ours) [x6.23]">
+              Prompt 9
+            </button>
+        
+        
+        
+          </div>
+        </div>
+    
+        <div class="qual-stage">
+          <div class="qual-prompt" id="qual-img-prompt-text">Prompt 1</div>
+    
+          <div class="qual-grid" id="qual-img-grid">
+            <figure class="qual-item">
+              <img class="qual-img" id="qual-img-1" src="" alt="">
+              <figcaption class="qual-cap" id="qual-img-cap-1"></figcaption>
+            </figure>
+            <figure class="qual-item">
+              <img class="qual-img" id="qual-img-2" src="" alt="">
+              <figcaption class="qual-cap" id="qual-img-cap-2"></figcaption>
+            </figure>
+            <figure class="qual-item">
+              <img class="qual-img" id="qual-img-3" src="" alt="">
+              <figcaption class="qual-cap" id="qual-img-cap-3"></figcaption>
+            </figure>
+            <figure class="qual-item">
+              <img class="qual-img" id="qual-img-4" src="" alt="">
+              <figcaption class="qual-cap" id="qual-img-cap-4"></figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    
+    
+      <!-- =======================
+           Videos
+           ======================= -->
+      <div class="col-sm-12" id="qual-vid-slider">
+        <h4 style="margin-top: 18px; margin-bottom: 6px;">Videos</h4>
+    
+        <div class="qual-controls">
+          <div class="btn-group" role="group" aria-label="Qual video prompts" id="qual-vid-prompts">
+            <button type="button" class="btn btn-sm btn-outline-dark qual-vid-btn active"
+              data-prompt="A beautiful coastal beach in spring, waves lapping on sand by Hokusai, in the style of Ukiyo"
+    
+              data-vid-1="RFC_files/videos/beach_full.mp4"
+              data-cap-1="Full-compute"
+    
+              data-vid-2="RFC_files/videos/beach_fora.mp4"
+              data-cap-2="FORA [x7.10]"
+    
+              data-vid-3="RFC_files/videos/beach_taylor.mp4"
+              data-cap-3="TaylorSeer [x7.10]"
+    
+              data-vid-4="RFC_files/videos/beach_ours.mp4"
+              data-cap-4="RFC (Ours) [x7.10]">
+              Prompt 1
+            </button>
+    
+            <button type="button" class="btn btn-sm btn-outline-dark qual-vid-btn"
+              data-prompt="a giraffe running to join a herd of its kind"
+    
+              data-vid-1="RFC_files/videos/giraffe_full.mp4"
+              data-cap-1="Full-compute"
+    
+              data-vid-2="RFC_files/videos/giraffe_fora.mp4"
+              data-cap-2="FORA [x7.10]"
+    
+              data-vid-3="RFC_files/videos/giraffe_taylor.mp4"
+              data-cap-3="TaylorSeer [x7.10]"
+    
+              data-vid-4="RFC_files/videos/giraffe_ours.mp4"
+              data-cap-4="RFC (Ours) [x7.10]">
+              Prompt 2
+            </button>
+    
+            <button type="button" class="btn btn-sm btn-outline-dark qual-vid-btn"
+              data-prompt="A car moving slowly on an empty street, rainy evening"
+    
+              data-vid-1="RFC_files/videos/car_full.mp4"
+              data-cap-1="Full-compute"
+    
+              data-vid-2="RFC_files/videos/car_fora.mp4"
+              data-cap-2="FORA [x7.10]"
+    
+              data-vid-3="RFC_files/videos/car_taylor.mp4"
+              data-cap-3="TaylorSeer [x7.10]"
+    
+              data-vid-4="RFC_files/videos/car_ours.mp4"
+              data-cap-4="RFC (Ours) [x7.10]">
+              Prompt 3
+            </button>
+    
+            <button type="button" class="btn btn-sm btn-outline-dark qual-vid-btn"
+              data-prompt="Motion colour drop in water, ink swirling in water, colourful ink in water, abstraction fancy dream cloud of ink"
+    
+              data-vid-1="RFC_files/videos/ink_full.mp4"
+              data-cap-1="Full-compute"
+    
+              data-vid-2="RFC_files/videos/ink_fora.mp4"
+              data-cap-2="FORA [x7.10]"
+    
+              data-vid-3="RFC_files/videos/ink_taylor.mp4"
+              data-cap-3="TaylorSeer [x7.10]"
+    
+              data-vid-4="RFC_files/videos/ink_ours.mp4"
+              data-cap-4="RFC (Ours) [x7.10]">
+              Prompt 4
+            </button>
+    
+            <button type="button" class="btn btn-sm btn-outline-dark qual-vid-btn"
+              data-prompt="Few big purple plums rotating on the turntable. water drops appear on the skin during rotation. isolated on the white background. close-up. macro"
+    
+              data-vid-1="RFC_files/videos/plums_full.mp4"
+              data-cap-1="Full-compute"
+    
+              data-vid-2="RFC_files/videos/plums_fora.mp4"
+              data-cap-2="FORA [x7.10]"
+    
+              data-vid-3="RFC_files/videos/plums_taylor.mp4"
+              data-cap-3="TaylorSeer [x7.10]"
+    
+              data-vid-4="RFC_files/videos/plums_ours.mp4"
+              data-cap-4="RFC (Ours) [x7.10]">
+              Prompt 5
+            </button>
+          </div>
+        </div>
+    
+        <div class="qual-stage">
+          <div class="qual-prompt" id="qual-vid-prompt-text">Prompt 1</div>
+    
+          <div class="qual-grid" id="qual-vid-grid">
+            <figure class="qual-item">
+              <video class="qual-vid" id="qual-vid-1" playsinline muted loop autoplay preload="metadata"></video>
+              <figcaption class="qual-cap" id="qual-vid-cap-1"></figcaption>
+            </figure>
+            <figure class="qual-item">
+              <video class="qual-vid" id="qual-vid-2" playsinline muted loop autoplay preload="metadata"></video>
+              <figcaption class="qual-cap" id="qual-vid-cap-2"></figcaption>
+            </figure>
+            <figure class="qual-item">
+              <video class="qual-vid" id="qual-vid-3" playsinline muted loop autoplay preload="metadata"></video>
+              <figcaption class="qual-cap" id="qual-vid-cap-3"></figcaption>
+            </figure>
+            <figure class="qual-item">
+              <video class="qual-vid" id="qual-vid-4" playsinline muted loop autoplay preload="metadata"></video>
+              <figcaption class="qual-cap" id="qual-vid-cap-4"></figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        function initQuadMedia(opts){
+          const root = document.getElementById(opts.rootId);
+          if (!root) return;
+      
+          const btns = Array.from(root.querySelectorAll(opts.btnSelector));
+          const promptEl = root.querySelector(opts.promptSelector);
+          if (btns.length === 0) return;
+      
+          // ✅ root 내부에서만 찾기 (id 중복 방지)
+          const nodes = [1,2,3,4].map(i => root.querySelector(`${opts.nodeSelectorPrefix}${i}`));
+          const caps  = [1,2,3,4].map(i => root.querySelector(`${opts.capSelectorPrefix}${i}`));
+          if (nodes.some(x => !x) || caps.some(x => !x)) return;
+      
+          function setPrompt(btn){
+            const p = btn.getAttribute('data-prompt') || btn.textContent.trim();
+            if (promptEl) promptEl.textContent = p;
+          }
+      
+          function setVideo(videoEl, src, autoplay){
+            videoEl.pause();
+            videoEl.removeAttribute('src');
+            videoEl.load();
+      
+            videoEl.src = src;
+            videoEl.load();
+      
+            if (autoplay){
+              videoEl.muted = true; // autoplay 정책 대응
+              const p = videoEl.play();
+              if (p && p.catch) p.catch(()=>{});
+            }
+          }
+      
+          function setImage(imgEl, src, alt){
+            // 캐시로 onload 안 불릴 수 있으니 onload 전에 opacity 설정
+            imgEl.onload = () => { imgEl.style.opacity = '1'; };
+            imgEl.onerror = () => {
+              imgEl.style.opacity = '1';
+              console.error('Image load error:', src);
+            };
+      
+            imgEl.src = src;
+            imgEl.alt = alt || '';
+          }
+      
+          function apply(btn){
+            setPrompt(btn);
+      
+            for (let i=1;i<=4;i++){
+              const cap = btn.getAttribute(`data-cap-${i}`) || '';
+              const src = btn.getAttribute(`${opts.dataKey}-${i}`) || '';
+      
+              caps[i-1].textContent = cap;
+      
+              const el = nodes[i-1];
+              el.style.opacity = '0.35';
+      
+              if (opts.type === 'video'){
+                el.onloadeddata = () => { el.style.opacity = '1'; };
+                el.onerror = () => { el.style.opacity = '1'; console.error('Video load error:', el.src || src); };
+                setVideo(el, src, opts.autoplay);
+      
+              } else if (opts.type === 'img'){
+                // ✅ img 처리
+                setImage(el, src, cap || `Result ${i}`);
+              }
+            }
+          }
+      
+          // 초기 버튼 적용
+          const initBtn = btns.find(b => b.classList.contains('active')) || btns[0];
+          apply(initBtn);
+      
+          // 버튼 클릭
+          btns.forEach(btn => {
+            btn.addEventListener('click', () => {
+              btns.forEach(b => b.classList.remove('active'));
+              btn.classList.add('active');
+              apply(btn);
+            });
+          });
+        }
+      
+        // Images
+        initQuadMedia({
+          rootId: 'qual-img-slider',
+          btnSelector: '.qual-img-btn',
+          promptSelector: '#qual-img-prompt-text',
+          nodeSelectorPrefix: '#qual-img-',
+          capSelectorPrefix: '#qual-img-cap-',
+          dataKey: 'data-img',
+          type: 'img'
+        });
+      
+        // Videos
+        initQuadMedia({
+          rootId: 'qual-vid-slider',
+          btnSelector: '.qual-vid-btn',
+          promptSelector: '#qual-vid-prompt-text',
+          nodeSelectorPrefix: '#qual-vid-',
+          capSelectorPrefix: '#qual-vid-cap-',
+          dataKey: 'data-vid',
+          type: 'video',
+          autoplay: true
+        });
+      })();
+      </script>
+
+
+
+
+    <div class="row paper">
+      <div class="col-sm-12"><h3>Paper</h3></div>
+      <div class="col-sm-12">
+        <table>
+          <tbody><tr></tr>
+          <tr><td>
+            <div class="paper-image">
+              <a href="https://openreview.net/forum?id=w8ksWcSuFb"><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./RFC_files/images/paper_image.png" width="150px"></a>
+              
+            </div>
+          </td>
+          <td></td>
+          <td>
+            B. Son*, J. Jeon*, J. Choi* and B. Ham (*equal contribution)<br>
+            <b>Relational Feature Caching for Accelerating Diffusion Transformers</b> <br>
+            In <i>International Conference on Learning Representations (ICLR) </i>, 2026 <br>
+            [<a href="https://openreview.net/forum?id=w8ksWcSuFb">Paper</a>]
+            <!-- [<a href="./RFC_files/images/poster.png">Poster</a>] -->
+            [<a href="https://github.com/cvlab-yonsei">Code</a>]
+            [<a href="#bibtex" class="bibtex-jump">BibTeX</a>]
+            
+          </td>
+        </tr>
+        
+      </tbody>
+      
+        </table>
+
+      </div>
+
+    
+
+
+    <div class="row ack">
+      <div class="col-sm-12"><h3>Acknowledgements</h3></div>
+      <div class="col-sm-12">This work was partly supported by IITP grant funded by the Korea government (MSIT) (No.RS-2022-00143524, Development of Fundamental Technology and Integrated Solution for Next Generation Automatic Artificial Intelligence System, No.2022-0-00124, RS-2022-II220124, Development of Artificial Intelligence Technology for Self Improving Competency-Aware Learning Capabilities), the KIST Institutional Program (Project No.2E33001-24-086), and Samsung Electronics Co., Ltd (IO240520-10013-01).</div>
+    </div>
+  </div>
+
+    <div class="row bibtex" id="bibtex">
+      <div class="col-sm-12">
+        <div class="bibtex-card">
+          <div class="bibtex-head">
+            <h3>BibTeX</h3>
+          </div>
+
+          <pre class="bibtex-pre"><code id="bibtex-content"></code></pre>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (async function () {
+        const codeEl = document.getElementById('bibtex-content');
+        if (!codeEl) return;
+      
+        const BIB_PATH = './RFC_files/bibtex.bib'; // 네 경로에 맞게
+      
+        try {
+          const res = await fetch(BIB_PATH, { cache: 'no-cache' });
+          if (!res.ok) throw new Error('Failed to fetch bibtex.bib: ' + res.status);
+          const text = await res.text();
+          codeEl.textContent = text.trim();
+        } catch (err) {
+          codeEl.textContent =
+            '⚠️ Could not load BibTeX from ' + BIB_PATH + '\n' +
+            'Check the path and serve via http(s), not file://';
+          console.error(err);
+        }
+      })();
+      </script>
+      <script>
+        (function () {
+          const target = document.getElementById('bibtex');
+          if (!target) return;
+        
+          const pre = target.querySelector('.bibtex-pre');
+        
+          function flashPre() {
+            if (!pre) return;
+            pre.classList.remove('flash');
+            void pre.offsetWidth;
+            pre.classList.add('flash');
+          }
+        
+          function jumpToBibtex(e) {
+            e.preventDefault();
+        
+            // 스무스 스크롤
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+            // ✅ 주소창에서 #bibtex 제거 (새로고침 시 아래로 안 감)
+            // scrollIntoView 후 약간의 딜레이를 둔 뒤 지우는 게 자연스러움
+            setTimeout(() => {
+              history.replaceState(null, '', window.location.pathname + window.location.search);
+              flashPre();
+            }, 450);
+          }
+        
+          // 상단 버튼 (id="bibtex-link")
+          const topBtn = document.getElementById('bibtex-link');
+          if (topBtn) topBtn.addEventListener('click', jumpToBibtex);
+        
+          // 본문 안의 BibTeX 링크들 (class="bibtex-jump")
+          document.querySelectorAll('a.bibtex-jump').forEach(a => {
+            a.addEventListener('click', jumpToBibtex);
+          });
+        
+          // ✅ 혹시 이미 URL에 #bibtex가 남아있는 상태로 들어오면(새로고침 포함) 즉시 제거
+          if (window.location.hash === '#bibtex') {
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+            // 원하면 맨 위로 보내기(선호)
+            window.scrollTo(0, 0);
+          }
+        })();
+      </script>
+
+</body>
