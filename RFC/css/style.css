@@ -341,7 +341,7 @@ div.row h3 {
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.1px;
-  color: rgba(0,0,0,0.72);
+  color: rgba(0,0,0,1.0);
   text-align: center;
 
   white-space: normal;
@@ -410,7 +410,7 @@ div.row h3 {
   margin-top: 6px;
   text-align: center;
   font-size: 12.5px;
-  color: rgba(0,0,0,0.65);
+  color: rgba(0,0,0,1.0);
   font-weight: 600;
 }
 
@@ -418,6 +418,6 @@ div.row h3 {
   margin-top: 8px;
   text-align: center;
   font-size: 15px;
-  color: rgba(0,0,0,0.70);
+  color: rgba(0,0,0,1.0);
   line-height: 1.25;
 }
