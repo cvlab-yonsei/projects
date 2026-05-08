@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>TAS-LoRA: Transformer Architecture Search with Mixture-of-LoRA Experts</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/style.css" rel="stylesheet">
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+      <body>
+        <div class="container">
+          <div class="header">
+            <div class="title">
+              <h2>TAS-LoRA: Transformer Architecture Search with Mixture-of-LoRA Experts</h2>
+              <h3><a href="https://cvpr.thecvf.com/">CVPR 2026</a></h3>
+            </div>
+      
+            <div class="row authors name">
+              <div class="col-sm-4"><a href="https://jeiminjeon.github.io/">Jeimin Jeon</a><sup>1,2</sup></div>
+              <div class="col-sm-4"><a href="https://dlguswn3659.github.io/">Hyunju Lee</a><sup>1</sup></div>
+              <div class="col-sm-4"><a href="https://cvlab.yonsei.ac.kr">Bumsub Ham</a><sup>1,3</sup></div>
+            </div>
+
+            <div class="row authors school">
+              <div class="col-sm-12">
+                <sup>1</sup>Yonsei University &nbsp;&nbsp;&nbsp;&nbsp; <sup>2</sup>Articron Inc. &nbsp;&nbsp;&nbsp;&nbsp; <sup>3</sup>Korea Institute of Science and Technology (KIST)
+              </div>
+            </div>
+            
+            
+          </div>
+
+      
+      
+
+    <div class="row teaser">
+      <div class="col-sm-12 image"><img src="images/teaser.png" style="width: 100%;"></div>
+      <div class="col-sm-12 caption"><b>Left:</b> An overview of TAS-LoRA. We exploit a MoLE for TAS to learn subnet-specific feature representations effectively and efficiently. The router dynamically assigns expert weights to each subnet based on its architectural properties. <b>Right:</b> Illustration of our router design. Both block-level and subnet-level attributes are processed by a learnable block embedding layer, and passed through an LSTM, which captures sequential dependencies across blocks. The LSTM outputs hidden representations that are further processed by a fully connected router head to generate distributions of expert weights. For more details, please refer to the text.</div>
+    </div>
+
+    <div class="row abstract">
+      <div class="col-sm-12"><h3>Abstract</h3></div>
+      <div class="col-sm-12 content">Transformer architecture search (TAS) discovers optimal vision transformer (ViT) architectures automatically, reducing human effort to manually design ViTs. However, existing TAS methods suffer from the feature collapse problem, where subnets within a supernet fail to learn subnet-specific features, mainly due to the shared weights in a supernet, limiting the performance of individual subnets. To address this, we propose TAS-LoRA, a novel method that introduces parameter-efficient low-rank adaptation (LoRA) to enable subnet-specific feature learning, while maintaining computational efficiency. TAS-LoRA incorporates a Mixture-of-LoRAExperts (MoLE) strategy, where a lightweight router dynamically assigns LoRA experts based on subnet architectures, and introduces a group-wise router initialization technique to encourage diverse feature learning across experts early in training. Extensive experiments on ImageNet and several transfer learning benchmarks, including CIFAR-10/100, Flowers, CARS, and INAT-19, demonstrate that TAS-LoRA mitigates feature collapse effectively, improving performance over state-of-the-art TAS methods significantly.</p></div>
+    </div>
+
+    <div class="row approach">
+      <div class="col-sm-12"><h3>Results</h3></div>
+      <div class="col-sm-12 image"><img src="images/results_image.png" style="width: 100%;"></div>
+      <div class="col-sm-12 caption">Fig. 1: Feature similarities between subnets trained with different strategies. Six subnets are randomly sampled from each supernet, and average cosine similarity is computed between features from the penultimate-layer: (a) AutoFormer, (b) DYNAS, (c) TAS-LoRA, (d) Subnets trained independently from scratch.</div>
+
+       <div class="col-sm-12 image" style="text-align: center; padding-top: 30px;"><img src="images/results_table.png" style="width: 60%;"></div>
+      <div class="col-sm-12 caption">Tab. 1: Top-1 accuracies (%) of six subnets, randomly sampled and trained with different strategies. ”AutoFormer” and ”DYNAS” represent weight-entangled supernets, where all subnets share weights. ”TAS-LoRA” incorporates subnet-specific LoRA modules, while ”Indep.” trains each subnet independently from scratch.</div>
+
+      <div class="col-sm-12 content">We visualize in Fig. 1 (a-b) cosine similarity between feature representations from six subnets, randomly sampled and trained with weight-entangled TAS approaches, AutoFormer and DYNAS. We can see that feature representations are nearly identical. Subnets trained independently from scratch, however, exhibit significantly lower similarity, suggesting that optimal feature representations vary, according to subnet architectures (Fig. 1(d)). This observation is further supported by the top-1 accuracy in Table 1, where subnets trained via AutoFormer and DYNAS perform notably worse than their counterparts trained from scratch independently. To address this limitation, we propose TAS-LoRA, which encourages subnets to learn more specialized and diverse features. Rather than relying on shared weights solely, TAS-LoRA introduces lightweight, subnet-specific adaptation modules that reduce feature redundancy across subnets (Fig. 1(c)), thereby achieving top-1 accuracies comparable to subnets trained independently from scratch (Table 1).</div>
+    </div>
+
+    <div class="row paper">
+      <div class="col-sm-12"><h3>Paper</h3></div>
+      <div class="col-sm-12">
+        <table>
+          <tbody><tr></tr>
+          <tr><td>
+            <div class="paper-image">
+              <a href="https://arxiv.org/abs/"><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper_image.png" width="150px"></a>
+            </div>
+          </td>
+          <td></td>
+          <td>
+            J. Jeon, H. Lee, and B. Ham<br>
+            <b>TAS-LoRA: Transformer Architecture Search with Mixture-of-LoRA Experts</b> <br>
+            In <i>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) </i>, 2026 <br>
+            [<a href="https://arxiv.org/abs/">arXiv</a>] [<a href="https://github.com/cvlab-yonsei/TAS-LoRA">Code</a>]
+          </td>
+        </tr>
+      </tbody>
+        </table>
+      </div>
+    </div>
+
+    
+
+
+    <div class="row ack">
+      <div class="col-sm-12"><h3>Acknowledgements</h3></div>
+      <div class="col-sm-12">This work was partly supported by IITP grant funded by the Korea government (MSIT) (No.RS2022-00143524, Development of Fundamental Technology and Integrated Solution for NextGeneration Automatic Artificial Intelligence System, No.2022-0-00124, RS-2022-II220124, Development of Artificial Intelligence Technology for Self-Improving Competency-Aware Learning Capabilities, AI Semiconductor Innovation Lab (Yonsei University)), and the KIST Institutional Program (Project No.2E33001-24-086).</div>
+    </div>
+  </div>
+</body>
+
