@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>OIMNet++</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/style.css" rel="stylesheet">
+
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">
+        <h2><center>Exploring Hierarchical Consistency and Unbiased Objectness for Open-Vocabulary Object Detection</center></h2>
+          <h3><center><a href="https://cvpr.thecvf.com/">CVPR 2026</a></center></h3>
+      </div>
+
+    <div class="authors">
+      <div class="row name">
+        <div class="col-sm-3">
+          <a href="https://sanghoooon.github.io/">Sanghoon Lee</a><sup>1</sup>
+        </div>
+        <div class="col-sm-3">
+          <a href="https://scholar.google.com/citations?user=Ma3eIggAAAAJ&hl=en">Geon Lee</a><sup>1</sup>
+        </div>
+        <div class="col-sm-3">
+          <a href="https://scholar.google.com/citations?user=uoe9cK0AAAAJ&hl=en">Hyekang Park</a><sup>1</sup>
+        </div>
+        <div class="col-sm-3">
+          <a href="https://cvlab.yonsei.ac.kr/">Bumsub Ham</a><sup>1,2</sup>
+        </div>
+      </div>
+      <br>
+      <div class="school"><sup>1</sup>Yonsei University &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <sup>2</sup>Korea Institute of Science and Technology (KIST)</div>
+    </div>
+    </div>
+
+    <div class="row">
+      <table>
+        <tbody><tr></tr>
+        <tr><td>
+          <a href="https://arxiv.org/abs/2604.23344"><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="images/paper-cover.png" width="150px"></a>
+        </td>
+        <td></td>
+        <td>
+          S. Lee, G. Lee, H. Park, B. Ham<br>
+          <b> Exploring Hierarchical Consistency and Unbiased Objectness for Open-Vocabulary Object Detection</b><br>
+          In Findings of IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2026 <br>
+          <a href="https://arxiv.org/abs/2604.23344">Paper</a> / <a href="">Code</a>
+        </td></tr></tbody>
+      </table>
+    </div>
+
+    <div class="row">
+      <h3>Motivation</h3>
+      <div class="teaser-figure">
+        <center><img src="images/teaser.png" width="500px"></center>
+      </div>
+      <div class="teaser-caption">
+        <p><b>Visualization of hierarchical consistency of candidate regions.</b> We use CLIP to classify regions at class, supercategory, and subcategory levels based on an LLM-generated hierarchy on COCO. We can see that an accurately localized region (left) yields hierarchically consistent predictions (indicated by green arrows), whereas a background region (right) yields inconsistent predictions (indicated by red arrows).</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <h3>Abstract</h3>
+      <p style="text-align: justify;">
+        Conventional object detectors typically operate under a closed-set assumption, limiting recognition to a predefined set of base classes seen during training. Open-vocabulary object detection (OVD) addresses this limitation by leveraging vision-language models (VLMs) to generate pseudo-labels for novel object classes. However, existing OVD methods suffer from two critical drawbacks: (1) inaccurate class label assignments, as VLMs are optimized for image-level predictions rather than the region-level predictions required for pseudo-labeling, and (2) unreliable objectness scores from region proposal networks (RPNs) trained exclusively on base object classes. To address these issues, we propose a novel pseudo-labeling framework for OVD. Our approach introduces hierarchical confidence calibration (HCC), which enables reliable class label estimation by assessing consistency across hierarchical semantic levels, including class, supercategory, and subcategory. We also present LoCLIP, a parameter-efficient adaptation of CLIP that incorporates an objectness token to mitigate the base-class bias of RPNs and provide reliable objectness estimates for novel object classes. Extensive experiments on standard OVD benchmarks, including COCO and LVIS, demonstrate that our approach establishes a new state of the art, validating its effectiveness.
+      </p>
+    </div>
+
+    <div class="row">
+      <h3>Approach</h3>
+
+      <figure style="display: inline; width: 100%; float: left; margin: 0; text-align: center; padding-left: 25px; padding-right: 25px;">
+        <div>
+          <center><img src="images/overview.png" width="850px"></center>
+        </div>
+      </figure>
+      <p><br><b>Overview.</b> Overview of our framework for OVD, which mainly consists of three steps. First, a set of candidate regions is extracted from an image using an RPN. For each candidate region, we employ the HCC technique for selectively assigning a class label, while LoCLIP estimates an objectness score. Pseudo labels are assigned only to regions with hierarchically consistent predictions and sufficiently high objectness scores. These pseudo labels, together with ground-truth annotations for base object classes, are then used to train an OV detector with classification and regression losses. See our paper for more details.</p>
+    </div>
+
+    <div class="row">
+      <h3>Results</h3>
+      <div class="results-images">
+        <img src="images/sota-coco.png" alt="State-of-the-art comparison on LVIS">
+        <img src="images/sota-lvis.png" alt="State-of-the-art comparison on COCO">
+      </div>
+    </div>
+
+    <div class="row">
+      <h3>Acknowledgements</h3>
+      <p>This work was partly supported by IITP grant funded by the Korea government (MSIT) (No. RS-2022-00143524, Development of Fundamental Technology and Integrated Solution for Next-Generation Automatic Artificial Intelligence System and No. 2022-0-00124, RS-2022-II220124, Development of Artificial Intelligence Technology for Self-Improving Competency-Aware Learning Capabilities) and the KIST Institutional Program (Project No.2E33001-24-086).</p>
+    </div>
+  </div>
+</body>
