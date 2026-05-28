@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>RESTORE: Improving Visual Token Reduction via Rectifying Distortions for Efficient Multimodal LLM Inference</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/style.css" rel="stylesheet">
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+      <body>
+        <div class="container">
+          <div class="header">
+            <div class="title">
+              <h2>Improving Visual Token Reduction via Rectifying Distortions for Efficient Multimodal LLM Inference</h2>
+              <h3>ICML 2026</h3>
+            </div>
+
+            <div class="row authors name">
+              <div class="col-sm-3">Hyeonwoo Cho<sup>1</sup></div>
+              <div class="col-sm-3">Donghyeon Baek<sup>1</sup></div>
+              <div class="col-sm-3">Yewon Kim<sup>1</sup></div>
+              <div class="col-sm-3"><a href="https://cvlab.yonsei.ac.kr">Bumsub Ham</a><sup>1,2</sup></div>
+            </div>
+
+            <div class="row authors school">
+              <div class="col-sm-12">
+                <sup>1</sup>Yonsei University &nbsp;&nbsp;&nbsp;&nbsp; <sup>2</sup>Korea Institute of Science and Technology (KIST)
+              </div>
+            </div>
+
+
+          </div>
+
+
+
+
+    <div class="row teaser">
+      <div class="col-sm-12 image"><img src="images/teaser.png" style="width: 100%;"></div>
+      <div class="col-sm-12 caption">Illustration of the impact of visual token reduction on the internal attention mechanism of the LLM within MLLMs (e.g., LLaVA). (a) The full token sequence. (b) Reindexing position indices assigns contiguous indices to the reduced sequence. (c) Retaining position indices preserves the original indices of the retained tokens from (a). (d) We rectify distortions by retaining original position indices and calibrating the attention weights of the retained tokens.</div>
+    </div>
+
+    <div class="row abstract">
+      <div class="col-sm-12"><h3>Abstract</h3></div>
+      <div class="col-sm-12 content">Recent advancements in Multimodal Large Language Models (MLLMs) have achieved remarkable success in vision-language tasks, yet the quadratic computational complexity arising from the vast number of visual tokens incurs significant memory and latency bottlenecks. While visual token reduction (VTR) strategies have been explored to mitigate this burden, existing methods overlook the positional and attentional consistency between the full and reduced sequences, resulting in a distorted representation. To this end, we propose RESTORE, a novel VTR framework that rectifies the positional and attentional distortions while maintaining efficiency. Specifically, we present a simple yet effective calibration method that restores lost visual attention by modulating attention weights based on relative distances. We also introduce a distinctive anchor selection for token merging to mitigate information loss during feature averaging. Experimental results on multiple benchmarks demonstrate that our method consistently improves the accuracy of various reduction methods, achieving state-of-the-art performance while maintaining computational efficiency.</div>
+    </div>
+
+    <div class="row approach">
+      <div class="col-sm-12"><h3>Results</h3></div>
+      <div class="col-sm-12 image"><img src="images/results_image.png" style="width: 100%;"></div>
+      <div class="col-sm-12 caption">Comparison of average attention proportions assigned to visual tokens within the LLM (a) when the query is a visual token and (b) when the query is a text token.</div>
+
+       <div class="col-sm-12 image" style="text-align: center; padding-top: 30px;"><img src="images/results_table.png" style="width: 100%;"></div>
+      <div class="col-sm-12 caption">Comparison with VTR methods for LLaVA-1.5-7B on 8 benchmarks and the average score across them. For baselines, all experiment results are re-implemented from their official codebases under the same environments. Best results at each reduction ratio in <b>Bold</b>.</div>
+    </div>
+
+    <div class="row paper">
+      <div class="col-sm-12"><h3>Paper</h3></div>
+      <div class="col-sm-12">
+        <table>
+          <tbody><tr></tr>
+          <tr><td>
+            <div class="paper-image">
+              <img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper_image.png" width="150px">
+            </div>
+          </td>
+          <td></td>
+          <td>
+            H. Cho, D. Baek, Y. Kim, and B. Ham<br>
+            <b>Improving Visual Token Reduction via Rectifying Distortions for Efficient Multimodal LLM Inference</b> <br>
+            In <i>International Conference on Machine Learning (ICML) </i>, 2026 <br>
+            [arXiv] [<a href="https://github.com/cvlab-yonsei/RESTORE">Code</a>]
+          </td>
+        </tr>
+      </tbody>
+        </table>
+      </div>
+    </div>
+
+
+
+
+    <div class="row ack">
+      <div class="col-sm-12"><h3>Acknowledgements</h3></div>
+      <div class="col-sm-12">This work was partly supported by Institute of Information &amp; Communications Technology Planning &amp; Evaluation (IITP) grant funded by the Korea government (MSIT) (No.RS-2022-00143524, Development of Fundamental Technology and Integrated Solution for Next-Generation Automatic Artificial Intelligence System, No.RS-2025-09942968, AI Semiconductor Innovation Lab (Yonsei University)), the National Research Foundation of Korea (NRF) grant funded by the Korea government (MSIT) (RS-2025-02216328), and the KIST Institutional Program (Project No.2E33001-24-086).</div>
+    </div>
+  </div>
+</body>
+
+</html>
