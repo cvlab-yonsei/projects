@@ -1,101 +1,248 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>RESTORE: Improving Visual Token Reduction via Rectifying Distortions for Efficient Multimodal LLM Inference</title>
-	<meta name="author" content="CV-lab">
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="RESTORE: Improving Visual Token Reduction via Rectifying Distortions for Efficient Multimodal LLM Inference">
+  <meta name="description" content="RESTORE is a visual token reduction (VTR) framework for efficient multimodal LLM inference that rectifies positional and attentional distortions, achieving state-of-the-art accuracy while maintaining efficiency.">
+  <meta name="keywords" content="RESTORE, visual token reduction, VTR, multimodal large language models, MLLM, efficient inference, LLaVA, token merging, attention calibration, ICML 2026">
+  <meta name="author" content="Hyeonwoo Cho, Donghyeon Baek, Yewon Kim, Bumsub Ham">
+  <meta name="robots" content="index, follow">
+  <meta name="language" content="English">
 
-	<link href="./css/bootstrap.min.css" rel="stylesheet">
-  <link href="./css/style.css" rel="stylesheet">
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Improving Visual Token Reduction via Rectifying Distortions for Efficient Multimodal LLM Inference">
+  <meta property="og:description" content="RESTORE is a visual token reduction framework for efficient multimodal LLM inference that rectifies positional and attentional distortions, achieving state-of-the-art accuracy while maintaining efficiency.">
 
-  <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-  </script>
+  <!-- Academic / Google Scholar -->
+  <meta name="citation_title" content="Improving Visual Token Reduction via Rectifying Distortions for Efficient Multimodal LLM Inference">
+  <meta name="citation_author" content="Cho, Hyeonwoo">
+  <meta name="citation_author" content="Baek, Donghyeon">
+  <meta name="citation_author" content="Kim, Yewon">
+  <meta name="citation_author" content="Ham, Bumsub">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_conference_title" content="International Conference on Machine Learning (ICML)">
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2606.01711">
 
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+  <title>RESTORE: Improving Visual Token Reduction via Rectifying Distortions for Efficient Multimodal LLM Inference</title>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="apple-touch-icon" href="static/images/favicon.ico">
+
+  <!-- Critical CSS - Load synchronously -->
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <!-- Non-critical CSS - Load asynchronously -->
+  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+
+  <!-- Fallback for browsers that don't support preload -->
+  <noscript>
+    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  </noscript>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Defer non-critical JavaScript -->
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script defer src="static/js/bulma-carousel.min.js"></script>
+  <script defer src="static/js/bulma-slider.min.js"></script>
+  <script defer src="static/js/index.js"></script>
 </head>
+<body>
 
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script type="text/javascript" id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
-</script>
+  <!-- Scroll to Top Button -->
+  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
+    <i class="fas fa-chevron-up"></i>
+  </button>
 
-      <body>
-        <div class="container">
-          <div class="header">
-            <div class="title">
-              <h2>Improving Visual Token Reduction via Rectifying Distortions for Efficient Multimodal LLM Inference</h2>
-              <h3>ICML 2026</h3>
+  <main id="main-content">
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Improving Visual Token Reduction via Rectifying Distortions for Efficient Multimodal LLM Inference</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Hyeonwoo Cho<sup>1</sup>,</span>
+              <span class="author-block">Donghyeon Baek<sup>1</sup>,</span>
+              <span class="author-block">Yewon Kim<sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="https://scholar.google.co.kr/citations?user=agL5G5wAAAAJ&amp;hl=ko" target="_blank">Bumsub Ham</a><sup>1,2</sup>
+              </span>
             </div>
 
-            <div class="row authors name">
-              <div class="col-sm-3">Hyeonwoo Cho<sup>1</sup></div>
-              <div class="col-sm-3">Donghyeon Baek<sup>1</sup></div>
-              <div class="col-sm-3">Yewon Kim<sup>1</sup></div>
-              <div class="col-sm-3"><a href="https://cvlab.yonsei.ac.kr">Bumsub Ham</a><sup>1,2</sup></div>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <sup>1</sup>Yonsei University&nbsp;&nbsp;&nbsp;&nbsp;<sup>2</sup>Korea Institute of Science and Technology (KIST)<br>
+                <b>ICML 2026</b>
+              </span>
             </div>
 
-            <div class="row authors school">
-              <div class="col-sm-12">
-                <sup>1</sup>Yonsei University &nbsp;&nbsp;&nbsp;&nbsp; <sup>2</sup>Korea Institute of Science and Technology (KIST)
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- Paper -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/pdf/2606.01711" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+
+                <!-- Code -->
+                <span class="link-block">
+                  <a href="https://github.com/cvlab-yonsei/RESTORE" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <!-- arXiv -->
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2606.01711" target="_blank"
+                     class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
               </div>
             </div>
-
-
           </div>
-
-
-
-
-    <div class="row teaser">
-      <div class="col-sm-12 image"><img src="images/teaser.png" style="width: 100%;"></div>
-      <div class="col-sm-12 caption">Illustration of the impact of visual token reduction on the internal attention mechanism of the LLM within MLLMs (e.g., LLaVA). (a) The full token sequence. (b) Reindexing position indices assigns contiguous indices to the reduced sequence. (c) Retaining position indices preserves the original indices of the retained tokens from (a). (d) We rectify distortions by retaining original position indices and calibrating the attention weights of the retained tokens.</div>
-    </div>
-
-    <div class="row abstract">
-      <div class="col-sm-12"><h3>Abstract</h3></div>
-      <div class="col-sm-12 content">Recent advancements in Multimodal Large Language Models (MLLMs) have achieved remarkable success in vision-language tasks, yet the quadratic computational complexity arising from the vast number of visual tokens incurs significant memory and latency bottlenecks. While visual token reduction (VTR) strategies have been explored to mitigate this burden, existing methods overlook the positional and attentional consistency between the full and reduced sequences, resulting in a distorted representation. To this end, we propose RESTORE, a novel VTR framework that rectifies the positional and attentional distortions while maintaining efficiency. Specifically, we present a simple yet effective calibration method that restores lost visual attention by modulating attention weights based on relative distances. We also introduce a distinctive anchor selection for token merging to mitigate information loss during feature averaging. Experimental results on multiple benchmarks demonstrate that our method consistently improves the accuracy of various reduction methods, achieving state-of-the-art performance while maintaining computational efficiency.</div>
-    </div>
-
-    <div class="row approach">
-      <div class="col-sm-12"><h3>Results</h3></div>
-      <div class="col-sm-12 image"><img src="images/results_image.png" style="width: 100%;"></div>
-      <div class="col-sm-12 caption">Comparison of average attention proportions assigned to visual tokens within the LLM (a) when the query is a visual token and (b) when the query is a text token.</div>
-
-       <div class="col-sm-12 image" style="text-align: center; padding-top: 30px;"><img src="images/results_table.png" style="width: 100%;"></div>
-      <div class="col-sm-12 caption">Comparison with VTR methods for LLaVA-1.5-7B on 8 benchmarks and the average score across them. For baselines, all experiment results are re-implemented from their official codebases under the same environments. Best results at each reduction ratio in <b>Bold</b>.</div>
-    </div>
-
-    <div class="row paper">
-      <div class="col-sm-12"><h3>Paper</h3></div>
-      <div class="col-sm-12">
-        <table>
-          <tbody><tr></tr>
-          <tr><td>
-            <div class="paper-image">
-              <img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper_image.png" width="150px">
-            </div>
-          </td>
-          <td></td>
-          <td>
-            H. Cho, D. Baek, Y. Kim, and B. Ham<br>
-            <b>Improving Visual Token Reduction via Rectifying Distortions for Efficient Multimodal LLM Inference</b> <br>
-            In <i>International Conference on Machine Learning (ICML) </i>, 2026 <br>
-            [arXiv] [<a href="https://github.com/cvlab-yonsei/RESTORE">Code</a>]
-          </td>
-        </tr>
-      </tbody>
-        </table>
+        </div>
       </div>
     </div>
+  </section>
 
-
-
-
-    <div class="row ack">
-      <div class="col-sm-12"><h3>Acknowledgements</h3></div>
-      <div class="col-sm-12">This work was partly supported by Institute of Information &amp; Communications Technology Planning &amp; Evaluation (IITP) grant funded by the Korea government (MSIT) (No.RS-2022-00143524, Development of Fundamental Technology and Integrated Solution for Next-Generation Automatic Artificial Intelligence System, No.RS-2025-09942968, AI Semiconductor Innovation Lab (Yonsei University)), the National Research Foundation of Korea (NRF) grant funded by the Korea government (MSIT) (RS-2025-02216328), and the KIST Institutional Program (Project No.2E33001-24-086).</div>
+  <!-- Teaser -->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <img src="images/teaser.png" alt="Illustration of the impact of visual token reduction on the LLM attention mechanism in MLLMs" class="blend-img-background center-image" style="max-width: 100%; height: auto;" loading="lazy" />
+        <div class="content has-text-justified" style="margin-top: 1.25rem;">
+          <p>
+            Illustration of the impact of visual token reduction on the internal attention mechanism of the LLM within MLLMs (e.g., LLaVA). (a) The full token sequence. (b) Reindexing position indices assigns contiguous indices to the reduced sequence. (c) Retaining position indices preserves the original indices of the retained tokens from (a). (d) We rectify distortions by retaining original position indices and calibrating the attention weights of the retained tokens.
+          </p>
+        </div>
+      </div>
     </div>
-  </div>
-</body>
+  </section>
+  <!-- End teaser -->
 
+  <!-- Abstract -->
+  <section class="section hero is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Recent advancements in Multimodal Large Language Models (MLLMs) have achieved remarkable success in vision-language tasks, yet the quadratic computational complexity arising from the vast number of visual tokens incurs significant memory and latency bottlenecks. While visual token reduction (VTR) strategies have been explored to mitigate this burden, existing methods overlook the positional and attentional consistency between the full and reduced sequences, resulting in a distorted representation. To this end, we propose RESTORE, a novel VTR framework that rectifies the positional and attentional distortions while maintaining efficiency. Specifically, we present a simple yet effective calibration method that restores lost visual attention by modulating attention weights based on relative distances. We also introduce a distinctive anchor selection for token merging to mitigate information loss during feature averaging. Experimental results on multiple benchmarks demonstrate that our method consistently improves the accuracy of various reduction methods, achieving state-of-the-art performance while maintaining computational efficiency.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End abstract -->
+
+  <!-- Results -->
+  <section class="section hero is-small">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full has-text-centered">
+          <h2 class="title is-3">Results</h2>
+          <img src="images/results_image.png" alt="Comparison of average attention proportions assigned to visual tokens" class="blend-img-background center-image" style="max-width: 95%; height: auto;" loading="lazy" />
+          <div class="content has-text-justified" style="margin-top: 1.25rem;">
+            <p>
+              Comparison of average attention proportions assigned to visual tokens within the LLM (a) when the query is a visual token and (b) when the query is a text token.
+            </p>
+          </div>
+
+          <img src="images/results_table.png" alt="Comparison with VTR methods for LLaVA-1.5-7B on 8 benchmarks" class="blend-img-background center-image" style="max-width: 100%; height: auto; margin-top: 1.5rem;" loading="lazy" />
+          <div class="content has-text-justified" style="margin-top: 1.25rem;">
+            <p>
+              Comparison with VTR methods for LLaVA-1.5-7B on 8 benchmarks and the average score across them. For baselines, all experiment results are re-implemented from their official codebases under the same environments. Best results at each reduction ratio in <b>Bold</b>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End results -->
+
+  <!-- Acknowledgements -->
+  <section class="section hero is-small is-light">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column is-full">
+          <div class="content has-text-justified">
+            <h2 class="title is-3">Acknowledgements</h2>
+            <p>
+              This work was partly supported by Institute of Information &amp; Communications Technology Planning &amp; Evaluation (IITP) grant funded by the Korea government (MSIT) (No.RS-2022-00143524, Development of Fundamental Technology and Integrated Solution for Next-Generation Automatic Artificial Intelligence System, No.RS-2025-09942968, AI Semiconductor Innovation Lab (Yonsei University)), the National Research Foundation of Korea (NRF) grant funded by the Korea government (MSIT) (RS-2025-02216328), and the KIST Institutional Program (Project No.2E33001-24-086).
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End acknowledgements -->
+
+  <!-- BibTeX citation -->
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <div class="bibtex-header">
+        <h2 class="title">BibTeX</h2>
+        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+          <i class="fas fa-copy"></i>
+          <span class="copy-text">Copy</span>
+        </button>
+      </div>
+      <pre id="bibtex-code"><code>@inproceedings{cho2026improving,
+  title={Improving Visual Token Reduction via Rectifying Distortions for Efficient Multimodal LLM Inference},
+  author={Cho, Hyeonwoo and Baek, Donghyeon and Kim, Yewon and Ham, Bumsub},
+  booktitle={International Conference on Machine Learning},
+  year={2026}
+}</code></pre>
+    </div>
+  </section>
+  <!-- End BibTeX citation -->
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
+              You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
+              Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  </main>
+</body>
 </html>
