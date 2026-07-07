@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<title>Learning Probabilistic Prompt for Continual Learning</title>
+	<meta name="author" content="CV-lab">
+
+	<link href="./css/bootstrap.min.css" rel="stylesheet">
+  <link href="./css/style.css" rel="stylesheet">
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+  </script>
+  
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="title">
+        <h2>Learning Probabilistic Prompt for Continual Learning</h2>
+        <h3><a href="https://eccv.ecva.net/">ECCV 2026</a></h3>
+      </div>
+
+      <div class="row authors name">
+        <div class="col-sm-4"><a href="https://scholar.google.com/citations?user=uoe9cK0AAAAJ&hl=en">Hyekang Park</a><sup>1</sup></div>
+        <div class="col-sm-4"><a href="https://sanghoooon.github.io/">Sanghoon Lee</a><sup>1</sup></div>
+        <div class="col-sm-4"><a href="https://scholar.google.com/citations?user=Ma3eIggAAAAJ&hl=en">Geon Lee</a><sup>1</sup></div>
+        <div style="clear: both;"></div>
+        <div class="col-sm-6"><a href="https://scholar.google.com/citations?user=krqClBcAAAAJ&hl=en&oi=ao">Jongyoun Noh</a><sup>2</sup></div>
+        <div class="col-sm-6"><a href="https://cvlab.yonsei.ac.kr">Bumsub Ham</a><sup>1</sup></div>
+      </div>
+      <div class="row authors school">
+        <div class="col-sm-4"><sup>1</sup>Yonsei University</div>
+        <div class="col-sm-8"><sup>2</sup>Samsung Electronics</div>
+      </div>
+    </div>
+
+    <div class="row teaser">
+      <div class="col-sm-12 image"><img src="images/teaser.png" style="width: 60%;"></div>
+      <div class="col-sm-12 caption">(a) t-SNE visualization of query features for the first task for 5 tasks on ImageNet-R (classes are color-coded). Note that the features are highly diverse even within the same incremental step. (b) Average cosine similarity between all pairs of learned prompts. Notably, our method achieves the highest diversity among learned prompts compared to existing works. (c) Quantitative comparison of final average accuracy across 5, 10, and 20 tasks on ImageNet-R. We provide more results and comparisons in the supplementary materials.</div>
+    </div>
+
+    <div class="row abstract">
+      <div class="col-sm-12"><h3>Abstract</h3></div>
+      <div class="col-sm-12 content">Continual learning aims to progressively learn from a sequence of tasks, each containing a disjoint subset of classes, while preserving previously learned knowledge. Prompt-based continual learning methods propose to learn a small set of parameters, i.e., prompts, by associating them with a query feature of an input image. These methods optimize the prompts, attempting to represent diverse patterns of images. However, we have observed that existing prompt-based methods suffer from a prompt collapse problem, that is, the prompts tend to be highly similar to each other, thereby failing to capture the diverse data distributions in continual learning scenarios. To address this issue, we propose in this paper a novel prompt-based continual learning framework that captures diverse patterns of images across a sequence of tasks. To this end, we model each prompt as a probabilistic distribution and construct a mixture of these distributions, from which we sample diverse prompts. This enables our model to effectively capture highly diverse image distributions in the continual learning process. We also present a distribution regularization loss to prevent abrupt changes in the prompt distributions throughout the training process. We show extensive experimental results for continual learning on standard benchmarks, including ImageNet-R, CIFAR-100, and CUB-200, demonstrating the effectiveness of our framework.</p></div>
+    </div>
+
+    <div class="row approach">
+      <div class="col-sm-12"><h3>Results</h3></div>
+      <div class="col-sm-12 image"><img src="images/results.png" style="width: 100%;"></div>
+      <div class="col-sm-12 caption">Quantitative results for 5, 10, and 20 tasks on ImageNet-R in terms of FAA and CAA. All numbers are obtained by averaging results over five runs with standard deviations.</div>
+      <div class="col-sm-12 content">We compare in this Table our method with other prompt-based continual learning methods for 5, 10, and 20 tasks on ImageNet-R. We report average scores over five runs with standard deviations. We reproduce the results for APT using the official code with the same pre-trained weight for a fair comparison, and the numbers for other methods are taken from VQ-Prompt. From the table, we can see that our approach outperforms state-of-the-art methods using prompts across all tasks by significant margins in terms of FAA and CAA. This indicates that diverse prompts sampled from our method better capture diverse patterns of queries in the continual learning scenarios, which is crucial for prompt-based class-incremental learning. The results also confirm that our distribution regularization loss, preventing the distributions from changing abruptly, alleviates the forgetting problem effectively.</div>
+    </div>
+
+    <div class="row paper">
+      <div class="col-sm-12"><h3>Paper</h3></div>
+      <div class="col-sm-12">
+        <table>
+          <tbody><tr></tr>
+          <tr><td>
+            <div class="paper-image">
+              <a href=""><img style="box-shadow: 5px 5px 2px #888888; margin: 10px" src="./images/paper_image.png" width="150px"></a>
+            </div>
+          </td>
+          <td></td>
+          <td>
+            H. Park, S. Lee, G. Lee, J. Noh, B. Ham<br>
+            <b>Learning Probabilistic Prompt for Continual Learning</b> <br>
+            In <i>Proceedings of European Conference on Computer Vision (ECCV) </i>, 2026 <br>
+            [<a href="https://arxiv.org/abs/2607.04711">arXiv</a>][<a href="https://github.com/cvlab-yonsei/ProbPrompt">Code</a>]
+          </td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="row ack">
+      <div class="col-sm-12"><h3>Acknowledgements</h3></div>
+      <div class="col-sm-12">This work was partly supported by IITP grant funded by the Korea government (MSIT) (No.RS-2025-09942968, AI Semiconductor Innovation Lab (Yonsei University), No.RS-2022-00143524, Development of Fundamental Technology and Integrated Solution for Next-Generation Automatic Artificial Intelligence System, and No.2022-0-00124, RS-2022-II220124, Development of Artificial Intelligence Technology for Self-Improving Competency-Aware Learning Capabilities).</div>
+    </div>
+  </div>
+</body>
+
